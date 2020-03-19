@@ -125,7 +125,7 @@ function handleQuickReply(sender_psid, received_message) {
         case "on":
             showQuickReplyOn(sender_psid);
           break;
-        case "quick":
+        case "off":
             showQuickReplyOff(sender_psid);
           break;                
         default:
