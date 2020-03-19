@@ -150,16 +150,15 @@ function handleMessage(sender_psid, received_message) {
     callSend(sender_psid, response);
   } else {
       let user_message = received_message.text.toLowerCase();
-      switch(user_message) {
-        case "hello":
-        case "hi":
-            greetUser(sender_psid);
+      switch(user_message) {        
+        case "text":
+            textReply(sender_psid);
           break;
         case "webview":
             webviewTest(sender_psid);
           break;        
         default:
-            unknownCommand(sender_psid);
+            defaultReply(sender_psid);
         }
     }
 
@@ -203,6 +202,25 @@ function webviewTest(sender_psid){
   callSendAPI(sender_psid, response);
 }
 
+const textReply =(sender_psid) => {
+  let response = {"text": "You sent text message"};
+  callSend(sender_psid, response);
+}
+
+function defaultReply(sender_psid){
+  let response1 = {"text": "To test text reply, type 'text'"};
+  let response2 = {"text": "To test quick reply, type 'quick'"};
+  let response3 = {"text": "To test button reply, type 'button'"};   
+  let response4 = {"text": "To test webview, type 'webview'"};
+    callSend(sender_psid, response1).then(()=>{
+      return callSend(sender_psid, response2).then(()=>{
+        return callSend(sender_psid, response3).then(()=>{
+          return callSend(sender_psid, response4);
+        });
+      });
+  });  
+}
+
 function callSendAPI(sender_psid, response) {  
   let request_body = {
     "recipient": {
@@ -231,25 +249,6 @@ async function callSend(sender_psid, response){
   let send = await callSendAPI(sender_psid, response);
   return 1;
 }
-
-
-
-function getUserProfile(sender_psid) {
-  return new Promise(resolve => {
-    request({
-      "uri": "https://graph.facebook.com/"+sender_psid+"?fields=first_name,last_name,profile_pic&access_token="+PAGE_ACCESS_TOKEN,
-      "method": "GET"
-      }, (err, res, body) => {
-        if (!err) { 
-          let data = JSON.parse(body);  
-          resolve(data);                 
-    } else {
-      console.error("Error:" + err);
-    }
-    });
-  });
-}
-
 
 
 /*************************************
