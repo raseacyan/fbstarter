@@ -271,15 +271,15 @@ const showQuickReplyOff =(sender_psid) => {
 }
 
 const buttonReply =(sender_psid) => {
+
   let response = {
-    "text": "Select your reply",
-    "payload": {
+      "attachment": {
+        "type": "template",
+        "payload": {
           "template_type": "generic",
           "elements": [{
-              "title": "Is this you?",
-              "subtitle": "Tap a button to answer.",
-              "image_url": "https://nodejs.org/static/images/logos/js-green.svg",
-              "buttons": [
+            "title": "Are you OK?",                       
+            "buttons": [
                 {
                   "type": "postback",
                   "title": "Yes!",
@@ -291,9 +291,12 @@ const buttonReply =(sender_psid) => {
                   "payload": "no",
                 }
               ],
-            }]
+          }]
         }
-  };
+      }
+    }
+
+  
   callSend(sender_psid, response);
 }
 
