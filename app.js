@@ -71,7 +71,7 @@ app.post('/webhook', (req, res) => {
 //webview test
 app.get('/webview/:sender_id',function(req,res){
     const sender_id = req.params.sender_id;
-    res.render('webview.ejs',{sender_id:sender_id, title:"Hello from WebView"});
+    res.render('webview.ejs',{sender_id:sender_id, title:"Hello!! from WebView"});
 });
 
 //Set up Get Started Button. To run one time
@@ -224,7 +224,7 @@ function webviewTest(sender_psid){
               {
                 "type": "web_url",
                 "title": "webview",
-                "url":"https://ayethatarbot.herokuapp.com/webview/"+sender_psid              
+                "url":"https://fbstarterbot.herokuapp.com/webview/"+sender_psid              
               },
               
             ],
