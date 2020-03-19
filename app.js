@@ -71,7 +71,7 @@ app.post('/webhook', (req, res) => {
 //webview test
 app.get('/webview/:sender_id',function(req,res){
     const sender_id = req.params.sender_id;
-    res.render('webview.ejs',{sender_id:sender_id});
+    res.render('webview.ejs',{sender_id:sender_id, title:"Hello from WebView"});
 });
 
 //Set up Get Started Button. To run one time
@@ -180,8 +180,7 @@ const handleMessage = (sender_psid, received_message) => {
         case "quick":
             quickReply(sender_psid);
           break;
-        case "button":
-            console.log('button');
+        case "button":            
             buttonReply(sender_psid);
           break;
         case "webview":
@@ -311,7 +310,7 @@ const showButtonReplyNo =(sender_psid) => {
   callSend(sender_psid, response);
 }
 
-function defaultReply(sender_psid){
+const defaultReply = (sender_psid) => {
   let response1 = {"text": "To test text reply, type 'text'"};
   let response2 = {"text": "To test quick reply, type 'quick'"};
   let response3 = {"text": "To test button reply, type 'button'"};   
@@ -325,7 +324,7 @@ function defaultReply(sender_psid){
   });  
 }
 
-function callSendAPI(sender_psid, response) {  
+const callSendAPI = (sender_psid, response) => {  
   let request_body = {
     "recipient": {
       "id": sender_psid
@@ -359,7 +358,7 @@ async function callSend(sender_psid, response){
 FUNCTION TO SET UP GET STARTED BUTTON
 **************************************/
 
-function setupGetStartedButton(res){
+const setupGetStartedButton = (res) => {
   let messageData = {"get_started":{"payload":"get_started"}};
 
   request({
@@ -382,7 +381,7 @@ function setupGetStartedButton(res){
 FUNCTION TO SET UP PERSISTENT MENU
 ***********************************/
 
-function setupPersistentMenu(res){
+const setupPersistentMenu = (res) => {
   var messageData = { 
       "persistent_menu":[
           {
@@ -432,7 +431,7 @@ function setupPersistentMenu(res){
 FUNCTION TO REMOVE MENU
 ************************/
 
-function removePersistentMenu(res){
+const removePersistentMenu = (res) => {
   var messageData = {
           "fields": [
              "persistent_menu" ,
