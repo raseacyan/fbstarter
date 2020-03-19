@@ -273,23 +273,26 @@ const showQuickReplyOff =(sender_psid) => {
 const buttonReply =(sender_psid) => {
   let response = {
     "text": "Select your reply",
-    "elements": [{
-            "title": "Is this you?",
-            "subtitle": "Tap a button to answer.",
-            "image_url": "https://nodejs.org/static/images/logos/js-green.svg",
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Yes!",
-                "payload": "yes",
-              },
-              {
-                "type": "postback",
-                "title": "No!",
-                "payload": "no",
-              }
-            ],
-          }]
+    "payload": {
+          "template_type": "generic",
+          "elements": [{
+              "title": "Is this you?",
+              "subtitle": "Tap a button to answer.",
+              "image_url": "https://nodejs.org/static/images/logos/js-green.svg",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Yes!",
+                  "payload": "yes",
+                },
+                {
+                  "type": "postback",
+                  "title": "No!",
+                  "payload": "no",
+                }
+              ],
+            }]
+        }
   };
   callSend(sender_psid, response);
 }
