@@ -130,8 +130,7 @@ function handleQuickReply(sender_psid, received_message) {
           break;                
         default:
             defaultReply(sender_psid);
-  }
-  
+  } 
  
 }
 
@@ -139,7 +138,7 @@ function handleQuickReply(sender_psid, received_message) {
 Function to Handle when user send text message
 ***********************************************/
 
-function handleMessage(sender_psid, received_message) {
+const handleMessage = (sender_psid, received_message) => {
   //let message;
   let response;
   
@@ -181,6 +180,9 @@ function handleMessage(sender_psid, received_message) {
         case "quick":
             quickReply(sender_psid);
           break;
+        case "button":
+            buttonReply(sender_psid);
+          break;
         case "webview":
             webviewTest(sender_psid);
           break;        
@@ -194,14 +196,18 @@ function handleMessage(sender_psid, received_message) {
 /*********************************************
 Function to handle when user click button
 **********************************************/
-
-function handlePostback(sender_psid, received_postback) {
-  
-  let response;
-  // Get the payload for the postback
+const handlePostback = (sender_psid, received_postback) => {
   let payload = received_postback.payload;
-  
- 
+  switch(payload) {        
+      case "yes":
+          showButtonReplyYes(sender_psid);
+        break;
+      case "no":
+          showButtonReplyNo(sender_psid);
+        break;                
+      default:
+          defaultReply(sender_psid);
+  } 
 }
 
 
@@ -260,6 +266,40 @@ const showQuickReplyOn =(sender_psid) => {
 
 const showQuickReplyOff =(sender_psid) => {
   let response = { "text": "You sent quick reply OFF" };
+  callSend(sender_psid, response);
+}
+
+const buttonReply =(sender_psid) => {
+  let response = {
+    "text": "Select your reply",
+    "elements": [{
+            "title": "Is this you?",
+            "subtitle": "Tap a button to answer.",
+            "image_url": "https://nodejs.org/static/images/logos/js-green.svg",
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Yes!",
+                "payload": "yes",
+              },
+              {
+                "type": "postback",
+                "title": "No!",
+                "payload": "no",
+              }
+            ],
+          }]
+  };
+  callSend(sender_psid, response);
+}
+
+const showButtonReplyYes =(sender_psid) => {
+  let response = { "text": "You clicked YES" };
+  callSend(sender_psid, response);
+}
+
+const showButtonReplyNo =(sender_psid) => {
+  let response = { "text": "You clicked NO" };
   callSend(sender_psid, response);
 }
 
