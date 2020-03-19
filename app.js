@@ -278,7 +278,8 @@ const buttonReply =(sender_psid) => {
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "Are you OK?",                       
+            "title": "Are you OK?",
+            "image_url":"https://nodejs.org/static/images/logos/js-green.svg",                       
             "buttons": [
                 {
                   "type": "postback",
