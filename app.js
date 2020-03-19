@@ -48,7 +48,11 @@ app.post('/webhook', (req, res) => {
 
 
       if (webhook_event.message) {
-        handleMessage(sender_psid, webhook_event.message);        
+        if(webhook_event.message.quick_reply){
+            handleQuickReply(sender_psid, webhook_event.message.quick_reply.payload);
+          }else{
+            handleMessage(sender_psid, webhook_event.message);                       
+          }                
       } else if (webhook_event.postback) {        
         handlePostback(sender_psid, webhook_event.postback);
       }
@@ -112,6 +116,26 @@ app.get('/webhook', (req, res) => {
 });
 
 /**********************************************
+Function to Handle when user send quick reply message
+***********************************************/
+
+function handleQuickReply(sender_psid, received_message) {
+  
+  switch(received_message) {        
+        case "on":
+            showQuickReplyOn(sender_psid);
+          break;
+        case "quick":
+            showQuickReplyOff(sender_psid);
+          break;                
+        default:
+            defaultReply(sender_psid);
+  }
+  
+ 
+}
+
+/**********************************************
 Function to Handle when user send text message
 ***********************************************/
 
@@ -153,6 +177,9 @@ function handleMessage(sender_psid, received_message) {
       switch(user_message) {        
         case "text":
             textReply(sender_psid);
+          break;
+        case "quick":
+            quickReply(sender_psid);
           break;
         case "webview":
             webviewTest(sender_psid);
@@ -204,6 +231,35 @@ function webviewTest(sender_psid){
 
 const textReply =(sender_psid) => {
   let response = {"text": "You sent text message"};
+  callSend(sender_psid, response);
+}
+
+
+const quickReply =(sender_psid) => {
+  let response = {
+    "text": "You sent text message"
+    "quick_replies":[
+            {
+              "content_type":"text",
+              "title":"On",
+              "payload":"on",              
+            },{
+              "content_type":"text",
+              "title":"Off",
+              "payload":"off",             
+            }
+    ]
+  };
+  callSend(sender_psid, response);
+}
+
+const showQuickReplyOn =(sender_psid) => {
+  let response = { "text": "You sent quick reply ON" };
+  callSend(sender_psid, response);
+}
+
+const showQuickReplyOff =(sender_psid) => {
+  let response = { "text": "You sent quick reply OFF" };
   callSend(sender_psid, response);
 }
 
