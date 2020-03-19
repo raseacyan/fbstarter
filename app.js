@@ -237,7 +237,7 @@ const textReply =(sender_psid) => {
 
 const quickReply =(sender_psid) => {
   let response = {
-    "text": "You sent text message"
+    "text": "You sent text message",
     "quick_replies":[
             {
               "content_type":"text",
