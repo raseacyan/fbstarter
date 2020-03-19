@@ -1,0 +1,352 @@
+'use strict';
+const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
+
+// Imports dependencies and set up http server
+const 
+  request = require('request'),
+  express = require('express'),
+  body_parser = require('body-parser'),
+  firebase = require("firebase-admin"),
+  ejs = require("ejs"),
+  app = express().use(body_parser.json()); // creates express http server
+
+app.set('view engine', 'ejs');
+app.set('views', __dirname+'/views');
+
+//firebase initialize
+firebase.initializeApp({
+  credential: firebase.credential.cert({
+    "private_key": process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+    "client_email": process.env.FIREBASE_CLIENT_EMAIL,
+    "project_id": process.env.FIREBASE_PROJECT_ID,
+  }),
+  databaseURL: process.env.FIREBASE_DB_URL
+});
+
+var db = firebase.database();
+
+// Sets server port and logs message on success
+app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
+
+// Accepts POST requests at /webhook endpoint
+app.post('/webhook', (req, res) => {  
+
+  // Parse the request body from the POST
+  let body = req.body;
+
+  
+
+  // Check the webhook event is from a Page subscription
+  if (body.object === 'page') {
+    body.entry.forEach(function(entry) {
+      // Gets the body of the webhook event
+      let webhook_event = entry.messaging[0];
+    
+      // Get the sender PSID
+      let sender_psid = webhook_event.sender.id;  
+      
+
+
+      if (webhook_event.message) {
+        handleMessage(sender_psid, webhook_event.message);        
+      } else if (webhook_event.postback) {        
+        handlePostback(sender_psid, webhook_event.postback);
+      }
+      
+    });
+    // Return a '200 OK' response to all events
+    res.status(200).send('EVENT_RECEIVED');
+
+  } else {
+    // Return a '404 Not Found' if event is not from a page subscription
+    res.sendStatus(404);
+  }
+
+});
+
+//webview test
+app.get('/webview/:sender_id',function(req,res){
+    const sender_id = req.params.sender_id;
+    res.render('webview.ejs',{sender_id:sender_id});
+});
+
+//Set up Get Started Button. To run one time
+app.get('/setgsbutton',function(req,res){
+    setupGetStartedButton(res);    
+});
+
+//Set up Persistent Menu. To run one time
+app.get('/setpersistentmenu',function(req,res){
+    setupPersistentMenu(res);    
+});
+
+//Remove Get Started and Persistent Menu. To run one time
+app.get('/clear',function(req,res){    
+    removePersistentMenu(res);
+});
+
+
+// Accepts GET requests at the /webhook endpoint
+app.get('/webhook', (req, res) => {
+  
+  /** UPDATE YOUR VERIFY TOKEN **/
+  const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
+  
+  // Parse params from the webhook verification request
+  let mode = req.query['hub.mode'];
+  let token = req.query['hub.verify_token'];
+  let challenge = req.query['hub.challenge'];  
+    
+  // Check if a token and mode were sent
+  if (mode && token) {  
+    // Check the mode and token sent are correct
+    if (mode === 'subscribe' && token === VERIFY_TOKEN) {      
+      // Respond with 200 OK and challenge token from the request
+      //console.log('WEBHOOK_VERIFIED');
+      res.status(200).send(challenge);    
+    } else {
+      // Responds with '403 Forbidden' if verify tokens do not match
+      res.sendStatus(403);      
+    }
+  }
+});
+
+/**********************************************
+Function to Handle when user send text message
+***********************************************/
+
+function handleMessage(sender_psid, received_message) {
+  //let message;
+  let response;
+  
+  
+  if(received_message.attachments){
+    let attachment_url = received_message.attachments[0].payload.url;
+    response = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Is this the right picture?",
+            "subtitle": "Tap a button to answer.",
+            "image_url": attachment_url,
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Yes!",
+                "payload": "yes-attachment",
+              },
+              {
+                "type": "postback",
+                "title": "No!",
+                "payload": "no-attachment",
+              }
+            ],
+          }]
+        }
+      }
+    }
+    callSend(sender_psid, response);
+  } else {
+      let user_message = received_message.text.toLowerCase();
+      switch(user_message) {
+        case "hello":
+        case "hi":
+            greetUser(sender_psid);
+          break;
+        case "webview":
+            webviewTest(sender_psid);
+          break;        
+        default:
+            unknownCommand(sender_psid);
+        }
+    }
+
+}
+
+/*********************************************
+Function to handle when user click button
+**********************************************/
+
+function handlePostback(sender_psid, received_postback) {
+  
+  let response;
+  // Get the payload for the postback
+  let payload = received_postback.payload;
+  
+ 
+}
+
+
+function webviewTest(sender_psid){
+  let response;
+  response = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Click to open webview?",                       
+            "buttons": [              
+              {
+                "type": "web_url",
+                "title": "webview",
+                "url":"https://ayethatarbot.herokuapp.com/webview/"+sender_psid              
+              },
+              
+            ],
+          }]
+        }
+      }
+    }
+  callSendAPI(sender_psid, response);
+}
+
+function callSendAPI(sender_psid, response) {  
+  let request_body = {
+    "recipient": {
+      "id": sender_psid
+    },
+    "message": response
+  }
+  
+  return new Promise(resolve => {
+    request({
+      "uri": "https://graph.facebook.com/v2.6/me/messages",
+      "qs": { "access_token": PAGE_ACCESS_TOKEN },
+      "method": "POST",
+      "json": request_body
+    }, (err, res, body) => {
+      if (!err) {
+        resolve('message sent!')
+      } else {
+        console.error("Unable to send message:" + err);
+      }
+    }); 
+  });
+}
+
+async function callSend(sender_psid, response){
+  let send = await callSendAPI(sender_psid, response);
+  return 1;
+}
+
+
+
+function getUserProfile(sender_psid) {
+  return new Promise(resolve => {
+    request({
+      "uri": "https://graph.facebook.com/"+sender_psid+"?fields=first_name,last_name,profile_pic&access_token="+PAGE_ACCESS_TOKEN,
+      "method": "GET"
+      }, (err, res, body) => {
+        if (!err) { 
+          let data = JSON.parse(body);  
+          resolve(data);                 
+    } else {
+      console.error("Error:" + err);
+    }
+    });
+  });
+}
+
+
+
+/*************************************
+FUNCTION TO SET UP GET STARTED BUTTON
+**************************************/
+
+function setupGetStartedButton(res){
+  let messageData = {"get_started":{"payload":"get_started"}};
+
+  request({
+      url: 'https://graph.facebook.com/v2.6/me/messenger_profile?access_token='+ PAGE_ACCESS_TOKEN,
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      form: messageData
+    },
+    function (error, response, body) {
+      if (!error && response.statusCode == 200) {        
+        res.send(body);
+      } else { 
+        // TODO: Handle errors
+        res.send(body);
+      }
+  });
+} 
+
+/**********************************
+FUNCTION TO SET UP PERSISTENT MENU
+***********************************/
+
+function setupPersistentMenu(res){
+  var messageData = { 
+      "persistent_menu":[
+          {
+            "locale":"default",
+            "composer_input_disabled":false,
+            "call_to_actions":[
+                {
+                  "type":"postback",
+                  "title":"View My Tasks",
+                  "payload":"view-tasks"
+                },
+                {
+                  "type":"postback",
+                  "title":"Add New Task",
+                  "payload":"add-task"
+                },
+                {
+                  "type":"postback",
+                  "title":"Cancel",
+                  "payload":"cancel"
+                }
+          ]
+      },
+      {
+        "locale":"default",
+        "composer_input_disabled":false
+      }
+    ]          
+  };
+        
+  request({
+      url: 'https://graph.facebook.com/v2.6/me/messenger_profile?access_token='+ PAGE_ACCESS_TOKEN,
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      form: messageData
+  },
+  function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+          res.send(body);
+      } else { 
+          res.send(body);
+      }
+  });
+} 
+
+/***********************
+FUNCTION TO REMOVE MENU
+************************/
+
+function removePersistentMenu(res){
+  var messageData = {
+          "fields": [
+             "persistent_menu" ,
+             "get_started"                 
+          ]               
+  };  
+  request({
+      url: 'https://graph.facebook.com/v2.6/me/messenger_profile?access_token='+ PAGE_ACCESS_TOKEN,
+      method: 'DELETE',
+      headers: {'Content-Type': 'application/json'},
+      form: messageData
+  },
+  function (error, response, body) {
+      if (!error && response.statusCode == 200) {          
+          res.send(body);
+      } else {           
+          res.send(body);
+      }
+  });
+} 
