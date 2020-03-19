@@ -20,8 +20,10 @@
 
 
 		btn.addEventListener("click", function(){
-			postBotMessage();
-			windowClose();
+			if(postBotMessage()){
+        windowClose();
+      };
+			
 		});
 		
 		function postBotMessage(){
@@ -38,6 +40,8 @@
                   xhr.open("POST", 'https://graph.facebook.com/v5.0/me/messages?access_token='+PAGE_ACCESS_TOKEN, true);
                   xhr.setRequestHeader('Content-Type', 'application/json');
                   xhr.send(JSON.stringify(textMessage)); 
+
+                  return 1;
       }
 
      function windowClose(){
