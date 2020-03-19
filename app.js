@@ -279,7 +279,7 @@ const buttonReply =(sender_psid) => {
           "template_type": "generic",
           "elements": [{
             "title": "Are you OK?",
-            "image_url":"https://nodejs.org/static/images/logos/js-green.svg",                       
+            "image_url":"https://www.mindrops.com/images/nodejs-image.png",                       
             "buttons": [
                 {
                   "type": "postback",
