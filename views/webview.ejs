@@ -57,13 +57,18 @@
 
 
 
-           const formElement = document.querySelector("#form");
-           let formData = new FormData(formElement);
-           formData.append("name","name")   ;        
-           let request = new XMLHttpRequest();
+           //const formElement = document.querySelector("#form");
+           
+
+            let request = new XMLHttpRequest();
             request.open("POST", "https://fbstarterbot.herokuapp.com/webview/");
+
+            let formData = new FormData();
+            formData.append('key1', 'value1');
+            formData.append('key2', 'value2');
+
             request.send(formData);
-            console.log(formData);
+            console.log(request.response);
            //windowShut();
         });
 
