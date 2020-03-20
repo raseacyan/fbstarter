@@ -72,21 +72,20 @@ app.get('/webview/:sender_id',function(req,res){
 });
 
 app.post('/webview',function(req,res){
-    console.log('REQ', req.body);
-    console.log("NAME", req.body.name);
-    console.log("EMAIL", req.body.email);
+    let name = req.body.name;
+    let email = req.body.email;    
     
-    /*
+    //save to db
     db.collection('booking').add({
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,           
+            name: name,
+            email: email,           
           }).then(success => {                
              console.log(success);
           }).catch(error => {
             console.log(error);
-          })
+          });
 
-          */
+          
 });
 
 //Set up Get Started Button. To run one time
