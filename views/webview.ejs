@@ -19,18 +19,7 @@
         console.log("loaded");
     };
 
-    const btn = document.getElementById("close");
-    btn.addEventListener("click", function(){
-                  windowShut();
-      });
-
-     function windowShut(){
-      MessengerExtensions.requestCloseBrowser(function success() {
-        alert("window close")
-      }, function error(err) {
-        alert(err)
-      });
-    }
+    
 
 
 
@@ -46,7 +35,18 @@
 		senderID = '<%= sender_id %>';
 
    
-		
+		const btn = document.getElementById("close");
+    btn.addEventListener("click", function(){
+                  windowShut();
+      });
+
+     function windowShut(){
+      MessengerExtensions.requestCloseBrowser(function success() {
+        alert("window close")
+      }, function error(err) {
+        alert(err)
+      });
+    }
 		
 		function postBotMessage(){
                 var textMessage = {
