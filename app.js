@@ -84,7 +84,9 @@ app.post('/webview',function(req,res){
              console.log("SUCCESS",success);
           }).catch(error => {
             console.log(error);
-          });         
+          });   
+
+    thankyouReply();      
 });
 
 //Set up Get Started Button. To run one time
@@ -322,6 +324,11 @@ const showButtonReplyYes =(sender_psid) => {
 
 const showButtonReplyNo =(sender_psid) => {
   let response = { "text": "You clicked NO" };
+  callSend(sender_psid, response);
+}
+
+const thankyouReply =(sender_psid) => {
+  let response = { "text": "Thank your" };
   callSend(sender_psid, response);
 }
 

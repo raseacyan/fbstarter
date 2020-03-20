@@ -58,9 +58,9 @@
             email:document.getElementById('email').value,
            }
            postFormData(data);
-           if(postBotMessage() ){
-             windowShut();
-           }
+           
+           windowShut();
+
                    
            
            
@@ -73,6 +73,7 @@
       const windowShut = () => {
         MessengerExtensions.requestCloseBrowser(function success() {
           console.log("success");
+          //postBotMessage();
         }, function error(err) {
           console.log(err);
         });
