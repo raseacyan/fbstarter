@@ -72,7 +72,8 @@ app.get('/webview/:sender_id',function(req,res){
 });
 
 app.post('/webview',function(req,res){
-    console.log("NAME", req.params.sender_id);
+    console.log('REQ', req.params);
+    console.log("NAME", req.params.name);
     console.log("EMAIL", req.params.email);
     
     /*
