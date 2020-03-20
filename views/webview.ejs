@@ -55,8 +55,11 @@
            console.log('name',document.getElementById('name').value);
            console.log('email',document.getElementById('email').value);
 
+
+
            const formElement = document.querySelector("#form");
-           let formData = new FormData(formElement);           
+           let formData = new FormData(formElement);
+           formData.append("name","name")   ;        
            let request = new XMLHttpRequest();
             request.open("POST", "https://fbstarterbot.herokuapp.com/webview/");
             request.send(formData);
