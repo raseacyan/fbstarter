@@ -15,8 +15,7 @@
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'Messenger'));
 
-    const APP_ID = 544769076153407;
-    const PAGE_ACCESS_TOKEN = 'EAAHvdu9EzD8BAIT9osyxZCFzwZA92j2ZAhoJdr507FAXnwG9fwrej1teYWAASR238GmQfjSdog8ewEIfU0HkNecQekEYQxHjTZAOa1zEaLQjRjRszrsUqIG1nc6VxCQ7VZChalJuVvoIFBBKMlId6KjtbeIpZACrjZBLfSkgencYAZDZD';
+    const APP_ID = 544769076153407;    
     var senderID = "";
     
     window.extAsyncInit = function() {
@@ -60,21 +59,14 @@
            }
            postFormData(data);
            
-           windowShut();
-
-                   
-           
-           
-           
-
-        });
+           windowShut();    
+      });
 
 
 
       const windowShut = () => {
         MessengerExtensions.requestCloseBrowser(function success() {
-          console.log("success");
-          //postBotMessage();
+          console.log("success");          
         }, function error(err) {
           console.log(err);
         });
@@ -88,23 +80,7 @@
         xhr.send(JSON.stringify(data)); 
       }        
 
-     const postBotMessage = () => {
-        var textMessage = {
-          "recipient":{
-            "id":senderID
-          },
-          "message":{
-            "text": "Thank you from webview"
-          }
-          }
-
-          var xhr = new XMLHttpRequest();
-          xhr.open("POST", 'https://graph.facebook.com/v5.0/me/messages?access_token='+PAGE_ACCESS_TOKEN, true);
-          xhr.setRequestHeader('Content-Type', 'application/json');
-          xhr.send(JSON.stringify(textMessage)); 
-
-          return true;                 
-    }
+     
 
   </script>
 
