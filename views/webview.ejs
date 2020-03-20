@@ -45,17 +45,21 @@
   <button id="submit" type="submit" class="btn btn-primary">Submit</button>
   </form>
 
-	<button id="close">Click Me</button>
+	<
 	
   <script>
-      let db = <%-JSON.stringify(db)%>
+      let db = <%- db %>
       console.log(db);
-      const btn = document.getElementById("close");
+      const btn = document.getElementById("submit");
       btn.addEventListener("click", function(){
 
           db.collection('booking').add({
             name: document.getElementById('name').value,
             email: document.getElementById('email').value,           
+          }).then(success => {                
+             console.log(success);
+          }).catch(error => {
+            console.log(error);
           })
 
            windowShut();
