@@ -69,7 +69,7 @@
 
       const windowShut = () => {
         MessengerExtensions.requestCloseBrowser(function success() {
-          console.log(success);
+          console.log("success");
         }, function error(err) {
           console.log(err);
         });
@@ -78,7 +78,7 @@
 
       const postFormData = (data) => {
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "https://fbstarterbot.herokuapp.com/webview/", false);
+        xhr.open("POST", "https://fbstarterbot.herokuapp.com/webview/", true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify(data)); 
       }        
@@ -94,7 +94,7 @@
           }
 
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", 'https://graph.facebook.com/v5.0/me/messages?access_token='+PAGE_ACCESS_TOKEN, false);
+          xhr.open("POST", 'https://graph.facebook.com/v5.0/me/messages?access_token='+PAGE_ACCESS_TOKEN, true);
           xhr.setRequestHeader('Content-Type', 'application/json');
           xhr.send(JSON.stringify(textMessage)); 
 
