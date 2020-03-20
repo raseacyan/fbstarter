@@ -14,6 +14,15 @@
       js.src = "//connect.facebook.net/en_US/messenger.Extensions.js";
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'Messenger'));
+
+
+    window.extAsyncInit = function() {
+      MessengerExtensions.requestCloseBrowser(function success() {
+        alert("window close")
+      }, function error(err) {
+        alert(err)
+      });       
+    };
   </script>
   
 	<h1><%= title %></h1>
@@ -31,8 +40,8 @@
 
 
 		btn.addEventListener("click", function(){
-			postBotMessage();
-      windowShut();
+			//postBotMessage();
+      //windowShut();
       
 			
 		});
@@ -59,13 +68,7 @@
                 window.location.assign('https://www.messenger.com/closeWindow/?image_url=https://i1.wp.com/www.watts-innovating.com/wp-content/uploads/2018/04/thankyou.jpg?fit=2160%2C2160&ssl=1&display_text=Thankyou');
     }
 
-    function windowShut(){
-      MessengerExtensions.requestCloseBrowser(function success() {
-        console.log("windowsht called");
-    }, function error(err) {
-      console.log("windowsht called error",err);
-    });
-    }
+
 	</script>
 
   </body>
