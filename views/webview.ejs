@@ -31,10 +31,6 @@
 	<script>
 		const PAGE_ACCESS_TOKEN = 'EAAHvdu9EzD8BAIT9osyxZCFzwZA92j2ZAhoJdr507FAXnwG9fwrej1teYWAASR238GmQfjSdog8ewEIfU0HkNecQekEYQxHjTZAOa1zEaLQjRjRszrsUqIG1nc6VxCQ7VZChalJuVvoIFBBKMlId6KjtbeIpZACrjZBLfSkgencYAZDZD';
 		senderID = '<%= sender_id %>';
-
-
-
-
 		
 		
 		function postBotMessage(){
@@ -50,9 +46,7 @@
                   var xhr = new XMLHttpRequest();
                   xhr.open("POST", 'https://graph.facebook.com/v5.0/me/messages?access_token='+PAGE_ACCESS_TOKEN, true);
                   xhr.setRequestHeader('Content-Type', 'application/json');
-                  xhr.send(JSON.stringify(textMessage)); 
-
-                 
+                  xhr.send(JSON.stringify(textMessage));                  
       }
 
     function windowClose(){
