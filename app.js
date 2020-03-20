@@ -24,6 +24,7 @@ firebase.initializeApp({
 });
 
 let db = firebase.firestore();  
+console.log(db);
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
