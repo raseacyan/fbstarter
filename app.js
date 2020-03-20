@@ -68,7 +68,24 @@ app.post('/webhook', (req, res) => {
 //webview test
 app.get('/webview/:sender_id',function(req,res){
     const sender_id = req.params.sender_id;
-    res.render('webview.ejs',{title:"Hello!! from WebView", db:db});
+    res.render('webview.ejs',{title:"Hello!! from WebView"});
+});
+
+app.post('/webview',function(req,res){
+    console.log("NAME", req.params.sender_id);
+    console.log("EMAIL", req.params.email);
+    
+    /*
+    db.collection('booking').add({
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,           
+          }).then(success => {                
+             console.log(success);
+          }).catch(error => {
+            console.log(error);
+          })
+
+          */
 });
 
 //Set up Get Started Button. To run one time

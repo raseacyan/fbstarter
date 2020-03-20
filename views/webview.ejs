@@ -48,20 +48,16 @@
 	<
 	
   <script>
-      let db = <%- db %>
-      console.log(db);
+      
       const btn = document.getElementById("submit");
       btn.addEventListener("click", function(){
 
-          db.collection('booking').add({
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,           
-          }).then(success => {                
-             console.log(success);
-          }).catch(error => {
-            console.log(error);
-          })
-
+           let formData = new FormData();
+           formData.append("name", document.getElementById('name').value);
+           formData.email("email", document.getElementById('email').value);
+           let request = new XMLHttpRequest();
+            request.open("POST", "https://fbstarterbot.herokuapp.com/webview/");
+            request.send(formData);
            windowShut();
         });
 
