@@ -57,9 +57,11 @@
             name:document.getElementById('name').value,
             email:document.getElementById('email').value,
            }
-           postBotMessage();
-           postFormData(data);
-           windowShut();
+           if(postBotMessage()){
+              postFormData(data);
+              windowShut();
+           }
+           
 
         });
 
@@ -94,7 +96,9 @@
           var xhr = new XMLHttpRequest();
           xhr.open("POST", 'https://graph.facebook.com/v5.0/me/messages?access_token='+PAGE_ACCESS_TOKEN, true);
           xhr.setRequestHeader('Content-Type', 'application/json');
-          xhr.send(JSON.stringify(textMessage));                  
+          xhr.send(JSON.stringify(textMessage)); 
+
+          return true;                 
     }
 
   </script>
