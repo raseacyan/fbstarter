@@ -81,7 +81,7 @@ app.post('/webview',function(req,res){
             email: email,
 
           }).then(success => {                
-             console.log("SUCCESS:"success);
+             console.log("SUCCESS",success);
           }).catch(error => {
             console.log(error);
           });
