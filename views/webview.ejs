@@ -57,7 +57,7 @@
             name:document.getElementById('name').value,
             email:document.getElementById('email').value,
            }
-
+           postBotMessage();
            postFormData(data);
            windowShut();
 
@@ -67,7 +67,7 @@
 
       const windowShut = () => {
         MessengerExtensions.requestCloseBrowser(function success() {
-          postBotMessage();
+          console.log(success);
         }, function error(err) {
           console.log(err);
         });

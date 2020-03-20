@@ -84,9 +84,7 @@ app.post('/webview',function(req,res){
              console.log("SUCCESS",success);
           }).catch(error => {
             console.log(error);
-          });
-
-          
+          });         
 });
 
 //Set up Get Started Button. To run one time
