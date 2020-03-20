@@ -61,9 +61,9 @@
 
     function windowShut(){
       MessengerExtensions.requestCloseBrowser(function success() {
-      // webview closed
+        console.log("windowsht called");
     }, function error(err) {
-      // an error occurred
+      console.log("windowsht called error");
     });
     }
 	</script>
