@@ -51,6 +51,8 @@
       
       const btn = document.getElementById("submit");
       btn.addEventListener("click", function(){
+           console.log('name',document.getElementById('name').value);
+           console.log('email',document.getElementById('email').value);
 
            let formData = new FormData();
            formData.append("name", document.getElementById('name').value);
