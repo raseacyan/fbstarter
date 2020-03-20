@@ -23,7 +23,7 @@ firebase.initializeApp({
   databaseURL: process.env.FIREBASE_DB_URL
 });
 
-var db = firebase.database();
+let db = firebase.firestore();  
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
@@ -67,7 +67,7 @@ app.post('/webhook', (req, res) => {
 //webview test
 app.get('/webview/:sender_id',function(req,res){
     const sender_id = req.params.sender_id;
-    res.render('webview.ejs',{sender_id:sender_id, title:"Hello!! from WebView"});
+    res.render('webview.ejs',{title:"Hello!! from WebView", db:db});
 });
 
 //Set up Get Started Button. To run one time
