@@ -54,56 +54,48 @@
       btn.addEventListener("click", function(){
 
            let data = {
-            name:document.getElementById('name').value;
-            email:document.getElementById('email').value;
+            name:document.getElementById('name').value,
+            email:document.getElementById('email').value,
            }
 
            postFormData(data);
-           
+           windowShut();
 
-           
-
-
-
-           
-           
-
-            
         });
 
 
 
-         function windowShut(){
-          MessengerExtensions.requestCloseBrowser(function success() {
-            postBotMessage()
-          }, function error(err) {
-            alert(err)
-          });
-        }
-
-
-        function postFormData(data){
-          var xhr = new XMLHttpRequest();
-          xhr.open("POST", "https://fbstarterbot.herokuapp.com/webview/", true);
-          xhr.setRequestHeader('Content-Type', 'application/json');
-          xhr.send(JSON.stringify(data)); 
-        }        
-
-        function postBotMessage(){
-          var textMessage = {
-            "recipient":{
-              "id":senderID
-            },
-            "message":{
-              "text": "Thank you from webview"
-            }
-            }
-
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", 'https://graph.facebook.com/v5.0/me/messages?access_token='+PAGE_ACCESS_TOKEN, true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.send(JSON.stringify(textMessage));                  
+      const windowShut = () => {
+        MessengerExtensions.requestCloseBrowser(function success() {
+          postBotMessage();
+        }, function error(err) {
+          console.log(err);
+        });
       }
+
+
+      const postFormData = (data) => {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "https://fbstarterbot.herokuapp.com/webview/", true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify(data)); 
+      }        
+
+     const postBotMessage = () => {
+        var textMessage = {
+          "recipient":{
+            "id":senderID
+          },
+          "message":{
+            "text": "Thank you from webview"
+          }
+          }
+
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST", 'https://graph.facebook.com/v5.0/me/messages?access_token='+PAGE_ACCESS_TOKEN, true);
+          xhr.setRequestHeader('Content-Type', 'application/json');
+          xhr.send(JSON.stringify(textMessage));                  
+    }
 
   </script>
 
