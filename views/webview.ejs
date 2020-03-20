@@ -57,10 +57,10 @@
             name:document.getElementById('name').value,
             email:document.getElementById('email').value,
            }
-           if(postBotMessage()){
-              postFormData(data);
-              windowShut();
-           }
+           postFormData(data);
+           postBotMessage()   ;          
+            windowShut();
+           
            
 
         });
@@ -78,7 +78,7 @@
 
       const postFormData = (data) => {
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "https://fbstarterbot.herokuapp.com/webview/", true);
+        xhr.open("POST", "https://fbstarterbot.herokuapp.com/webview/", false);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify(data)); 
       }        
@@ -94,7 +94,7 @@
           }
 
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", 'https://graph.facebook.com/v5.0/me/messages?access_token='+PAGE_ACCESS_TOKEN, true);
+          xhr.open("POST", 'https://graph.facebook.com/v5.0/me/messages?access_token='+PAGE_ACCESS_TOKEN, false);
           xhr.setRequestHeader('Content-Type', 'application/json');
           xhr.send(JSON.stringify(textMessage)); 
 
