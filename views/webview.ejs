@@ -58,8 +58,11 @@
             email:document.getElementById('email').value,
            }
            postFormData(data);
-           postBotMessage()   ;          
-            windowShut();
+           if(postBotMessage() ){
+             windowShut();
+           }
+                   
+           
            
            
 
