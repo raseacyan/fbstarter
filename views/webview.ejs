@@ -19,7 +19,7 @@
         console.log("loaded");
     };
 
-    
+
 
 
 
@@ -42,7 +42,7 @@
 
      function windowShut(){
       MessengerExtensions.requestCloseBrowser(function success() {
-        alert("window close")
+        postBotMessage()
       }, function error(err) {
         alert(err)
       });
