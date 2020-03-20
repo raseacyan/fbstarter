@@ -220,7 +220,9 @@ function webviewTest(sender_psid){
               {
                 "type": "web_url",
                 "title": "webview",
-                "url":"https://fbstarterbot.herokuapp.com/webview/"+sender_psid              
+                "url":"https://fbstarterbot.herokuapp.com/webview/"+sender_psid,
+                "webview_height_ratio": "tall",
+                "messenger_extensions": true,          
               },
               
             ],
