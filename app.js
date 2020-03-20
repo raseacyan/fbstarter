@@ -8,7 +8,7 @@ const
   body_parser = require('body-parser'),
   firebase = require("firebase-admin"),
   ejs = require("ejs"),
-  app = express().use(body_parser.json()); // creates express http server
+  app = express().use(body_parser.json()); 
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname+'/views');
@@ -39,13 +39,9 @@ app.post('/webhook', (req, res) => {
   // Check the webhook event is from a Page subscription
   if (body.object === 'page') {
     body.entry.forEach(function(entry) {
-      // Gets the body of the webhook event
-      let webhook_event = entry.messaging[0];
-    
-      // Get the sender PSID
-      let sender_psid = webhook_event.sender.id;  
-      
 
+      let webhook_event = entry.messaging[0];
+      let sender_psid = webhook_event.sender.id; 
 
       if (webhook_event.message) {
         if(webhook_event.message.quick_reply){
@@ -93,23 +89,18 @@ app.get('/clear',function(req,res){
 // Accepts GET requests at the /webhook endpoint
 app.get('/webhook', (req, res) => {
   
-  /** UPDATE YOUR VERIFY TOKEN **/
-  const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
-  
-  // Parse params from the webhook verification request
+
+  const VERIFY_TOKEN = process.env.VERIFY_TOKEN;  
+
   let mode = req.query['hub.mode'];
   let token = req.query['hub.verify_token'];
   let challenge = req.query['hub.challenge'];  
     
-  // Check if a token and mode were sent
-  if (mode && token) {  
-    // Check the mode and token sent are correct
-    if (mode === 'subscribe' && token === VERIFY_TOKEN) {      
-      // Respond with 200 OK and challenge token from the request
-      //console.log('WEBHOOK_VERIFIED');
+  // Check token and mode
+  if (mode && token) {
+    if (mode === 'subscribe' && token === VERIFY_TOKEN) {
       res.status(200).send(challenge);    
-    } else {
-      // Responds with '403 Forbidden' if verify tokens do not match
+    } else {      
       res.sendStatus(403);      
     }
   }
