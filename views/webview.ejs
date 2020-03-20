@@ -17,7 +17,21 @@
 
     window.extAsyncInit = function() {
         console.log("loaded");
-    };;
+    };
+
+    const btn = document.getElementById("close");
+    btn.addEventListener("click", function(){
+                  windowShut();
+      });
+
+     function windowShut(){
+      MessengerExtensions.requestCloseBrowser(function success() {
+        alert("window close")
+      }, function error(err) {
+        alert(err)
+      });
+    }
+
 
 
    
@@ -31,10 +45,7 @@
 		const PAGE_ACCESS_TOKEN = 'EAAHvdu9EzD8BAIT9osyxZCFzwZA92j2ZAhoJdr507FAXnwG9fwrej1teYWAASR238GmQfjSdog8ewEIfU0HkNecQekEYQxHjTZAOa1zEaLQjRjRszrsUqIG1nc6VxCQ7VZChalJuVvoIFBBKMlId6KjtbeIpZACrjZBLfSkgencYAZDZD';
 		senderID = '<%= sender_id %>';
 
-    const btn = document.getElementById("close");
-            btn.addEventListener("click", function(){
-                  windowShut();
-            });
+   
 		
 		
 		function postBotMessage(){
@@ -58,14 +69,7 @@
     }
 
 
-    function windowShut(){
-      MessengerExtensions.requestCloseBrowser(function success() {
-        alert("window close")
-      }, function error(err) {
-        alert(err)
-      });
-    }
-
+   
    
 
 
