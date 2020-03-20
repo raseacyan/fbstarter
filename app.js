@@ -73,20 +73,22 @@ app.get('/webview/:sender_id',function(req,res){
 
 app.post('/webview',function(req,res){
     let name = req.body.name;
-    let email = req.body.email;    
+    let email = req.body.email; 
+    let senderID = req.body.senderID;   
     
     //save to db
     db.collection('booking').add({
             name: name,
             email: email,
 
-          }).then(success => {                
-             console.log("SUCCESS",success);
+          }).then(success => {   
+             thankyouReply(senderID);            
+             
           }).catch(error => {
             console.log(error);
           });   
 
-    thankyouReply();      
+          
 });
 
 //Set up Get Started Button. To run one time
@@ -328,7 +330,7 @@ const showButtonReplyNo =(sender_psid) => {
 }
 
 const thankyouReply =(sender_psid) => {
-  let response = { "text": "Thank your" };
+  let response = { "text": "Thank you" };
   callSend(sender_psid, response);
 }
 
