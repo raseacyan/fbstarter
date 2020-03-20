@@ -16,6 +16,7 @@
     }(document, 'script', 'Messenger'));
 
     const APP_ID = 544769076153407;
+    const PAGE_ACCESS_TOKEN = 'EAAHvdu9EzD8BAIT9osyxZCFzwZA92j2ZAhoJdr507FAXnwG9fwrej1teYWAASR238GmQfjSdog8ewEIfU0HkNecQekEYQxHjTZAOa1zEaLQjRjRszrsUqIG1nc6VxCQ7VZChalJuVvoIFBBKMlId6KjtbeIpZACrjZBLfSkgencYAZDZD';
     
     window.extAsyncInit = function() {
         MessengerExtensions.getContext(APP_ID, 
@@ -26,30 +27,22 @@
             console.log(err);
           }
         );
-    };
- </script>
-  
-	<h1><%= title %></h1>
-	<button id="close">Click Me</button>
-	
-	
-	<script>
-		const PAGE_ACCESS_TOKEN = 'EAAHvdu9EzD8BAIT9osyxZCFzwZA92j2ZAhoJdr507FAXnwG9fwrej1teYWAASR238GmQfjSdog8ewEIfU0HkNecQekEYQxHjTZAOa1zEaLQjRjRszrsUqIG1nc6VxCQ7VZChalJuVvoIFBBKMlId6KjtbeIpZACrjZBLfSkgencYAZDZD';
-   
-		const btn = document.getElementById("close");
-    btn.addEventListener("click", function(){
-         windowShut();
-      });
 
-     function windowShut(){
-      MessengerExtensions.requestCloseBrowser(function success() {
-        postBotMessage()
-      }, function error(err) {
-        alert(err)
-      });
-    }
-		
-		function postBotMessage(){
+
+        const btn = document.getElementById("close");
+        btn.addEventListener("click", function(){
+             windowShut();
+          });
+
+         function windowShut(){
+          MessengerExtensions.requestCloseBrowser(function success() {
+            postBotMessage()
+          }, function error(err) {
+            alert(err)
+          });
+        }
+
+        function postBotMessage(){
                 var textMessage = {
                   "recipient":{
                     "id":senderID
@@ -64,17 +57,22 @@
                   xhr.setRequestHeader('Content-Type', 'application/json');
                   xhr.send(JSON.stringify(textMessage));                  
       }
-
-    function windowClose(){
-                window.location.assign('https://www.messenger.com/closeWindow/?image_url=https://i1.wp.com/www.watts-innovating.com/wp-content/uploads/2018/04/thankyou.jpg?fit=2160%2C2160&ssl=1&display_text=Thankyou');
-    }
-
-
+    };
+ </script>
+  
+	<h1><%= title %></h1>
+	<button id="close">Click Me</button>
+	
+	
+	<script>
+		
    
-   
+		
+		
+		
 
 
-	</script>
+  </script>
 
   </body>
 
