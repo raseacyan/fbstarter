@@ -24,7 +24,7 @@ firebase.initializeApp({
 });
 
 let db = firebase.firestore();  
-//console.log(db);
+
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
@@ -78,9 +78,10 @@ app.post('/webview',function(req,res){
     //save to db
     db.collection('booking').add({
             name: name,
-            email: email,           
+            email: email,
+
           }).then(success => {                
-             console.log(success);
+             console.log("SUCCESS:"success);
           }).catch(error => {
             console.log(error);
           });
