@@ -45,7 +45,7 @@
   <button id="submit" type="submit" class="btn btn-primary">Submit</button>
   </form>
 
-	<
+
 	
   <script>
       
@@ -54,7 +54,7 @@
 
            let formData = new FormData();
            formData.append("name", document.getElementById('name').value);
-           formData.email("email", document.getElementById('email').value);
+           formData.append("email", document.getElementById('email').value);
            let request = new XMLHttpRequest();
             request.open("POST", "https://fbstarterbot.herokuapp.com/webview/");
             request.send(formData);
