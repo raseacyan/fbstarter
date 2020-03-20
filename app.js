@@ -85,6 +85,11 @@ app.get('/clear',function(req,res){
     removePersistentMenu(res);
 });
 
+//whitelist domains
+app.get('/whitelists',function(req,res){    
+    whitelistDomains(res);
+});
+
 
 // Accepts GET requests at the /webhook endpoint
 app.get('/webhook', (req, res) => {
@@ -432,6 +437,32 @@ const removePersistentMenu = (res) => {
   request({
       url: 'https://graph.facebook.com/v2.6/me/messenger_profile?access_token='+ PAGE_ACCESS_TOKEN,
       method: 'DELETE',
+      headers: {'Content-Type': 'application/json'},
+      form: messageData
+  },
+  function (error, response, body) {
+      if (!error && response.statusCode == 200) {          
+          res.send(body);
+      } else {           
+          res.send(body);
+      }
+  });
+} 
+
+
+/***********************************
+FUNCTION TO ADD WHITELIST DOMAIN
+************************************/
+
+const whitelistDomains = (res) => {
+  var messageData = {
+          "whitelisted_domains": [
+             "https://fbstarterbot.herokuapp.com/" ,                            
+          ]               
+  };  
+  request({
+      url: 'https://graph.facebook.com/v2.6/me/messenger_profile?access_token='+ PAGE_ACCESS_TOKEN,
+      method: 'POST',
       headers: {'Content-Type': 'application/json'},
       form: messageData
   },
