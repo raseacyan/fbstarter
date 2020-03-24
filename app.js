@@ -91,6 +91,16 @@ app.post('/webview',function(req,res){
             console.log(error);
           });*/
 
+    /*
+    form.on('fileBegin', function (name, file){
+        file.path = __dirname + '/uploads/' + file.name;
+    });
+
+    form.on('file', function (name, file){
+        console.log('Uploaded ' + file.name);
+    });
+    */
+
     form.parse(req, (err, fields, files) => {
       if (err) {
         next(err);
@@ -98,6 +108,7 @@ app.post('/webview',function(req,res){
       }
       console.log('fields:', fields);
       console.log('files:', files);
+      thankyouReply(senderID);
     }); 
 
           
