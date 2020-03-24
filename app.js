@@ -73,11 +73,13 @@ app.get('/webview/:sender_id',function(req,res){
 });
 
 app.post('/webview',function(req,res){
+    const form = formidable({ multiples: true, uploadDir: __dirname });
+    /*
     let name = req.body.name;
     let email = req.body.email; 
     let senderID = req.body.senderID;   
     
-    //save to db
+    
     db.collection('booking').add({
             name: name,
             email: email,
@@ -87,7 +89,16 @@ app.post('/webview',function(req,res){
              
           }).catch(error => {
             console.log(error);
-          });   
+          });*/
+
+    form.parse(req, (err, fields, files) => {
+      if (err) {
+        next(err);
+        return;
+      }
+      console.log('fields:', fields);
+      console.log('files:', files);
+    }); 
 
           
 });
