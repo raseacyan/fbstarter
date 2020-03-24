@@ -66,6 +66,8 @@ app.post('/webhook', (req, res) => {
 
 });
 
+app.use('/uploads', express.static('uploads'))
+
 //webview test
 app.get('/webview/:sender_id',function(req,res){
     const sender_id = req.params.sender_id;
