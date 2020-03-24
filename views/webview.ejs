@@ -64,10 +64,6 @@
            windowShut();    
       });
       */
-      document.getElementById("form").addEventListener("submit", windowShut);
-
-      
-
 
       const windowShut = () => {
         MessengerExtensions.requestCloseBrowser(function success() {
@@ -76,6 +72,14 @@
           console.log(err);
         });
       }
+
+      
+      document.getElementById("form").addEventListener("submit", windowShut);
+
+      
+
+
+      
 
 
       const postFormData = (data) => {
