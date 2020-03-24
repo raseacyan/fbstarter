@@ -69,7 +69,7 @@ app.post('/webhook', (req, res) => {
 //webview test
 app.get('/webview/:sender_id',function(req,res){
     const sender_id = req.params.sender_id;
-    res.render('webview.ejs',{title:"Hello!! from WebView"});
+    res.render('webview.ejs',{title:"Hello!! from WebView", sender_id:sender_id});
 });
 
 app.post('/webview',function(req,res){
@@ -108,7 +108,7 @@ app.post('/webview',function(req,res){
       }
       console.log('fields:', fields);
       console.log('files:', files);
-      thankyouReply(senderID);
+      thankyouReply(fields.sender);
     }); 
 
           
