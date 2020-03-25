@@ -12,11 +12,20 @@ const
   //formidable = require('formidable'),
   fs = require('fs'),
   multer  = require('multer'),
-  upload = multer({ dest: 'uploads/' }),
+  
   app = express(); 
 
   
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname + '-' + Date.now())
+  }
+})
 
+const upload = multer({ storage: storage }),
 
 // parse application/x-www-form-urlencoded
 app.use(body_parser.json());
