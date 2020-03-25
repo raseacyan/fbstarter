@@ -97,33 +97,7 @@ app.get('/webview/:sender_id',function(req,res){
 });
 
 app.post('/webview',function(req,res){
-    const form = new formidable.IncomingForm();
-    /*
-    let name = req.body.name;
-    let email = req.body.email; 
-    let senderID = req.body.senderID;   
-    
-    
-    db.collection('booking').add({
-            name: name,
-            email: email,
-
-          }).then(success => {   
-             thankyouReply(senderID);            
-             
-          }).catch(error => {
-            console.log(error);
-          });*/
-
-    /*
-    form.on('fileBegin', function (name, file){
-        file.path = __dirname + '/uploads/' + file.name;
-    });
-
-    form.on('file', function (name, file){
-        console.log('Uploaded ' + file.name);
-    });
-    */
+    const form = new formidable.IncomingForm();    
 
     form.parse(req, (err, fields, files) => {
       if (err) {
@@ -151,7 +125,7 @@ app.post('/webview',function(req,res){
             image: img_url
           }).then(success => {   
              console.log("DATA SAVED")
-             thankyouReply(fields.sender);    
+             thankyouReply(fields.sender, fields.name, img_url);    
           }).catch(error => {
             console.log(error);
       });
@@ -399,8 +373,31 @@ const showButtonReplyNo =(sender_psid) => {
   callSend(sender_psid, response);
 }
 
-const thankyouReply =(sender_psid) => {
-  let response = { "text": "Thank you" };
+const thankyouReply =(sender_psid, name, img_url) => {
+  let response = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Thank you" + name,
+            "image_url":img_url,                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Yes!",
+                  "payload": "yes",
+                },
+                {
+                  "type": "postback",
+                  "title": "No!",
+                  "payload": "no",
+                }
+              ],
+          }]
+        }
+      }
+    }
   callSend(sender_psid, response);
 }
 
