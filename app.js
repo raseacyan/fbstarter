@@ -15,7 +15,7 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname+'/views');
 
 //firebase initialize
-
+/*
 firebase.initializeApp({
   credential: firebase.credential.cert({
     "private_key": process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
@@ -24,8 +24,9 @@ firebase.initializeApp({
   }),
   databaseURL: process.env.FIREBASE_DB_URL,
   storageBucket: process.env.FIREBASE_SB_URL
-});
-/*
+});*/
+
+
 var firebaseConfig = {
     apiKey: "AIzaSyAcx5YRTBD7bhon-5LeUN7_W4gNTYkL11o",
     authDomain: "fir-b7a51.firebaseapp.com",
@@ -36,7 +37,7 @@ var firebaseConfig = {
     appId: "1:635321474702:web:7b45c385d435836957f3df"
   };
 
-  firebase.initializeApp(firebaseConfig);*/
+  firebase.initializeApp(firebaseConfig);
 
 let db = firebase.firestore();  
 
@@ -132,7 +133,7 @@ app.post('/webview',function(req,res){
       console.log('fields:', fields);
 
       console.log('NAME', fields.name);
-      console.log('EMAIL', fields.emai);
+      console.log('EMAIL', fields.email);
 
       db.collection('booking').add({
             name: fields.name,
@@ -141,7 +142,7 @@ app.post('/webview',function(req,res){
           }).then(success => {   
             console.log('NAME', fields.name);
       console.log('EMAIL', fields.emai);
-             thankyouReply(senderID);            
+             thankyouReply(fields.sender);            
              
           }).catch(error => {
             console.log(error);
