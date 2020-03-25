@@ -9,6 +9,7 @@ const
   firebase = require("firebase-admin"),
   ejs = require("ejs"),
   formidable = require('formidable'),
+  fs = require('fs'),
   app = express().use(body_parser.json()); 
 
 app.set('view engine', 'ejs');
@@ -36,7 +37,7 @@ var firebaseConfig = {
     //apiKey: "AIzaSyAcx5YRTBD7bhon-5LeUN7_W4gNTYkL11o",
     //authDomain: "fir-b7a51.firebaseapp.com",
     databaseURL: "https://fir-b7a51.firebaseio.com",    
-    storageBucket: "gs://sample-project-2c26a.appspot.com",
+    //storageBucket: "gs://sample-project-2c26a.appspot.com",
     //messagingSenderId: "635321474702",
     //appId: "1:635321474702:web:7b45c385d435836957f3df"
   };
@@ -44,12 +45,6 @@ var firebaseConfig = {
   firebase.initializeApp(firebaseConfig);
 
 let db = firebase.firestore();  
-
-
-var storageRef = firebase.storage().ref();
-
-
-
 
 
 // Sets server port and logs message on success
@@ -135,9 +130,18 @@ app.post('/webview',function(req,res){
         return;
       }
       console.log('fields:', fields);
+      console.log('FILE:', files.filetoupload.path);
 
       console.log('NAME', fields.name);
       console.log('EMAIL', fields.email);
+      /*
+      var oldpath = files.filetoupload.path;
+      var newpath = 'C:/Users/Your Name/' + files.filetoupload.name;
+      fs.rename(oldpath, newpath, function (err) {
+        if (err) throw err;
+        res.write('File uploaded and moved!');
+        res.end();
+      });*/
 
       db.collection('booking').add({
             name: fields.name,
