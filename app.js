@@ -27,9 +27,12 @@ firebase.initializeApp({
 
 let db = firebase.firestore();  
 
+var storage = firebase.storage();
 
 
-var storageRef = firebase.storage().ref();
+
+
+var storageRef = storage.ref();
 var imagesRef = storageRef.child('images');
 
 
