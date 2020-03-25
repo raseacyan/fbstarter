@@ -13,11 +13,11 @@ const
   fs = require('fs'),
   app = express(); 
 
-// parse application/x-www-form-urlencoded
-app.use(express.urlencoded());
 
-// parse application/json
-app.use(body_parser.json())
+// parse application/x-www-form-urlencoded
+app.use(body_parser.json());
+app.use(body_parser.urlencoded());
+
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname+'/views');
