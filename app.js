@@ -119,44 +119,23 @@ app.get('/webview/:sender_id',function(req,res){
 });
 
 app.post('/webview',upload.single('file'),function(req,res){
-
-   
-
-      console.log("NAME",req.body.name);
-      console.log("EMAIL",req.body.email);
-      console.log("FILE",req.file);  
-
        
+      let name  = req.body.name;
+      let email = req.body.email;
+      let img_url = APP_URL + req.file.path;
+      let sender = req.body.sender;  
       
-      /*
-      const oldpath = files.file.path;
-      const newpath = __dirname + '/uploads/' + files.file.name;
       
-      const img_url = APP_URL + "/uploads/"+ files.file.name;
-
-      fs.copyFile(oldpath, newpath, function (err) {
-        if (err) throw err;
-        fs.unlink(oldpath, (err) => {
-          if (err) throw err;
-          console.log('Temp file deleted');
-        });
-        console.log('File uploaded and moved!');        
-      });*/
-      /*
       db.collection('booking').add({
             name: fields.name,
             email: fields.email,
-            //image: img_url
+            image: img_url
           }).then(success => {   
              console.log("DATA SAVED")
-             thankyouReply(fields.sender, fields.name);    
+             thankyouReply(sender, name);    
           }).catch(error => {
             console.log(error);
-      });*/
-      
-  
-   
-          
+      });        
 });
 
 //Set up Get Started Button. To run one time
