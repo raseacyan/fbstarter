@@ -100,10 +100,7 @@ app.post('/webview',function(req,res){
     const form = new formidable.IncomingForm();    
 
     form.parse(req, (err, fields, files) => {
-      if (err) {
-        next(err);
-        return;
-      }      
+      if (err) throw err;     
       
       const oldpath = files.file.path;
       const newpath = __dirname + '/uploads/' + files.file.name;
