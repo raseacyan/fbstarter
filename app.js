@@ -25,6 +25,8 @@ firebase.initializeApp({
 });
 
 let db = firebase.firestore();  
+let storage = firebase.storage();
+let imagesRef = storageRef.child('images');
 
 
 // Sets server port and logs message on success
