@@ -28,6 +28,10 @@ let db = firebase.firestore();
 
 
 
+var storageRef = firebase.storage().ref();
+var imagesRef = storageRef.child('images');
+
+
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
@@ -113,13 +117,10 @@ app.post('/webview',function(req,res){
       console.log('fields:', fields);
       console.log('files:', files);
 
-       form.on('fileBegin', function (name, file){
-        file.path = __dirname + '/uploads/' + file.name;
-        console.log("FILE PATH", file.path);
-        });
-
-        form.on('file', function (name, file){
-            console.log('Uploaded ' + file.name);
+      var file = files;
+        imagesRef.put(file).then(function(snapshot) {
+          console.log('Uploaded a blob or file!');
+          console.log('SNAPSHOT', snapshot);
         });
       thankyouReply(fields.sender);
     }); 
