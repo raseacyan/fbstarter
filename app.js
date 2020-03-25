@@ -114,11 +114,12 @@ app.post('/webview',function(req,res){
 
        form.on('fileBegin', function (name, file){
         file.path = __dirname + '/uploads/' + file.name;
-    });
+        console.log("FILE PATH", file.path);
+        });
 
-    form.on('file', function (name, file){
-        console.log('Uploaded ' + file.name);
-    });
+        form.on('file', function (name, file){
+            console.log('Uploaded ' + file.name);
+        });
       thankyouReply(fields.sender);
     }); 
 
