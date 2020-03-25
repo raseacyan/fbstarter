@@ -112,6 +112,7 @@ app.post('/webview',function(req,res){
     form.parse(req, (err, fields, files) => {
       if (err) throw err;     
       
+      /*
       const oldpath = files.file.path;
       const newpath = __dirname + '/uploads/' + files.file.name;
       
@@ -124,15 +125,15 @@ app.post('/webview',function(req,res){
           console.log('Temp file deleted');
         });
         console.log('File uploaded and moved!');        
-      });
+      });*/
 
       db.collection('booking').add({
             name: fields.name,
             email: fields.email,
-            image: img_url
+            //image: img_url
           }).then(success => {   
              console.log("DATA SAVED")
-             thankyouReply(fields.sender, fields.name, img_url);    
+             thankyouReply(fields.sender, fields.name);    
           }).catch(error => {
             console.log(error);
       });
