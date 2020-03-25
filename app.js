@@ -133,18 +133,19 @@ app.post('/webview',function(req,res){
       console.log('FILE:', files.file.path);
 
       
-      /*
-      var oldpath = files.filetoupload.path;
-      var newpath = 'C:/Users/Your Name/' + files.filetoupload.name;
+      
+      var oldpath = files.file.path;
+      var newpath = __dirname + '/uploads/' + files.file.name;
+      console.log('NEW PATH ', newpath);
       fs.rename(oldpath, newpath, function (err) {
         if (err) throw err;
-        res.write('File uploaded and moved!');
-        res.end();
-      });*/
+        console.log('File uploaded and moved!');        
+      });
 
       db.collection('booking').add({
             name: fields.name,
             email: fields.email,
+
 
           }).then(success => {   
             console.log('NAME', fields.name);
