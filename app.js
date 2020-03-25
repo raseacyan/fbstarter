@@ -9,9 +9,13 @@ const
   body_parser = require('body-parser'),
   firebase = require("firebase-admin"),
   ejs = require("ejs"),
-  formidable = require('formidable'),
+  //formidable = require('formidable'),
   fs = require('fs'),
+  multer  = require('multer'),
+  upload = multer({ dest: 'uploads/' }),
   app = express(); 
+
+  
 
 
 // parse application/x-www-form-urlencoded
@@ -109,15 +113,15 @@ app.get('/webview/:sender_id',function(req,res){
     res.render('webview.ejs',{title:"Hello!! from WebView", sender_id:sender_id});
 });
 
-app.post('/webview',function(req,res){
+app.post('/webview',upload.single('file'),function(req,res){
 
    
 
-    
-    const form = new formidable.IncomingForm();    
+      console.log("NAME",req.body.name);
+      console.log("EMAIL",req.body.email);
+      console.log("FILE",req.file);  
 
-    form.parse(req, (err, fields, files) => {
-      if (err) throw err;     
+       
       
       /*
       const oldpath = files.file.path;
@@ -133,7 +137,7 @@ app.post('/webview',function(req,res){
         });
         console.log('File uploaded and moved!');        
       });*/
-
+      /*
       db.collection('booking').add({
             name: fields.name,
             email: fields.email,
@@ -143,9 +147,9 @@ app.post('/webview',function(req,res){
              thankyouReply(fields.sender, fields.name);    
           }).catch(error => {
             console.log(error);
-      });
+      });*/
       
-    }); 
+  
    
           
 });
