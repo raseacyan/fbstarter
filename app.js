@@ -98,9 +98,9 @@ app.get('/webview/:sender_id',function(req,res){
 
 app.post('/webview',function(req,res){
 
-    console.log("NAME", res.body.name);
-    console.log("EMAIL", res.body.email);
-    console.log("FORM", res.body.form);
+    console.log("NAME", req.body.name);
+    console.log("EMAIL", req.body.email);
+    console.log("FORM", req.body.form);
 
     /*
     const form = new formidable.IncomingForm();    
