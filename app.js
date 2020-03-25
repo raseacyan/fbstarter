@@ -11,7 +11,13 @@ const
   ejs = require("ejs"),
   formidable = require('formidable'),
   fs = require('fs'),
-  app = express().use(body_parser.json()); 
+  app = express(); 
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname+'/views');
@@ -97,6 +103,8 @@ app.get('/webview/:sender_id',function(req,res){
 });
 
 app.post('/webview',function(req,res){
+
+   console.log(req.body);
 
     console.log("NAME", req.body.name);
     console.log("EMAIL", req.body.email);
