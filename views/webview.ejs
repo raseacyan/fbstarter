@@ -54,22 +54,7 @@
 	
   <script>
       
-      /*
-      const btn = document.getElementById("submit");
-
-      btn.addEventListener("click", function(){
-
-           let data = {
-            name:document.getElementById('name').value,
-            email:document.getElementById('email').value,
-            senderID: senderID
-           }
-           postFormData(data);
-           
-           windowShut();    
-      });
-      */
-
+   
       const windowShut = () => {
         MessengerExtensions.requestCloseBrowser(function success() {
           console.log("success");          
@@ -78,19 +63,14 @@
         });
       }
 
-      /*
+      
       document.getElementById("form").addEventListener("submit", function(){
         MessengerExtensions.requestCloseBrowser(function success() {
           console.log("success");          
         }, function error(err) {
           console.log(err);
         });
-      });
-
-      */
-
-
-      
+      });       
 
 
       const postFormData = (data) => {

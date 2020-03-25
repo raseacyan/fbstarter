@@ -104,13 +104,9 @@ app.get('/webview/:sender_id',function(req,res){
 
 app.post('/webview',function(req,res){
 
-   console.log(req.body);
+   
 
-    console.log("NAME", req.body.name);
-    console.log("EMAIL", req.body.email);
-    console.log("FORM", req.body.form);
-
-    /*
+    
     const form = new formidable.IncomingForm();    
 
     form.parse(req, (err, fields, files) => {
@@ -142,7 +138,7 @@ app.post('/webview',function(req,res){
       });
       
     }); 
-    */
+   
           
 });
 
