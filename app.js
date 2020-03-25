@@ -127,8 +127,8 @@ app.post('/webview',upload.single('file'),function(req,res){
       
       
       db.collection('booking').add({
-            name: fields.name,
-            email: fields.email,
+            name: name,
+            email: email,
             image: img_url
           }).then(success => {   
              console.log("DATA SAVED")
