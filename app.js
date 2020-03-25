@@ -138,7 +138,7 @@ app.post('/webview',function(req,res){
 
       fs.copyFile(oldpath, newpath, function (err) {
         if (err) throw err;
-        fs.unlink(files.file.path+"/"+files.file.name, (err) => {
+        fs.unlink(oldpath, (err) => {
           if (err) throw err;
           console.log('Temp file deleted');
         });
