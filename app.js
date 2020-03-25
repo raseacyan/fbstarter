@@ -131,11 +131,16 @@ app.post('/webview',function(req,res){
       }
       console.log('fields:', fields);
 
+      console.log('NAME', fields.name);
+      console.log('EMAIL', fields.emai);
+
       db.collection('booking').add({
             name: fields.name,
             email: fields.email,
 
           }).then(success => {   
+            console.log('NAME', fields.name);
+      console.log('EMAIL', fields.emai);
              thankyouReply(senderID);            
              
           }).catch(error => {
