@@ -108,7 +108,7 @@ app.post('/webview',upload.single('file'),function(req,res){
       let img_url = APP_URL + "/" + req.file.path;
       let sender = req.body.sender;    
 
-      bucket.upload(img_url, function(err, file, apiResponse) {
+      bucket.upload(req.file, function(err, file, apiResponse) {
           console.log("UPLOADED TO BUCKET");
       }); 
 
