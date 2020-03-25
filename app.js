@@ -30,12 +30,12 @@ firebase.initializeApp({
 var firebaseConfig = {
      credential: firebase.credential.cert({
     "private_key": process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
-    "client_email": process.env.FIREBASE_CLIENT_EMAIL,      
+    "client_email": process.env.FIREBASE_CLIENT_EMAIL,
+    "project_id": process.env.FIREBASE_PROJECT_ID,    
     }),
     apiKey: "AIzaSyAcx5YRTBD7bhon-5LeUN7_W4gNTYkL11o",
     authDomain: "fir-b7a51.firebaseapp.com",
-    databaseURL: "https://fir-b7a51.firebaseio.com",
-    projectId: "fir-b7a51",
+    databaseURL: "https://fir-b7a51.firebaseio.com",    
     storageBucket: "fir-b7a51.appspot.com",
     messagingSenderId: "635321474702",
     appId: "1:635321474702:web:7b45c385d435836957f3df"
