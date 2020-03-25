@@ -29,11 +29,7 @@ let db = firebase.firestore();
 
 var storage = firebase.storage();
 
-
-
-
-var storageRef = storage.ref();
-var imagesRef = storageRef.child('images');
+console.log(storage);
 
 
 // Sets server port and logs message on success
