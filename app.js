@@ -49,14 +49,16 @@ var firebaseConfig = {
     //appId: "1:635321474702:web:7b45c385d435836957f3df"
   };
 
-  var storage = firebase.storage();
 
-// Create a storage reference from our storage service
-var storageRef = storage.ref();
 
   firebase.initializeApp(firebaseConfig);
 
-let db = firebase.firestore();  
+let db = firebase.firestore(); 
+
+  var storage = firebase.storage();
+
+// Create a storage reference from our storage service
+var storageRef = storage.ref(); 
 
 
 // Sets server port and logs message on success
