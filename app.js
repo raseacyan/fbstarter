@@ -42,7 +42,7 @@ let db = firebase.firestore();
 
 var storage = firebase.storage();
 console.log("STORAGE", storage);
-var storageRef = storage.ref();
+
 
 
 
