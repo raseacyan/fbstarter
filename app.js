@@ -59,10 +59,6 @@ var firebaseConfig = {
 
 let db = firebase.firestore(); 
 
-  var storage = firebase.storage();
-
-// Create a storage reference from our storage service
-var storageRef = storage.ref(); 
 
 
 // Sets server port and logs message on success
