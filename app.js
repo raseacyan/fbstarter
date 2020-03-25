@@ -130,13 +130,20 @@ app.post('/webview',function(req,res){
         return;
       }
       console.log('fields:', fields);
+
+      db.collection('booking').add({
+            name: fields.name,
+            email: fields.email,
+
+          }).then(success => {   
+             thankyouReply(senderID);            
+             
+          }).catch(error => {
+            console.log(error);
+      });
       console.log('files:', files);
 
-      var file = files;
-        imagesRef.put(file).then(function(snapshot) {
-          console.log('Uploaded a blob or file!');
-          console.log('SNAPSHOT', snapshot);
-        });
+      
       thankyouReply(fields.sender);
     }); 
 
