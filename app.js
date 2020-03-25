@@ -130,10 +130,9 @@ app.post('/webview',function(req,res){
         return;
       }
       console.log('fields:', fields);
-      console.log('FILE:', files.filetoupload.path);
+      console.log('FILE:', files.file.path);
 
-      console.log('NAME', fields.name);
-      console.log('EMAIL', fields.email);
+      
       /*
       var oldpath = files.filetoupload.path;
       var newpath = 'C:/Users/Your Name/' + files.filetoupload.name;
