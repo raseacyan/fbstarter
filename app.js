@@ -36,7 +36,7 @@ var firebaseConfig = {
     //apiKey: "AIzaSyAcx5YRTBD7bhon-5LeUN7_W4gNTYkL11o",
     //authDomain: "fir-b7a51.firebaseapp.com",
     databaseURL: "https://fir-b7a51.firebaseio.com",    
-    //storageBucket: "fir-b7a51.appspot.com",
+    storageBucket: "gs://sample-project-2c26a.appspot.com",
     //messagingSenderId: "635321474702",
     //appId: "1:635321474702:web:7b45c385d435836957f3df"
   };
@@ -45,8 +45,9 @@ var firebaseConfig = {
 
 let db = firebase.firestore();  
 
-//var storage = firebase.storage();
+var storage = firebase.storage();
 //console.log("STORAGE", storage);
+var storageRef = storage.ref();
 
 
 
