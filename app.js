@@ -1,5 +1,6 @@
 'use strict';
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
+const APP_URL = "https://fbstarterbot.herokuapp.com";
 
 // Imports dependencies and set up http server
 const 
@@ -128,37 +129,33 @@ app.post('/webview',function(req,res){
       if (err) {
         next(err);
         return;
-      }
-      console.log('fields:', fields);
-      console.log('FILE:', files.file.path);
+      }      
+      
+      const oldpath = files.file.path;
+      const newpath = __dirname + '/uploads/' + files.file.name;
+      
+      const img_url = APP_URL + "/uploads/"+ files.file.name;
 
-      
-      
-      var oldpath = files.file.path;
-      var newpath = __dirname + '/uploads/' + files.file.name;
-      console.log('NEW PATH ', newpath);
       fs.copyFile(oldpath, newpath, function (err) {
         if (err) throw err;
+        fs.unlink(files.file.path+"/"+files.file.name, (err) => {
+          if (err) throw err;
+          console.log('Temp file deleted');
+        });
         console.log('File uploaded and moved!');        
       });
 
       db.collection('booking').add({
             name: fields.name,
             email: fields.email,
-
-
+            image: img_url
           }).then(success => {   
-            console.log('NAME', fields.name);
-      console.log('EMAIL', fields.email);
-             thankyouReply(fields.sender);            
-             
+             console.log("DATA SAVED")
+             thankyouReply(fields.sender);    
           }).catch(error => {
             console.log(error);
       });
-      console.log('files:', files);
-
       
-      thankyouReply(fields.sender);
     }); 
 
           
