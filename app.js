@@ -15,7 +15,7 @@ const
 
 
 // parse application/x-www-form-urlencoded
-app.use(body_parser.json());
+//app.use(body_parser.json());
 app.use(body_parser.urlencoded());
 
 
