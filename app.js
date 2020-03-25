@@ -76,7 +76,7 @@ app.get('/webview/:sender_id',function(req,res){
 });
 
 app.post('/webview',function(req,res){
-    const form = formidable({ multiples: true, uploadDir: __dirname });
+    const form = new formidable.IncomingForm();
     /*
     let name = req.body.name;
     let email = req.body.email; 
@@ -111,6 +111,14 @@ app.post('/webview',function(req,res){
       }
       console.log('fields:', fields);
       console.log('files:', files);
+
+       form.on('fileBegin', function (name, file){
+        file.path = __dirname + '/uploads/' + file.name;
+    });
+
+    form.on('file', function (name, file){
+        console.log('Uploaded ' + file.name);
+    });
       thankyouReply(fields.sender);
     }); 
 
