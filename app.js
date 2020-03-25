@@ -15,7 +15,7 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname+'/views');
 
 //firebase initialize
-
+/*
 firebase.initializeApp({
   credential: firebase.credential.cert({
     "private_key": process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
@@ -24,10 +24,14 @@ firebase.initializeApp({
   }),
   databaseURL: process.env.FIREBASE_DB_URL,
   storageBucket: process.env.FIREBASE_SB_URL
-});
+});*/
 
-/*
+
 var firebaseConfig = {
+     credential: firebase.credential.cert({
+    "private_key": process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+    "client_email": process.env.FIREBASE_CLIENT_EMAIL,      
+    }),
     apiKey: "AIzaSyAcx5YRTBD7bhon-5LeUN7_W4gNTYkL11o",
     authDomain: "fir-b7a51.firebaseapp.com",
     databaseURL: "https://fir-b7a51.firebaseio.com",
@@ -37,7 +41,7 @@ var firebaseConfig = {
     appId: "1:635321474702:web:7b45c385d435836957f3df"
   };
 
-  firebase.initializeApp(firebaseConfig);*/
+  firebase.initializeApp(firebaseConfig);
 
 let db = firebase.firestore();  
 
@@ -141,7 +145,7 @@ app.post('/webview',function(req,res){
 
           }).then(success => {   
             console.log('NAME', fields.name);
-      console.log('EMAIL', fields.emai);
+      console.log('EMAIL', fields.email);
              thankyouReply(fields.sender);            
              
           }).catch(error => {
