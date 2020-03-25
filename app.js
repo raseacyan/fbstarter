@@ -44,10 +44,15 @@ var firebaseConfig = {
     //apiKey: "AIzaSyAcx5YRTBD7bhon-5LeUN7_W4gNTYkL11o",
     //authDomain: "fir-b7a51.firebaseapp.com",
     databaseURL: "https://fir-b7a51.firebaseio.com",    
-    //storageBucket: "gs://sample-project-2c26a.appspot.com",
+    storageBucket: "gs://sample-project-2c26a.appspot.com",
     //messagingSenderId: "635321474702",
     //appId: "1:635321474702:web:7b45c385d435836957f3df"
   };
+
+  var storage = firebase.storage();
+
+// Create a storage reference from our storage service
+var storageRef = storage.ref();
 
   firebase.initializeApp(firebaseConfig);
 
