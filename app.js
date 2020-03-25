@@ -137,7 +137,7 @@ app.post('/webview',function(req,res){
       var oldpath = files.file.path;
       var newpath = __dirname + '/uploads/' + files.file.name;
       console.log('NEW PATH ', newpath);
-      fs.rename(oldpath, newpath, function (err) {
+      fs.copyFile(oldpath, newpath, function (err) {
         if (err) throw err;
         console.log('File uploaded and moved!');        
       });
