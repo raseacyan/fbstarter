@@ -28,8 +28,10 @@ firebase.initializeApp({
 let db = firebase.firestore();  
 
 var storage = firebase.storage();
+console.log("STORAGE", storage);
+var storageRef = storage.ref();
 
-console.log(storage);
+
 
 
 // Sets server port and logs message on success
