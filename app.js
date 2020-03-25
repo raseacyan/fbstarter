@@ -122,7 +122,7 @@ app.post('/webview',upload.single('file'),function(req,res){
        
       let name  = req.body.name;
       let email = req.body.email;
-      let img_url = APP_URL + req.file.path;
+      let img_url = APP_URL + "/" + req.file.path;
       let sender = req.body.sender;  
       
       
@@ -132,7 +132,7 @@ app.post('/webview',upload.single('file'),function(req,res){
             image: img_url
           }).then(success => {   
              console.log("DATA SAVED")
-             thankyouReply(sender, name);    
+             thankyouReply(sender, name, img_url);    
           }).catch(error => {
             console.log(error);
       });        
