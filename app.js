@@ -15,6 +15,7 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname+'/views');
 
 //firebase initialize
+/*
 firebase.initializeApp({
   credential: firebase.credential.cert({
     "private_key": process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
@@ -23,7 +24,19 @@ firebase.initializeApp({
   }),
   databaseURL: process.env.FIREBASE_DB_URL,
   storageBucket: process.env.FIREBASE_SB_URL
-});
+});*/
+
+var firebaseConfig = {
+    apiKey: "AIzaSyAcx5YRTBD7bhon-5LeUN7_W4gNTYkL11o",
+    authDomain: "fir-b7a51.firebaseapp.com",
+    databaseURL: "https://fir-b7a51.firebaseio.com",
+    projectId: "fir-b7a51",
+    storageBucket: "fir-b7a51.appspot.com",
+    messagingSenderId: "635321474702",
+    appId: "1:635321474702:web:7b45c385d435836957f3df"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
 
 let db = firebase.firestore();  
 
