@@ -14,10 +14,10 @@ const
   app = express(); 
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(body_parser.urlencoded({ extended: false }))
 
 // parse application/json
-app.use(bodyParser.json())
+app.use(body_parser.json())
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname+'/views');
