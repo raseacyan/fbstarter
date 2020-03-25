@@ -380,7 +380,7 @@ const thankyouReply =(sender_psid, name, img_url) => {
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "Thank you" + name,
+            "title": "Thank you! " + name,
             "image_url":img_url,                       
             "buttons": [
                 {
