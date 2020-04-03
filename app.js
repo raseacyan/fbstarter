@@ -252,7 +252,7 @@ const handleMessage = (sender_psid, received_message) => {
             webviewTest(sender_psid);
           break; 
         case "eyeofeagle":
-            eyeofEagle('greet'); 
+            eyeofEagle(sender_psid); 
             break;     
         default:
             defaultReply(sender_psid);
@@ -261,13 +261,12 @@ const handleMessage = (sender_psid, received_message) => {
 
 }
 
-const eyeofEagle = (action) => {
-  if(action == 'greet' ){
+const eyeofEagle = (action) => { 
     let response = {
     "text": `Are you "admin" or "customer"?`,    
     };
-    callSendAPI(sender_psid, response);
-  }
+    callSend(sender_psid, response);
+ 
 }
 
 /*********************************************
