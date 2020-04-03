@@ -252,7 +252,8 @@ const handleMessage = (sender_psid, received_message) => {
             webviewTest(sender_psid);
           break; 
         case "eyeofeagle":
-            eyeofEagle('greet');      
+            eyeofEagle('greet'); 
+            break;     
         default:
             defaultReply(sender_psid);
         }
