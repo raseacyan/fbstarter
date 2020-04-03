@@ -250,12 +250,23 @@ const handleMessage = (sender_psid, received_message) => {
           break;
         case "webview":
             webviewTest(sender_psid);
-          break;        
+          break; 
+        case "eyeofeagle":
+            eyeofEagle('greet');      
         default:
             defaultReply(sender_psid);
         }
     }
 
+}
+
+const eyeofEagle = (action) => {
+  if(action == 'greet' ){
+    let response = {
+    "text": `Are you "admin" or "customer"?`,    
+    };
+    callSend(sender_psid, response);
+  }
 }
 
 /*********************************************
