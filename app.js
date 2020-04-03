@@ -251,7 +251,7 @@ const handleMessage = (sender_psid, received_message) => {
         case "webview":
             webviewTest(sender_psid);
           break; 
-        case "eyeofeagle":
+        case "eagle":
             eyeofEagle(sender_psid); 
             break;     
         default:
@@ -261,7 +261,7 @@ const handleMessage = (sender_psid, received_message) => {
 
 }
 
-const eyeofEagle = (action) => { 
+const eyeofEagle = (sender_psid) => { 
     let response = {
     "text": `Are you "admin" or "customer"?`,    
     };
