@@ -266,7 +266,7 @@ const eyeofEagle = (action) => {
     let response = {
     "text": `Are you "admin" or "customer"?`,    
     };
-    callSend(sender_psid, response);
+    callSendAPI(sender_psid, response);
   }
 }
 
