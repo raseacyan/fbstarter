@@ -346,7 +346,7 @@ const showTourPackages =(sender_psid) => {
       obj.title = doc.data().title;                
       obj.details = doc.data().description; 
       
-      obj.image_url= doc.data().doc.data().image;
+      obj.image_url= doc.data().image;
       obj.buttons = [{"type":"postback", "title":"BOOK NOW", "payload":"book:"+doc.id}];   
 
     arr.push(obj);
