@@ -308,7 +308,7 @@ START Eye of Eagle
 
 const eyeofEagle = (sender_psid) => { 
     let response = {
-    "text": `Are you "eagle admin" or "customer"?`,    
+    "text": `Are you "admin" or "customer"?`,    
     };
     callSend(sender_psid, response); 
 }
@@ -341,7 +341,7 @@ function adminCreatePackage(sender_psid){
             "buttons": [              
               {
                 "type": "web_url",
-                "title": "webview",
+                "title": "create",
                 "url":"https://fbstarterbot.herokuapp.com/addpackage/"+sender_psid,
                  "webview_height_ratio": "full",
                 "messenger_extensions": true,          
