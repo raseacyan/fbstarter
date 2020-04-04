@@ -364,7 +364,22 @@ const showTourPackages =(sender_psid) => {
                 "payload": {
                   "template_type": "generic",
                   "image_aspect_ratio": "square",
-                  "elements": elementItems
+                  "elements": [{
+            "title": "Are you OK?",
+            "image_url":"https://www.mindrops.com/images/nodejs-image.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Yes!",
+                  "payload": "yes",
+                },
+                {
+                  "type": "postback",
+                  "title": "No!",
+                  "payload": "no",
+                }
+              ],
+          }]
                 }
               }
             }
