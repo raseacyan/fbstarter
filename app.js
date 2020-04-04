@@ -353,13 +353,11 @@ const showTourPackages =(sender_psid) => {
       obj._id  = doc.id ;        
       obj.title = doc.data().title;      
       obj.image_url = doc.data().image;
-      obj.buttons = [{"type":"web_url", "title":"View Website", "url":"https://google.com/"}]; 
+      obj.buttons = [{"type":"postback", "title":"View Website", "payload":"delete:"}]; 
       
       elementItems.push(obj);
      
-    });
-
-      console.log("ELEMENT ITEMS 2", elementItems);   
+    });    
 
 
       let response = {
