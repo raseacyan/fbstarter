@@ -293,7 +293,10 @@ const handleMessage = (sender_psid, received_message) => {
             break;
         case "admin":
             adminCreatePackage(sender_psid); 
-            break;  
+            break; 
+        case "customer":
+            selectMode(sender_psid); 
+            break; 
         case "tour packages":
           showTourPackages(sender_psid); 
           break;    
@@ -333,7 +336,7 @@ const selectMode = (sender_psid) => {
 
 
 const showTourPackages =(sender_psid) => {
-  db.collection('packages').get()
+  db.collection('package').get()
   .then((snapshot) => {
     snapshot.forEach((doc) => {
       console.log(doc.id, '=>', doc.data());
