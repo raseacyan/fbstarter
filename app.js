@@ -353,7 +353,7 @@ const showTourPackages =(sender_psid) => {
       obj._id  = doc.id ;        
       obj.title = doc.data().title;      
       obj.image_url = doc.data().image;
-      obj.buttons = [{"type":"web_url", "title":"BOOK NOW", "url":"https://fbstarterbot.herokuapp.com/booktour/"+obj.title+"/"+ sender_psid}]; 
+      obj.buttons = [{"type":"web_url", "title":"BOOK NOW", "url":"https://fbstarterbot.herokuapp.com/booktour/"}]; 
       console.log("https://fbstarterbot.herokuapp.com/booktour/"+obj.title+"/"+ sender_psid);
       elementItems.push(obj);
      
