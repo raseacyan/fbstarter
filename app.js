@@ -336,42 +336,40 @@ const selectMode = (sender_psid) => {
 
 
 const showTourPackages =(sender_psid) => {
+  let elementItems = [];
   db.collection('package').get()
   .then((snapshot) => {
     snapshot.forEach((doc) => {
-      console.log(doc.data().title);
+      var obj = {};
+      obj._id  = data.id ;  
+      obj.title = doc.data().title;                
+      obj.details = doc.data().description; 
+      
+      obj.image_url= doc.data().doc.data().image;
+      obj.buttons = [{"type":"postback", "title":"BOOK NOW", "payload":"book:"+doc.id}];
+    
+    
+
+    arr.push(obj);
+
+
     });
   })
   .catch((err) => {
     console.log('Error getting documents', err);
   });
 
-  /*
+  
   let response = {
       "attachment": {
         "type": "template",
         "payload": {
           "template_type": "generic",
-          "elements": [{
-            "title": "Are you OK?",
-            "image_url":"https://www.mindrops.com/images/nodejs-image.png",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "Yes!",
-                  "payload": "yes",
-                },
-                {
-                  "type": "postback",
-                  "title": "No!",
-                  "payload": "no",
-                }
-              ],
-          }]
+          "elements": elementItems;
         }
       }
     }  
-  callSend(sender_psid, response);*/
+  callSend(sender_psid, response);
 }
 
 function adminCreatePackage(sender_psid){
