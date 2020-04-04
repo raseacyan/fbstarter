@@ -135,7 +135,7 @@ app.get('/booktour/:tour_package/:sender_id',function(req,res){
 
 app.post('/booktour',function(req,res){
       console.log('BOOK TOUR', req.body);
-      let name  = req.body.image;
+      let name  = req.body.name;
       let mobile = req.body.mobile;
       let tour_package = req.body.tour_package;
       let sender = req.body.sender;   
