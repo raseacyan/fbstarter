@@ -346,7 +346,7 @@ const showTourPackages =(sender_psid) => {
       var obj = {};
       obj._id  = doc.id ;  
       obj.title = doc.data().title;                
-      obj.details = doc.data().description; 
+      obj.subtitle = doc.data().description; 
       
       obj.image_url= doc.data().image;
       obj.buttons = [{"type":"postback", "title":"BOOK NOW", "payload":"book:"+doc.id}];   
@@ -364,22 +364,47 @@ const showTourPackages =(sender_psid) => {
                 "payload": {
                   "template_type": "generic",
                   "image_aspect_ratio": "square",
-                  "elements": [{
-            "title": "Are you OK?",
-            "image_url":"https://www.mindrops.com/images/nodejs-image.png",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "Yes!",
-                  "payload": "yes",
-                },
-                {
-                  "type": "postback",
-                  "title": "No!",
-                  "payload": "no",
-                }
-              ],
-          }]
+                  "elements": [
+                    {
+                    "title": "Are you OK?",
+                    "image_url":"https://www.mindrops.com/images/nodejs-image.png",    
+                    "subtitle":"We have the right hat for everyone.",  
+                    "details":"details.",                   
+                    "buttons": [
+                        {
+                          "type": "postback",
+                          "title": "Yes!",
+                          "payload": "yes",
+                        },
+                        {
+                          "type": "postback",
+                          "title": "No!",
+                          "payload": "no",
+                        }
+                      ],
+                  },
+                  {
+                    "title": "Are you OK?",
+                    "image_url":"https://www.mindrops.com/images/nodejs-image.png", 
+                    "subtitle":"We have the right hat for everyone.",
+                    "details":"details.",                      
+                    "buttons": [
+                        {
+                          "type": "postback",
+                          "title": "Yes!",
+                          "payload": "yes",
+                        },
+                        {
+                          "type": "postback",
+                          "title": "No!",
+                          "payload": "no",
+                        }
+                      ],
+                  }
+
+
+
+                  ]
                 }
               }
             }
