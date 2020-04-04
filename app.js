@@ -345,8 +345,8 @@ const showTourPackages =(sender_psid) => {
     snapshot.forEach((doc) => {
       var obj = {};
       obj._id  = doc.id ;  
-      obj.title = doc.data().title;                
-      obj.subtitle = doc.data().description; 
+      obj.title = doc.data().title;               
+      
       
       obj.image_url= doc.data().image;
       obj.buttons = [{"type":"postback", "title":"BOOK NOW", "payload":"book:"+doc.id}];   
