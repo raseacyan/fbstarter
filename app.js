@@ -336,7 +336,7 @@ const selectMode = (sender_psid) => {
 
 
 const showTourPackages =(sender_psid) => {
-  let elementItems = [];
+  var elementItems = [];
 
   db.collection('package').get()
   .then((snapshot) => {
@@ -350,7 +350,15 @@ const showTourPackages =(sender_psid) => {
       obj.buttons = [{"type":"postback", "title":"BOOK NOW", "payload":"book:"+doc.id}];   
 
       elementItems.push(obj);
-      console.log("ELEMENT ITEMS", elementItems);
+
+    });
+  })
+  .catch((err) => {
+    console.log('Error getting documents', err);
+  });
+
+
+  console.log("ELEMENT ITEMS", elementItems);
       let response = {
         "attachment": {
         "type": "template",
@@ -361,11 +369,6 @@ const showTourPackages =(sender_psid) => {
         }
       }  
       callSend(sender_psid, response);
-    });
-  })
-  .catch((err) => {
-    console.log('Error getting documents', err);
-  });
 
   
   
