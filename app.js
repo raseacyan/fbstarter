@@ -126,6 +126,13 @@ app.post('/addpackage',function(req,res){
 });
 
 
+app.get('/booktour/:tour_package/:sender_id',function(req,res){
+    const tour_package = req.params.tour_package;
+    const sender_id = req.params.sender_id;
+    res.render('addpackage.ejs',{title:"Book Tour Package", tour_package:tour_package, sender_id:sender_id});
+});
+
+
 /*********************************************
 END Eye of Eagle
 **********************************************/
@@ -344,12 +351,12 @@ const showTourPackages =(sender_psid) => {
 
     snapshot.forEach((doc) => {
       var obj = {};
-      obj._id  = doc.id ;        
+      //obj._id  = doc.id ;        
       obj.title = doc.data().title;               
       
        
       obj.image_url = doc.data().image;
-      obj.buttons = [{"type":"postback", "title":"BOOK NOW", "payload":"book:"}];   
+      obj.buttons = [{"type":"web_url", "title":"BOOK NOW", "https://fbstarterbot.herokuapp.com/booktour/"+obj.title+"/"+sender_psid}];   
 
       elementItems.push(obj);
      
