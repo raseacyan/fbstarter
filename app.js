@@ -349,7 +349,7 @@ const showTourPackages =(sender_psid) => {
       obj.image_url= doc.data().image;
       obj.buttons = [{"type":"postback", "title":"BOOK NOW", "payload":"book:"+doc.id}];   
 
-    arr.push(obj);
+      elementItems.push(obj);
     });
   })
   .catch((err) => {
