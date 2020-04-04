@@ -348,7 +348,7 @@ const showTourPackages =(sender_psid) => {
       obj.title = doc.data().title;               
       
        
-      obj.image_url = doc.data().image;
+      obj.image_url = "https://www.mindrops.com/images/nodejs-image.png";
       obj.buttons = [{"type":"postback", "title":"BOOK NOW", "payload":"book:"}];   
 
       elementItems.push(obj);
@@ -357,7 +357,7 @@ const showTourPackages =(sender_psid) => {
 
       console.log("ELEMENT ITEMS 2", elementItems);
    
-
+      /*
      let response = {
               "attachment": {
                 "type": "template",
@@ -390,6 +390,19 @@ const showTourPackages =(sender_psid) => {
 
 
           ]
+                }
+              }
+            }
+
+            */
+
+      let response = {
+              "attachment": {
+                "type": "template",
+                "payload": {
+                  "template_type": "generic",
+                  "image_aspect_ratio": "square",
+                  "elements": elementItems
                 }
               }
             }
