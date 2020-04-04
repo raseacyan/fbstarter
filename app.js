@@ -337,6 +337,7 @@ const selectMode = (sender_psid) => {
 
 const showTourPackages =(sender_psid) => {
   let elementItems = [];
+
   db.collection('package').get()
   .then((snapshot) => {
     snapshot.forEach((doc) => {
@@ -346,13 +347,9 @@ const showTourPackages =(sender_psid) => {
       obj.details = doc.data().description; 
       
       obj.image_url= doc.data().doc.data().image;
-      obj.buttons = [{"type":"postback", "title":"BOOK NOW", "payload":"book:"+doc.id}];
-    
-    
+      obj.buttons = [{"type":"postback", "title":"BOOK NOW", "payload":"book:"+doc.id}];   
 
     arr.push(obj);
-
-
     });
   })
   .catch((err) => {
@@ -365,7 +362,7 @@ const showTourPackages =(sender_psid) => {
         "type": "template",
         "payload": {
           "template_type": "generic",
-          "elements": elementItems;
+          "elements": elementItems
         }
       }
     }  
