@@ -108,7 +108,7 @@ app.get('/addpackage/:sender_id',function(req,res){
 
 
 app.post('/addpackage',function(req,res){
-       
+      console.log("REQ BODY", req.body);
       let image  = req.body.image;
       let title = req.body.title;
       let description = req.body.description;
