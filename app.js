@@ -357,44 +357,7 @@ const showTourPackages =(sender_psid) => {
 
       console.log("ELEMENT ITEMS 2", elementItems);
    
-      /*
-     let response = {
-              "attachment": {
-                "type": "template",
-                "payload": {
-                  "template_type": "generic",
-                  "image_aspect_ratio": "square",
-                  "elements": [
-                  {
-            "title": "Are you OK?",
-            "image_url":"https://www.mindrops.com/images/nodejs-image.png",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "Yes!",
-                  "payload": "yes",
-                }
-              ],
-          },
-          {
-            "title": "Are you OK?",
-            "image_url":"https://www.mindrops.com/images/nodejs-image.png",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "Yes!",
-                  "payload": "yes",
-                }
-              ],
-          }
-
-
-          ]
-                }
-              }
-            }
-
-            */
+     
 
       let response = {
               "attachment": {
@@ -402,32 +365,7 @@ const showTourPackages =(sender_psid) => {
                 "payload": {
                   "template_type": "generic",
                   "image_aspect_ratio": "square",
-                  "elements": [
-                  {
-            "title": "Are you OK?",
-            "image_url":"https://www.mindrops.com/images/nodejs-image.png",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "Yes!",
-                  "payload": "yes",
-                }
-              ],
-          },
-          {
-            "title": "Are you OK?",
-            "image_url":"https://www.mindrops.com/images/nodejs-image.png",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "Yes!",
-                  "payload": "yes",
-                }
-              ],
-          }
-
-
-          ]
+                  "elements": elementItems
                 }
               }
             }
