@@ -356,15 +356,18 @@ const showTourPackages =(sender_psid) => {
     });
 
       console.log("ELEMENT ITEMS 2", elementItems);
-    let response = {
-        "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": elementItems
-          }
-        }
-      }  
+   
+
+     let response = {
+              "attachment": {
+                "type": "template",
+                "payload": {
+                  "template_type": "generic",
+                  "image_aspect_ratio": "square",
+                  "elements": elementItems
+                }
+              }
+            }
 
       console.log("RESPONSE", response);
       console.log("SENDER",sender_psid,);
