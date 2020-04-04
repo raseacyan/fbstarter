@@ -346,7 +346,7 @@ const showTourPackages =(sender_psid) => {
       var obj = {};
       obj._id  = doc.id ;        
       obj.title = doc.data().title;      
-      obj.image_url = doc.data().image;
+      obj.image_url = "https://294208-1023939-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/elementor/thumbs/Kutho1-oj43jyxelh5hkex2a7htxa5choyiv1ofmow8m5ykjs.jpeg";
       obj.buttons = [{"type":"postback", "title":"BOOK NOW", "payload":"book:"}]; 
       elementItems.push(obj);
      
