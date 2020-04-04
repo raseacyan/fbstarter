@@ -95,7 +95,44 @@ app.post('/webhook', (req, res) => {
 });
 
 
-app.use('/uploads', express.static('uploads'))
+app.use('/uploads', express.static('uploads'));
+
+/*********************************************
+START Eye of Eagle
+**********************************************/
+
+app.get('/addpackage/:sender_id',function(req,res){
+    const sender_id = req.params.sender_id;
+    res.render('addpackage.ejs',{title:"Hello!! from WebView", sender_id:sender_id});
+});
+
+
+app.post('/addpackage',function(req,res){
+       
+      let image  = req.body.image;
+      let title = req.body.title;
+      let description = req.body.description;
+      let sender = req.body.sender;      
+     
+      
+      db.collection('package').add({
+            image: image,
+            title: title,
+            description: description
+          }).then(success => {             
+             ThankYouEagle(sender);    
+          }).catch(error => {
+            console.log(error);
+      });        
+});
+
+
+/*********************************************
+END Eye of Eagle
+**********************************************/
+
+
+
 
 //webview test
 app.get('/webview/:sender_id',function(req,res){
@@ -238,6 +275,7 @@ const handleMessage = (sender_psid, received_message) => {
     callSend(sender_psid, response);
   } else {
       let user_message = received_message.text.toLowerCase();
+      console.log('USER MESSAGE', user_message);
       switch(user_message) {        
         case "text":
             textReply(sender_psid);
@@ -253,6 +291,9 @@ const handleMessage = (sender_psid, received_message) => {
           break; 
         case "eagle":
             eyeofEagle(sender_psid); 
+            break;
+        case "admin":
+            adminCreatePackage(sender_psid); 
             break;     
         default:
             defaultReply(sender_psid);
@@ -261,13 +302,73 @@ const handleMessage = (sender_psid, received_message) => {
 
 }
 
+/*********************************************
+START Eye of Eagle
+**********************************************/
+
 const eyeofEagle = (sender_psid) => { 
     let response = {
-    "text": `Are you "admin" or "customer"?`,    
+    "text": `Are you "eagle admin" or "customer"?`,    
     };
-    callSend(sender_psid, response);
- 
+    callSend(sender_psid, response); 
 }
+
+
+
+const selectMode = (sender_psid) => { 
+    let response1 = {"text": "Do you want to see our tour packages?, (type 'tour packages')"};
+    let response2 = {"text": "Do you want to create your own custom trip? (type 'custom trip')"};
+    let response3 = {"text": "Do you want to make , type 'button'"};   
+    let response4 = {"text": "To test webview, type 'webview'"};
+      callSend(sender_psid, response1).then(()=>{
+        return callSend(sender_psid, response2).then(()=>{
+          return callSend(sender_psid, response3).then(()=>{
+            return callSend(sender_psid, response4);
+          });
+        });
+    });     
+}
+
+function adminCreatePackage(sender_psid){
+  let response;
+  response = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Create a tour package",                       
+            "buttons": [              
+              {
+                "type": "web_url",
+                "title": "webview",
+                "url":"https://fbstarterbot.herokuapp.com/addpackage/"+sender_psid,
+                 "webview_height_ratio": "full",
+                "messenger_extensions": true,          
+              },
+              
+            ],
+          }]
+        }
+      }
+    }
+  callSendAPI(sender_psid, response);
+}
+
+const ThankYouEagle = (sender_psid) => { 
+    let response = {
+    "text": `Your data is saved`,    
+    };
+    callSend(sender_psid, response); 
+}
+
+/*********************************************
+END Eye of Eagle
+**********************************************/
+
+
+
+
 
 /*********************************************
 Function to handle when user click button
