@@ -355,7 +355,7 @@ const showTourPackages =(sender_psid) => {
       console.log("ELEMENT ITEMS", elementItems);
     });
 
-
+      console.log("ELEMENT ITEMS 2", elementItems);
     let response = {
         "attachment": {
         "type": "template",
@@ -365,10 +365,9 @@ const showTourPackages =(sender_psid) => {
           }
         }
       }  
+
+      console.log(response);
       callSend(sender_psid, response);
-
-
-
   })
   .catch((err) => {
     console.log('Error getting documents', err);
