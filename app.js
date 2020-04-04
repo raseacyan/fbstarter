@@ -339,7 +339,7 @@ const showTourPackages =(sender_psid) => {
   db.collection('package').get()
   .then((snapshot) => {
     snapshot.forEach((doc) => {
-      console.log(doc.id, '=>', doc.data());
+      console.log(doc.data().title);
     });
   })
   .catch((err) => {
