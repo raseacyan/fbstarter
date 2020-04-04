@@ -140,7 +140,7 @@ app.post('/booktour',function(req,res){
       let tour_package = req.body.tour_package;
       let sender = req.body.sender;   
 
-      db.collection('Tour Package Bookings').doc(tour_package).db.collection('customers').add({
+      db.collection('Tour Package Bookings').doc(tour_package).collection('customers').add({
             name:name,
             mobile:mobile
           }).then(success => {             
