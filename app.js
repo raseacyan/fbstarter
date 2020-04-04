@@ -344,15 +344,15 @@ const showTourPackages =(sender_psid) => {
 
     snapshot.forEach((doc) => {
       var obj = {};
-      obj._id  = doc.id ;  
+      //obj._id  = doc.id ;        
       obj.title = doc.data().title;               
       
-      
-      obj.image_url= doc.data().image;
-      obj.buttons = [{"type":"postback", "title":"BOOK NOW", "payload":"book:"+doc.id}];   
+       
+      obj.image_url = doc.data().image;
+      obj.buttons = [{"type":"postback", "title":"BOOK NOW", "payload":"book:"}];   
 
       elementItems.push(obj);
-      console.log("ELEMENT ITEMS", elementItems);
+     
     });
 
       console.log("ELEMENT ITEMS 2", elementItems);
@@ -364,7 +364,32 @@ const showTourPackages =(sender_psid) => {
                 "payload": {
                   "template_type": "generic",
                   "image_aspect_ratio": "square",
-                  "elements": elementItems
+                  "elements": [
+                  {
+            "title": "Are you OK?",
+            "image_url":"https://www.mindrops.com/images/nodejs-image.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Yes!",
+                  "payload": "yes",
+                }
+              ],
+          },
+          {
+            "title": "Are you OK?",
+            "image_url":"https://www.mindrops.com/images/nodejs-image.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Yes!",
+                  "payload": "yes",
+                }
+              ],
+          }
+
+
+          ]
                 }
               }
             }
