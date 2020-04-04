@@ -344,17 +344,57 @@ const showTourPackages =(sender_psid) => {
 
     snapshot.forEach((doc) => {
       var obj = {};
-      obj._id  = doc.id ;        
-      obj.title = doc.data().title;      
-      obj.image_url = "https://294208-1023939-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/elementor/thumbs/Kutho1-oj43jyxelh5hkex2a7htxa5choyiv1ofmow8m5ykjs.jpeg";
-      obj.buttons = [{"type":"postback", "title":"BOOK NOW", "payload":"book:"}]; 
+      //obj._id  = doc.id ;        
+      obj.title = doc.data().title;               
+      
+       
+      obj.image_url = doc.data().image;
+      obj.buttons = [{"type":"postback", "title":"BOOK NOW", "payload":"book:"}];   
+
       elementItems.push(obj);
      
     });
 
       console.log("ELEMENT ITEMS 2", elementItems);
    
-      
+      /*
+     let response = {
+              "attachment": {
+                "type": "template",
+                "payload": {
+                  "template_type": "generic",
+                  "image_aspect_ratio": "square",
+                  "elements": [
+                  {
+            "title": "Are you OK?",
+            "image_url":"https://www.mindrops.com/images/nodejs-image.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Yes!",
+                  "payload": "yes",
+                }
+              ],
+          },
+          {
+            "title": "Are you OK?",
+            "image_url":"https://www.mindrops.com/images/nodejs-image.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Yes!",
+                  "payload": "yes",
+                }
+              ],
+          }
+
+
+          ]
+                }
+              }
+            }
+
+            */
 
       let response = {
               "attachment": {
@@ -362,7 +402,32 @@ const showTourPackages =(sender_psid) => {
                 "payload": {
                   "template_type": "generic",
                   "image_aspect_ratio": "square",
-                  "elements": elementItems
+                  "elements": [
+                  {
+            "title": "Are you OK?",
+            "image_url":"https://www.mindrops.com/images/nodejs-image.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Yes!",
+                  "payload": "yes",
+                }
+              ],
+          },
+          {
+            "title": "Are you OK?",
+            "image_url":"https://www.mindrops.com/images/nodejs-image.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Yes!",
+                  "payload": "yes",
+                }
+              ],
+          }
+
+
+          ]
                 }
               }
             }
