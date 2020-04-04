@@ -129,7 +129,25 @@ app.post('/addpackage',function(req,res){
 app.get('/booktour/:tour_package/:sender_id',function(req,res){
     const tour_package = req.params.tour_package;
     const sender_id = req.params.sender_id;
-    res.render('addpackage.ejs',{title:"Book Tour Package", tour_package:tour_package, sender_id:sender_id});
+    res.render('booktour.ejs',{title:"Book Tour Package", tour_package:tour_package, sender_id:sender_id});
+});
+
+
+app.post('/booktour',function(req,res){
+      
+      let name  = req.body.image;
+      let mobile = req.body.mobile;
+      let tour_package = req.body.tour_package;
+      let sender = req.body.sender;   
+
+      db.collection('Tour Package Bookings').doc(tour_package).add({
+            name:name,
+            mobile:mobile
+          }).then(success => {             
+             ThankYouEagle(sender);    
+          }).catch(error => {
+            console.log(error);
+      });        
 });
 
 
@@ -362,24 +380,20 @@ const showTourPackages =(sender_psid) => {
      
     });
 
-      console.log("ELEMENT ITEMS 2", elementItems);
-   
-     
-
-      let response = {
-              "attachment": {
-                "type": "template",
-                "payload": {
-                  "template_type": "generic",
-                  "image_aspect_ratio": "square",
-                  "elements": elementItems
-                }
+  let response = {
+            "attachment": {
+              "type": "template",
+              "payload": {
+                "template_type": "generic",
+                "image_aspect_ratio": "square",
+                "elements": elementItems
               }
             }
+          }
 
-      console.log("RESPONSE", response);
-      console.log("SENDER",sender_psid,);
-      callSend(sender_psid, response);
+    console.log("RESPONSE", response);
+    console.log("SENDER",sender_psid,);
+    callSend(sender_psid, response);
   })
   .catch((err) => {
     console.log('Error getting documents', err);
