@@ -103,7 +103,7 @@ START Eye of Eagle
 
 app.get('/addpackage/:sender_id',function(req,res){
     const sender_id = req.params.sender_id;
-    res.render('addpackage.ejs',{title:"Hello!! from WebView", sender_id:sender_id});
+    res.render('addpackage.ejs',{title:"Add Tour Package", sender_id:sender_id});
 });
 
 
@@ -123,6 +123,12 @@ app.post('/addpackage',function(req,res){
           }).catch(error => {
             console.log(error);
       });        
+});
+
+app.get('/booktour/:tour_package/:sender_id',function(req,res){
+    const tour_package = req.params.tour_package;
+    const sender_id = req.params.sender_id;
+    res.render('addpackage.ejs',{title:"Book Tour Package", tour_package: tour_package, sender_id:sender_id});
 });
 
 
@@ -344,57 +350,16 @@ const showTourPackages =(sender_psid) => {
 
     snapshot.forEach((doc) => {
       var obj = {};
-      //obj._id  = doc.id ;        
-      obj.title = doc.data().title;               
-      
-       
+      obj._id  = doc.id ;        
+      obj.title = doc.data().title;      
       obj.image_url = doc.data().image;
-      obj.buttons = [{"type":"postback", "title":"BOOK NOW", "payload":"book:"}];   
-
+      obj.buttons = [{"type":"web_url", "title":"BOOK NOW", "url":"https://fbstarterbot.herokuapp.com/booktour/"+encodeURI(obj.title)+"/"+sender_id}]; 
       elementItems.push(obj);
      
     });
 
-      console.log("ELEMENT ITEMS 2", elementItems);
-   
-      /*
-     let response = {
-              "attachment": {
-                "type": "template",
-                "payload": {
-                  "template_type": "generic",
-                  "image_aspect_ratio": "square",
-                  "elements": [
-                  {
-            "title": "Are you OK?",
-            "image_url":"https://www.mindrops.com/images/nodejs-image.png",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "Yes!",
-                  "payload": "yes",
-                }
-              ],
-          },
-          {
-            "title": "Are you OK?",
-            "image_url":"https://www.mindrops.com/images/nodejs-image.png",                       
-            "buttons": [
-                {
-                  "type": "postback",
-                  "title": "Yes!",
-                  "payload": "yes",
-                }
-              ],
-          }
+      console.log("ELEMENT ITEMS 2", elementItems);   
 
-
-          ]
-                }
-              }
-            }
-
-            */
 
       let response = {
               "attachment": {
