@@ -114,7 +114,7 @@ app.post('/addpackage',function(req,res){
       let description = req.body.description;
       let sender = req.body.sender;   
 
-      db.collection('package').doc('all').set({
+      db.collection('package').add({
             image: image,
             title: title,
             description: description
