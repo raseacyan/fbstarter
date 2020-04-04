@@ -350,24 +350,26 @@ const showTourPackages =(sender_psid) => {
       obj.buttons = [{"type":"postback", "title":"BOOK NOW", "payload":"book:"+doc.id}];   
 
       elementItems.push(obj);
+      console.log("ELEMENT ITEMS", elementItems);
+      let response = {
+        "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": elementItems
+          }
+        }
+      }  
+      callSend(sender_psid, response);
     });
   })
   .catch((err) => {
     console.log('Error getting documents', err);
   });
 
-  console.log("ELEMENT ITEMS", elementItems);
   
-  let response = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": elementItems
-        }
-      }
-    }  
-  callSend(sender_psid, response);
+  
+  
 }
 
 function adminCreatePackage(sender_psid){
