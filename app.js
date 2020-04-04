@@ -366,7 +366,8 @@ const showTourPackages =(sender_psid) => {
         }
       }  
 
-      console.log(response);
+      console.log("RESPONSE", response);
+      console.log("SENDER",response);
       callSend(sender_psid, response);
   })
   .catch((err) => {
