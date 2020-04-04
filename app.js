@@ -348,7 +348,7 @@ const showTourPackages =(sender_psid) => {
       obj.title = doc.data().title;               
       
        
-      obj.image_url = "https://www.mindrops.com/images/nodejs-image.png";
+      obj.image_url = doc.data().image;
       obj.buttons = [{"type":"postback", "title":"BOOK NOW", "payload":"book:"}];   
 
       elementItems.push(obj);
