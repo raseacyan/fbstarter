@@ -356,6 +356,7 @@ const showTourPackages =(sender_psid) => {
     console.log('Error getting documents', err);
   });
 
+  console.log("ELEMENT ITEMS", elementItems);
   
   let response = {
       "attachment": {
