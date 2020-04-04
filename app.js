@@ -342,7 +342,7 @@ const showTourPackages =(sender_psid) => {
   .then((snapshot) => {
     snapshot.forEach((doc) => {
       var obj = {};
-      obj._id  = data.id ;  
+      obj._id  = doc.id ;  
       obj.title = doc.data().title;                
       obj.details = doc.data().description; 
       
