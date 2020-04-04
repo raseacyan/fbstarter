@@ -293,7 +293,10 @@ const handleMessage = (sender_psid, received_message) => {
             break;
         case "admin":
             adminCreatePackage(sender_psid); 
-            break;     
+            break;  
+        case "tour packages":
+          showTourPackages(sender_psid); 
+          break;    
         default:
             defaultReply(sender_psid);
         }
@@ -317,8 +320,8 @@ const eyeofEagle = (sender_psid) => {
 const selectMode = (sender_psid) => { 
     let response1 = {"text": "Do you want to see our tour packages?, (type 'tour packages')"};
     let response2 = {"text": "Do you want to create your own custom trip? (type 'custom trip')"};
-    let response3 = {"text": "Do you want to make , type 'button'"};   
-    let response4 = {"text": "To test webview, type 'webview'"};
+    let response3 = {"text": "todo"};   
+    let response4 = {"text": "todo"};
       callSend(sender_psid, response1).then(()=>{
         return callSend(sender_psid, response2).then(()=>{
           return callSend(sender_psid, response3).then(()=>{
@@ -326,6 +329,46 @@ const selectMode = (sender_psid) => {
           });
         });
     });     
+}
+
+
+const showTourPackages =(sender_psid) => {
+  db.collection('packages').get()
+  .then((snapshot) => {
+    snapshot.forEach((doc) => {
+      console.log(doc.id, '=>', doc.data());
+    });
+  })
+  .catch((err) => {
+    console.log('Error getting documents', err);
+  });
+
+  /*
+  let response = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Are you OK?",
+            "image_url":"https://www.mindrops.com/images/nodejs-image.png",                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Yes!",
+                  "payload": "yes",
+                },
+                {
+                  "type": "postback",
+                  "title": "No!",
+                  "payload": "no",
+                }
+              ],
+          }]
+        }
+      }
+    }  
+  callSend(sender_psid, response);*/
 }
 
 function adminCreatePackage(sender_psid){
