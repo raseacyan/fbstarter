@@ -341,6 +341,7 @@ const showTourPackages =(sender_psid) => {
   db.collection('package').get()
   .then((snapshot) => {
     let elementItems = [];
+
     snapshot.forEach((doc) => {
       var obj = {};
       obj._id  = doc.id ;  
@@ -353,14 +354,9 @@ const showTourPackages =(sender_psid) => {
       elementItems.push(obj);
       console.log("ELEMENT ITEMS", elementItems);
     });
-  })
-  .catch((err) => {
-    console.log('Error getting documents', err);
-  });
 
 
-  
-      let response = {
+    let response = {
         "attachment": {
         "type": "template",
         "payload": {
@@ -370,6 +366,17 @@ const showTourPackages =(sender_psid) => {
         }
       }  
       callSend(sender_psid, response);
+
+
+
+  })
+  .catch((err) => {
+    console.log('Error getting documents', err);
+  });
+
+
+  
+      
 
   
   
