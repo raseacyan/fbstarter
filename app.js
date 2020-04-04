@@ -336,10 +336,11 @@ const selectMode = (sender_psid) => {
 
 
 const showTourPackages =(sender_psid) => {
-  var elementItems = [];
+  
 
   db.collection('package').get()
   .then((snapshot) => {
+    let elementItems = [];
     snapshot.forEach((doc) => {
       var obj = {};
       obj._id  = doc.id ;  
@@ -350,7 +351,7 @@ const showTourPackages =(sender_psid) => {
       obj.buttons = [{"type":"postback", "title":"BOOK NOW", "payload":"book:"+doc.id}];   
 
       elementItems.push(obj);
-
+      console.log("ELEMENT ITEMS", elementItems);
     });
   })
   .catch((err) => {
@@ -358,7 +359,7 @@ const showTourPackages =(sender_psid) => {
   });
 
 
-  console.log("ELEMENT ITEMS", elementItems);
+  
       let response = {
         "attachment": {
         "type": "template",
