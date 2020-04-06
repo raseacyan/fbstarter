@@ -453,7 +453,7 @@ const askPhone = (sender_psid) => {
     callSend(sender_psid, response); 
 }
 
-const updatePrivateTour = (sender_psid, phone) =>{
+const updatePrivateTour = (sender_psid, phone, field) =>{
   
   let query =  db.collection('Private Tour Bookings').where('mobile', '==', phone).limit(1).get()
   .then(snapshot => {
@@ -468,12 +468,14 @@ const updatePrivateTour = (sender_psid, phone) =>{
 
     const booking = snapshot.docs[0];
 
+
+    
     if(user_input.hotel){
-      booking.ref.update({hotel:user_input.hotel});
+       booking.ref.update({hotel:user_input.hotel});
     }
 
     if(user_input.restaurent){
-      booking.ref.update({hotel:user_input.restaurent});
+      booking.ref.update({restaurent:user_input.restaurent});
     }
     
     
