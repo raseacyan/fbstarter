@@ -360,8 +360,8 @@ const handleMessage = (sender_psid, received_message) => {
         case "tour packages":
           showTourPackages(sender_psid); 
           break;  
-        case "private trip":
-          privateTrip(sender_psid); 
+        case "private tour":
+          privateTour(sender_psid); 
           break;  
         default:
             defaultReply(sender_psid);
