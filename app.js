@@ -450,9 +450,24 @@ const askPhone = (sender_psid) => {
 }
 
 const updatePrivateTour = (sender_psid, phone) =>{
-  let query = db.collection('Private Tour Bookings').where('mobile', '==', phone).limit(1);  
-  console.log(query);
-  ThankYouEagle(sender_id);    
+  let query =  db.collection('Private Tour Bookings').where('mobile', '==', phone).get()
+  .then(snapshot => {
+    if (snapshot.empty) {
+      console.log('No matching documents.');
+      return;
+    }  
+
+    snapshot.forEach(doc => {
+      console.log('DOC ID', doc.id);
+    });
+  })
+  .catch(err => {
+    console.log('Error getting documents', err);
+  });
+
+
+  
+  ThankYouEagle(sender_psid);    
 }
 
 
