@@ -455,16 +455,22 @@ const askPhone = (sender_psid) => {
 
 const updatePrivateTour = (sender_psid, phone) =>{
   
-  let query =  db.collection('Private Tour Bookings').where('mobile', '==', phone).get()
+  let query =  db.collection('Private Tour Bookings').where('mobile', '==', phone).limit(1).get()
   .then(snapshot => {
     if (snapshot.empty) {
       console.log('No matching documents.');
+      let response = {
+        "text": `No users with that phone number`,    
+      };
+      callSend(sender_psid, response);
       return;
-    }  
+    } 
 
-    snapshot.forEach(doc => {
-      console.log('DOC ID', doc.id);
-    });
+    const id = snapshot.docs[0];
+    
+    console.log('ID', id)
+
+
   })
   .catch(err => {
     console.log('Error getting documents', err);
