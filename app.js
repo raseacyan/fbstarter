@@ -450,7 +450,8 @@ const askPhone = (sender_psid) => {
 }
 
 const updatePrivateTour = (sender_psid, phone) =>{
-  let query = db.collection('Private Tour Bookings').where('mobile', '==', phone).set(user_input);  
+  let query = db.collection('Private Tour Bookings').where('mobile', '==', phone).limit(1);  
+  console.log(query);
   ThankYouEagle(sender_id);    
 }
 
