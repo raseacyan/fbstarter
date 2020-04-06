@@ -134,13 +134,48 @@ app.get('/booktour/:tour_package/:sender_id',function(req,res){
 
 
 app.post('/booktour',function(req,res){
-      console.log('BOOK TOUR', req.body);
       let name  = req.body.name;
       let mobile = req.body.mobile;
       let tour_package = req.body.tour_package;
       let sender = req.body.sender;   
 
       db.collection('Tour Package Bookings').doc(tour_package).collection('customers').add({
+            name:name,
+            mobile:mobile
+          }).then(success => {             
+             ThankYouEagle(sender);    
+          }).catch(error => {
+            console.log(error);
+      });        
+});
+
+app.get('/privatetour/:sender_id',function(req,res){    
+    const sender_id = req.params.sender_id;
+    res.render('booktour.ejs',{title:"Book Tour Package", sender_id:sender_id});
+});
+
+
+app.post('/privatetour',function(req,res){
+      console.log('PRIVATE TOUR', req.body);
+      let destination= req.body.destination;
+      let activities = req.body.activities;
+      let guests = req.body.guests;
+      let travel_mode = req.body.travel_mode;
+      let travel_option = req.body.travel_option;
+      let hotel = req.body.hotel;
+      let restaurent= req.body.restaurent;
+      let name  = req.body.name;
+      let mobile = req.body.mobile;
+      let sender = req.body.sender;   
+
+      db.collection('Private Tour Bookings').doc(destination).collection('customers').add({
+            destination:destination,
+            activities:activities,
+            guests:guests,
+            travel_mode:travel_mode,
+            travel_option:travel_option,
+            hotel:hotel,
+            restaurent:restaurent,            
             name:name,
             mobile:mobile
           }).then(success => {             
@@ -324,7 +359,10 @@ const handleMessage = (sender_psid, received_message) => {
             break; 
         case "tour packages":
           showTourPackages(sender_psid); 
-          break;    
+          break;  
+        case "private trip":
+          privateTrip(sender_psid); 
+          break;  
         default:
             defaultReply(sender_psid);
         }
@@ -347,7 +385,7 @@ const eyeofEagle = (sender_psid) => {
 
 const selectMode = (sender_psid) => { 
     let response1 = {"text": "Do you want to see our tour packages?, (type 'tour packages')"};
-    let response2 = {"text": "Do you want to create your own custom trip? (type 'custom trip')"};
+    let response2 = {"text": "Do you want to create your own custom private tour? (type 'private tour')"};
     let response3 = {"text": "todo"};   
     let response4 = {"text": "todo"};
       callSend(sender_psid, response1).then(()=>{
@@ -360,8 +398,7 @@ const selectMode = (sender_psid) => {
 }
 
 
-const showTourPackages =(sender_psid) => {
-  
+const showTourPackages =(sender_psid) => {  
 
   db.collection('package').get()
   .then((snapshot) => {
@@ -398,14 +435,7 @@ const showTourPackages =(sender_psid) => {
   .catch((err) => {
     console.log('Error getting documents', err);
   });
-
-
-  
-      
-
-  
-  
-  
+ 
 }
 
 function adminCreatePackage(sender_psid){
@@ -422,6 +452,33 @@ function adminCreatePackage(sender_psid){
                 "type": "web_url",
                 "title": "create",
                 "url":"https://fbstarterbot.herokuapp.com/addpackage/"+sender_psid,
+                 "webview_height_ratio": "full",
+                "messenger_extensions": true,          
+              },
+              
+            ],
+          }]
+        }
+      }
+    }
+  callSendAPI(sender_psid, response);
+}
+
+
+function privateTour(sender_psid){
+  let response;
+  response = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Create a tour package",                       
+            "buttons": [              
+              {
+                "type": "web_url",
+                "title": "create",
+                "url":"https://fbstarterbot.herokuapp.com/privateTour/"+sender_psid,
                  "webview_height_ratio": "full",
                 "messenger_extensions": true,          
               },
