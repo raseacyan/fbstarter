@@ -347,6 +347,7 @@ const handleMessage = (sender_psid, received_message) => {
       if(bot_q.askHotel){
         user_input.hotel = user_message;
         bot_q.askHotel = false;
+        console.log('USER ENTER HOTEL');
         askPhone(sender_psid);
       }
 
@@ -359,6 +360,7 @@ const handleMessage = (sender_psid, received_message) => {
       if(bot_q.askPhone){
         user_input.phone = user_message;
         bot_q.askPhone = false;
+        console.log('USER ENTER PHONE');
         updatePrivateTour(sender_psid, user_input.phone);
       }
 
@@ -443,8 +445,8 @@ const askRestaurent = (sender_psid) => {
 
 const askPhone = (sender_psid) => {
   console.log("INSIDE ASK PHONE");
-  console.log("BOT Q", bot_q);
   bot_q.askPhone = true;
+  console.log("BOT Q", bot_q);
   let response = {
     "text": `Please enter your mobile number which you used before`,    
     };
