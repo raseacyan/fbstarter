@@ -317,13 +317,13 @@ const handleMessage = (sender_psid, received_message) => {
         askPhone(sender_psid);
       }
 
-      if(bot_q.askRestaurent && received_message.text){
+  else    if(bot_q.askRestaurent && received_message.text){
         user_input.restaurent = received_message.text;
         bot_q.askRestaurent = false;
         askPhone(sender_psid);
       }
 
-      if(bot_q.askPhone && received_message.text){
+  else    if(bot_q.askPhone && received_message.text){
         user_input.phone = received_message.text;
         bot_q.askPhone = false;
         console.log('USER ENTER PHONE');
@@ -331,7 +331,7 @@ const handleMessage = (sender_psid, received_message) => {
       }
   
   
-  if(received_message.attachments){
+  else if(received_message.attachments){
     let attachment_url = received_message.attachments[0].payload.url;
     response = {
       "attachment": {
