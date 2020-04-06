@@ -15,6 +15,13 @@ const
   multer  = require('multer'),  
   app = express(); 
 
+let bot_q = {
+  askPhone: false,
+  askHotel: false,
+  askRestaurent:false
+}
+
+let user_input = {};
   
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -156,7 +163,7 @@ app.get('/privatetour/:sender_id',function(req,res){
 
 
 app.post('/privatetour',function(req,res){
-      console.log('PRIVATE TOUR', req.body);
+      
       let destination= req.body.destination;
       let activities = req.body.activities;
       let guests = req.body.guests;
@@ -334,7 +341,25 @@ const handleMessage = (sender_psid, received_message) => {
     callSend(sender_psid, response);
   } else {
       let user_message = received_message.text.toLowerCase();
-      console.log('USER MESSAGE', user_message);
+      
+      if(bot_q.askHotel){
+        user_input.hotel = user_message;
+        bot_q.askHotel = false;
+        askPhone(sender_psid);
+      }
+
+      if(bot_q.askRestaurent){
+        user_input.restaurent = user_message;
+        bot_q.askRestaurent = false;
+        askPhone(sender_psid);
+      }
+
+      if(bot_q.askRestaurent){
+        user_input.phone = user_message;
+        bot_q.askPhone = false;
+        updatePrivateTour(sender_psid, user_input.phone);
+      }
+
       switch(user_message) {        
         case "text":
             textReply(sender_psid);
@@ -362,7 +387,13 @@ const handleMessage = (sender_psid, received_message) => {
           break;  
         case "private tour":
           privateTour(sender_psid); 
-          break;  
+          break; 
+        case "amend tour":
+          amendTour(sender_psid); 
+          break; 
+        case "change hotel":
+          askHotel(sender_psid); 
+          break;
         default:
             defaultReply(sender_psid);
         }
@@ -382,11 +413,48 @@ const eyeofEagle = (sender_psid) => {
 }
 
 
+const amendTour = (sender_psid) => { 
+    let response = {
+    "text": `Do you want to change hotel or restaurent?`,    
+    };
+    callSend(sender_psid, response); 
+}
+
+const askHotel = (sender_psid) => {
+  bot_q.askHotel = true;
+  let response = {
+    "text": `Enter name of the hotel you want to stay`,    
+    };
+    callSend(sender_psid, response); 
+}
+
+
+const askRestaurent = (sender_psid) => {
+  bot_q.askRestaurent = true;
+  let response = {
+    "text": `Enter name of the restaurent you want to go`,    
+    };
+    callSend(sender_psid, response); 
+}
+
+const askPhone = (sender_psid) => {
+  bot_q.askPhone = true;
+  let response = {
+    "text": `Please enter your mobile number which you used before`,    
+    };
+    callSend(sender_psid, response); 
+}
+
+const updatePrivateTour = (sender_psid, phone) =>{
+  let query = db.collection('Private Tour Bookings').where('mobile', '==', phone).set(user_input);  
+  ThankYouEagle(sender_id);    
+}
+
 
 const selectMode = (sender_psid) => { 
     let response1 = {"text": "Do you want to see our tour packages?, (type 'tour packages')"};
     let response2 = {"text": "Do you want to create your own custom private tour? (type 'private tour')"};
-    let response3 = {"text": "todo"};   
+    let response3 = {"text": "Do you want to amend your private tour (type 'amend tour')"};   
     let response4 = {"text": "todo"};
       callSend(sender_psid, response1).then(()=>{
         return callSend(sender_psid, response2).then(()=>{
