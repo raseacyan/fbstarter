@@ -466,9 +466,9 @@ const updatePrivateTour = (sender_psid, phone) =>{
       return;
     } 
 
-    const id = snapshot.docs[0];
+    const booking = snapshot.docs[0];
     
-    console.log('ID', id)
+    booking.ref.set({hotel:user_input.hotel, restaurent:user_input.restaurent});
 
 
   })
