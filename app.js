@@ -309,6 +309,26 @@ Function to Handle when user send text message
 const handleMessage = (sender_psid, received_message) => {
   //let message;
   let response;
+
+  if(bot_q.askHotel && received_message.text){
+        user_input.hotel = received_message.text;
+        bot_q.askHotel = false;
+        console.log('USER ENTER HOTEL');
+        askPhone(sender_psid);
+      }
+
+      if(bot_q.askRestaurent && received_message.text){
+        user_input.restaurent = received_message.text;
+        bot_q.askRestaurent = false;
+        askPhone(sender_psid);
+      }
+
+      if(bot_q.askPhone && received_message.text){
+        user_input.phone = received_message.text;
+        bot_q.askPhone = false;
+        console.log('USER ENTER PHONE');
+        updatePrivateTour(sender_psid, user_input.phone);
+      }
   
   
   if(received_message.attachments){
@@ -340,29 +360,9 @@ const handleMessage = (sender_psid, received_message) => {
     }
     callSend(sender_psid, response);
   } else {
-      let user_message = received_message.text.toLowerCase();
-
+      let user_message = received_message.text.toLowerCase();   
       
       
-      if(bot_q.askHotel && user_message){
-        user_input.hotel = user_message;
-        bot_q.askHotel = false;
-        console.log('USER ENTER HOTEL');
-        askPhone(sender_psid);
-      }
-
-      if(bot_q.askRestaurent && user_message){
-        user_input.restaurent = user_message;
-        bot_q.askRestaurent = false;
-        askPhone(sender_psid);
-      }
-
-      if(bot_q.askPhone && user_message){
-        user_input.phone = user_message;
-        bot_q.askPhone = false;
-        console.log('USER ENTER PHONE');
-        updatePrivateTour(sender_psid, user_input.phone);
-      }
 
       switch(user_message) {        
         case "text":
@@ -454,6 +454,7 @@ const askPhone = (sender_psid) => {
 }
 
 const updatePrivateTour = (sender_psid, phone) =>{
+  /*
   let query =  db.collection('Private Tour Bookings').where('mobile', '==', phone).get()
   .then(snapshot => {
     if (snapshot.empty) {
@@ -467,7 +468,7 @@ const updatePrivateTour = (sender_psid, phone) =>{
   })
   .catch(err => {
     console.log('Error getting documents', err);
-  });
+  });*/
 
 
   
