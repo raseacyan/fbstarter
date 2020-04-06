@@ -469,11 +469,11 @@ const updatePrivateTour = (sender_psid, phone) =>{
     const booking = snapshot.docs[0];
 
     if(user_input.hotel){
-      booking.ref.set({hotel:user_input.hotel});
+      booking.ref.update({hotel:user_input.hotel});
     }
 
     if(user_input.restaurent){
-      booking.ref.set({hotel:user_input.restaurent});
+      booking.ref.update({hotel:user_input.restaurent});
     }
     
     
