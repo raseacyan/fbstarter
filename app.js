@@ -341,6 +341,8 @@ const handleMessage = (sender_psid, received_message) => {
     callSend(sender_psid, response);
   } else {
       let user_message = received_message.text.toLowerCase();
+
+      console.log("BOT Q", bot_q);
       
       if(bot_q.askHotel){
         user_input.hotel = user_message;
