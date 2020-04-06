@@ -168,7 +168,7 @@ app.post('/privatetour',function(req,res){
       let mobile = req.body.mobile;
       let sender = req.body.sender;   
 
-      db.collection('Private Tour Bookings').doc(destination).collection('customers').add({
+      db.collection('Private Tour Bookings').add({
             destination:destination,
             activities:activities,
             guests:guests,
