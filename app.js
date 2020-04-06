@@ -342,7 +342,7 @@ const handleMessage = (sender_psid, received_message) => {
   } else {
       let user_message = received_message.text.toLowerCase();
 
-      console.log("BOT Q", bot_q);
+      
       
       if(bot_q.askHotel){
         user_input.hotel = user_message;
@@ -425,6 +425,7 @@ const amendTour = (sender_psid) => {
 const askHotel = (sender_psid) => {
   console.log("INSIDE ASK HTOEL");
   bot_q.askHotel = true;
+  console.log("BOT Q", bot_q);
   let response = {
     "text": `Enter name of the hotel you want to stay`,    
     };
@@ -442,6 +443,7 @@ const askRestaurent = (sender_psid) => {
 
 const askPhone = (sender_psid) => {
   console.log("INSIDE ASK PHONE");
+  console.log("BOT Q", bot_q);
   bot_q.askPhone = true;
   let response = {
     "text": `Please enter your mobile number which you used before`,    
