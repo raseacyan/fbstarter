@@ -344,20 +344,20 @@ const handleMessage = (sender_psid, received_message) => {
 
       
       
-      if(bot_q.askHotel){
+      if(bot_q.askHotel && user_message){
         user_input.hotel = user_message;
         bot_q.askHotel = false;
         console.log('USER ENTER HOTEL');
         askPhone(sender_psid);
       }
 
-      if(bot_q.askRestaurent){
+      if(bot_q.askRestaurent && user_message){
         user_input.restaurent = user_message;
         bot_q.askRestaurent = false;
         askPhone(sender_psid);
       }
 
-      if(bot_q.askPhone){
+      if(bot_q.askPhone && user_message){
         user_input.phone = user_message;
         bot_q.askPhone = false;
         console.log('USER ENTER PHONE');
