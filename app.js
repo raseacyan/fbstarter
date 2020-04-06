@@ -398,6 +398,9 @@ const handleMessage = (sender_psid, received_message) => {
         case "change hotel":
           askHotel(sender_psid); 
           break;
+        case "change restaurent":
+          askRestaurent(sender_psid); 
+          break;
         default:
             defaultReply(sender_psid);
         }
@@ -424,10 +427,8 @@ const amendTour = (sender_psid) => {
     callSend(sender_psid, response); 
 }
 
-const askHotel = (sender_psid) => {
-  console.log("INSIDE ASK HTOEL");
-  bot_q.askHotel = true;
-  console.log("BOT Q", bot_q);
+const askHotel = (sender_psid) => {  
+  bot_q.askHotel = true;  
   let response = {
     "text": `Enter name of the hotel you want to stay`,    
     };
@@ -443,10 +444,9 @@ const askRestaurent = (sender_psid) => {
     callSend(sender_psid, response); 
 }
 
-const askPhone = (sender_psid) => {
-  console.log("INSIDE ASK PHONE");
+const askPhone = (sender_psid) => {  
   bot_q.askPhone = true;
-  console.log("BOT Q", bot_q);
+ 
   let response = {
     "text": `Please enter your mobile number which you used before`,    
     };
@@ -467,8 +467,16 @@ const updatePrivateTour = (sender_psid, phone) =>{
     } 
 
     const booking = snapshot.docs[0];
+
+    if(user_input.hotel){
+      booking.ref.set({hotel:user_input.hotel});
+    }
+
+    if(user_input.restaurent){
+      booking.ref.set({hotel:user_input.restaurent});
+    }
     
-    booking.ref.set({hotel:user_input.hotel, restaurent:user_input.restaurent});
+    
 
 
   })
