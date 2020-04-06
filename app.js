@@ -454,7 +454,7 @@ const askPhone = (sender_psid) => {
 }
 
 const updatePrivateTour = (sender_psid, phone) =>{
-  /*
+  
   let query =  db.collection('Private Tour Bookings').where('mobile', '==', phone).get()
   .then(snapshot => {
     if (snapshot.empty) {
@@ -468,7 +468,7 @@ const updatePrivateTour = (sender_psid, phone) =>{
   })
   .catch(err => {
     console.log('Error getting documents', err);
-  });*/
+  });
 
 
   
