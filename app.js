@@ -473,12 +473,12 @@ function privateTour(sender_psid){
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "Create a tour package",                       
+            "title": "Customize your private tour",                       
             "buttons": [              
               {
                 "type": "web_url",
                 "title": "create",
-                "url":"https://fbstarterbot.herokuapp.com/privateTour/"+sender_psid,
+                "url":"https://fbstarterbot.herokuapp.com/privatetour/"+sender_psid,
                  "webview_height_ratio": "full",
                 "messenger_extensions": true,          
               },
