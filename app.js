@@ -151,7 +151,7 @@ app.post('/booktour',function(req,res){
 
 app.get('/privatetour/:sender_id',function(req,res){    
     const sender_id = req.params.sender_id;
-    res.render('booktour.ejs',{title:"Book Tour Package", sender_id:sender_id});
+    res.render('privatetour.ejs',{title:"Create Your Own Private Tour", sender_id:sender_id});
 });
 
 
@@ -473,11 +473,11 @@ function privateTour(sender_psid){
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "Customize your private tour",                       
+            "title": "Create your private tour",                       
             "buttons": [              
               {
                 "type": "web_url",
-                "title": "create",
+                "title": "Create",
                 "url":"https://fbstarterbot.herokuapp.com/privatetour/"+sender_psid,
                  "webview_height_ratio": "full",
                 "messenger_extensions": true,          
