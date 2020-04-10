@@ -712,7 +712,7 @@ const addReview  = (sender_psid) => {
         return;
       } 
 
-      console.log('REVIEW', snapshot.doc.review);
+      console.log('REVIEW', snapshot);
 
       snapshot.docs[0].ref.update({review:{"author":review1.author, "link":review1.link},  marge:true});
     })
