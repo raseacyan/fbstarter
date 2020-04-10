@@ -415,6 +415,13 @@ const handleMessage = (sender_psid, received_message) => {
           break;
         case "gone with the wind":
           goneWithTheWind(sender_psid)
+          break;
+        case "effy":
+          goneWithTheWind(sender_psid)
+          break;
+        case "hobby":
+          goneWithTheWind(sender_psid)
+          break;
         default:
             defaultReply(sender_psid);
         }
@@ -751,6 +758,43 @@ const addReview  = (sender_psid) => {
 
 
 const goneWithTheWind  = (sender_psid) => { 
+
+  let book = {};
+
+  let id; 
+
+  db.collection("Books").where("title", "==", "Gone with the Wind").limit(1)
+    .get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            book.id = doc.id;
+            book.author = doc.data().author;
+            book.description = doc.data().description;
+            book.genre = doc.data().genre;
+            book.publisher = doc.data().publisher;
+            book.title = doc.data().title;
+            book.year = doc.data().year
+
+        });
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+
+    db.collection("Book Reviews").where("title", "==", "Gone with the Wind")
+    .get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            book.review.push(doc.data().link);           
+
+        });
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+
+
+    console.log('BOOK', book);
 
 
 }
