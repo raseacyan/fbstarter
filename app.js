@@ -709,8 +709,7 @@ const addReview  = (sender_psid) => {
 
     
 
-    db.collection("books").where("title", "==" , review1.book)
-    .get()
+    db.collection("books").get()
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             // doc.data() is never undefined for query doc snapshots
