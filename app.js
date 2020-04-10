@@ -525,11 +525,11 @@ const showTourPackages =(sender_psid) => {
   .then((snapshot) => {
     let elementItems = [];
 
-    console.log('SNAPSHOT',snapshot);
+
 
     snapshot.forEach((doc) => {
 
-      console.log('DOC',doc);
+  
       var obj = {};
       //obj._id  = doc.id ;        
       obj.title = doc.data().title;              
@@ -709,21 +709,17 @@ const addReview  = (sender_psid) => {
 
     
 
-    db.collection('books').where('title', '==', review1.book).limit(1).get()
-    .then(snapshot => {
-      if (snapshot.empty) {
-        console.log('No matching documents.');       
-        return;
-      } 
-
-      console.log('SNAPSHOT 2', snapshot);
-
-      snapshot.docs[0].ref.update({review:{"author":review1.author, "link":review1.link}});
+    db.collection("books").where("title", "==" , review1.book)
+    .get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+        });
     })
-    .catch(err => {
-      console.log('Error getting documents', err);
-    });    
-     console.log('REVIEW SAVED') 
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
 
      /*
 
