@@ -687,19 +687,19 @@ const addBooks  = (sender_psid) => {
 const addReview  = (sender_psid) => { 
     let review1 = {
       book:"Gone with the Wind",
-      author: "Effy"
+      author: "Effy",
       link: "www.google.com"
     }
 
     let review2 = {
       book:"Gone with the Wind",
-      author: "Emily"
+      author: "Emily",
       link: "www.google.com"
     }
 
     let review3 = {
       book:"Kane and Abel",
-      author: "Katie"
+      author: "Katie",
       link: "www.google.com"
     }
 
