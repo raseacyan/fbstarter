@@ -24,8 +24,8 @@ let bot_q = {
 let user_input = {};
 
 
-  let book = {};
-  book.review = [];
+
+
   
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -762,9 +762,8 @@ const addReview  = (sender_psid) => {
 
 
 const goneWithTheWind  = (sender_psid) => { 
-
-
-
+  let book = {};
+  book.review = [];
   let id; 
 
   db.collection("Books").where("title", "==", "Gone with the Wind")
@@ -799,13 +798,6 @@ const goneWithTheWind  = (sender_psid) => {
     .catch(function(error) {
         console.log("Error getting documents: ", error);
     });
-
-    
-
-
-   
-
-
 }
 
 const Effy  = (sender_psid) => { 
@@ -815,7 +807,31 @@ const Effy  = (sender_psid) => {
 
 
 const Hobby  = (sender_psid) => { 
-  let hobby ="Novel";
+  let hobby =['Biography','Historical Fiction'];
+
+
+    db.collection("Books").where("genre", "array-contains-any", hobby)
+    .get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+
+            book.id = doc.id;
+            book.author = doc.data().author;
+            book.description = doc.data().description;
+            book.genre = doc.data().genre;
+            book.publisher = doc.data().publisher;            
+            book.year = doc.data().year;
+
+    
+
+        });
+      console.log('Hobby', book);
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+
+
 
 
 }
