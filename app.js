@@ -755,7 +755,7 @@ const goneWithTheWind  = (sender_psid) => {
 
 }
 
-const goneWithTheWind  = (sender_psid) => { 
+const Effy  = (sender_psid) => { 
 
 
 }
