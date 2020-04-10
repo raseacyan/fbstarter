@@ -622,25 +622,59 @@ END Eye of Eagle
 
 
 const addBooks  = (sender_psid) => { 
-    let book = {
-      title:"ABC",
-      isbn:123,
-      description:"Book about ABC",
-      publisher:"Sate Ku Cho Cho",
-      year: 200,
-      tags:['action', 'comedy'],
-      review:[
-        {"author":"X", "url":"http://www.google.com"},
-        {"author":"Y", "url":"http://www.google.com"},
-        {"author":"Z", "url":"http://www.google.com"},
-      ]
+    let book1 = {
+      title:"Gone with the Wind",
+      author:"Margaret Mitchell",
+      description:"Gone with the Wind is a novel by American writer Margaret Mitchell, first published in 1936. The story is set in Clayton County and Atlanta, both in Georgia, during the American Civil War and Reconstruction Era",
+      publisher:"Macmillan Inc.",
+      year: 1936,
+      genre:['Historical Fiction', 'Novel'],
+      review: []
+    }
 
+    let book2 = {
+      title:"Kane and Abel",
+      author:"Jeffrey Archer",
+      description:"Kane and Abel is a 1979 novel by British author Jeffrey Archer. Released in the United Kingdom in 1979 and in the United States in February 1980, the book was an international success. It reached No. 1 on the New York Times best-seller list",
+      publisher:"Hodder & Stoughton",
+      year: 1979,
+      genre:['Fiction', 'Novel'],
+      review: []
+    }
+
+    let book3 = {
+      title:"Roots: The Saga of an American Family",
+      author:"Alex Haley",
+      description:"Roots: The Saga of an American Family is a 1976 novel written by Alex Haley. It tells the story of Kunta Kinte, an 18th-century African, captured as an adolescent, sold into slavery in Africa, transported to North America; following his life and the lives of his descendants in the United States down to Haley",
+      publisher:"Doubleday",
+      year: 1976,
+      genre:['Novel', 'Biography', 'Fictional Autobiography'],
+      review: []
     }
 
     db.collection('books').add(
-          book
-        ).then(success => {             
-           ThankYouEagle(sender_psid);    
+          book1
+        ).then(success => {      
+           console.log('BOOK ADDED');       
+           //ThankYouEagle(sender_psid);    
+        }).catch(error => {
+          console.log(error);
+    });
+
+    db.collection('books').add(
+          book2
+        ).then(success => {      
+           console.log('BOOK ADDED');       
+           //ThankYouEagle(sender_psid);    
+        }).catch(error => {
+          console.log(error);
+    });
+
+    db.collection('books').add(
+          book3
+        ).then(success => {      
+           console.log('BOOK ADDED');       
+           //ThankYouEagle(sender_psid);    
         }).catch(error => {
           console.log(error);
     });
