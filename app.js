@@ -777,7 +777,7 @@ const goneWithTheWind  = (sender_psid) => {
             book.year = doc.data().year;
 
 
-            db.collection("Book Reviews").where("title", "==", "Gone with the Wind")
+            db.collection("Book Reviews").where("book", "==", "Gone with the Wind")
             .get()
             .then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
