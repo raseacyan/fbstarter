@@ -807,6 +807,7 @@ const Effy  = (sender_psid) => {
 
 
 const Hobby  = (sender_psid) => { 
+  let books = [];
   let hobby =['Biography','Historical Fiction'];
 
 
@@ -814,6 +815,7 @@ const Hobby  = (sender_psid) => {
     .get()
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
+            let book = {};
 
             book.id = doc.id;
             book.author = doc.data().author;
@@ -822,10 +824,13 @@ const Hobby  = (sender_psid) => {
             book.publisher = doc.data().publisher;            
             book.year = doc.data().year;
 
+
+            books.push(book);
+
     
 
         });
-      console.log('Hobby', book);
+      console.log('Hobby', books);
     })
     .catch(function(error) {
         console.log("Error getting documents: ", error);
