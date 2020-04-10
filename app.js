@@ -760,6 +760,7 @@ const addReview  = (sender_psid) => {
 const goneWithTheWind  = (sender_psid) => { 
 
   let book = {};
+  book.review = [];
 
   let id; 
 
