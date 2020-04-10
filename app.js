@@ -711,6 +711,9 @@ const addReview  = (sender_psid) => {
         console.log('No matching documents.');       
         return;
       } 
+
+      console.log('REVIEW', snapshot.docs[0].review);
+
       snapshot.docs[0].ref.update({review:{"author":review1.author, "link":review1.link},  marge:true});
     })
     .catch(err => {
