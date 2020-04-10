@@ -410,7 +410,7 @@ const handleMessage = (sender_psid, received_message) => {
         case "add book":
           addBooks(sender_psid);
           break;
-        case "add review"
+        case "add review":
           addReview(sender_psid);
           break;
         default:
