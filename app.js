@@ -650,7 +650,7 @@ const addBooks  = (sender_psid) => {
     }
 
     let book3 = {
-      title:"Roots: The Saga of an American Family",
+      title:"Roots",
       author:"Alex Haley",
       description:"Roots: The Saga of an American Family is a 1976 novel written by Alex Haley. It tells the story of Kunta Kinte, an 18th-century African, captured as an adolescent, sold into slavery in Africa, transported to North America; following his life and the lives of his descendants in the United States down to Haley",
       publisher:"Doubleday",
@@ -659,7 +659,7 @@ const addBooks  = (sender_psid) => {
       review: []
     }
 
-    db.collection('books').add(
+    db.collection('Books').add(
           book1
         ).then(success => {      
            console.log('BOOK ADDED');       
@@ -668,7 +668,7 @@ const addBooks  = (sender_psid) => {
           console.log(error);
     });
 
-    db.collection('books').add(
+    db.collection('Books').add(
           book2
         ).then(success => {      
            console.log('BOOK ADDED');       
@@ -677,7 +677,7 @@ const addBooks  = (sender_psid) => {
           console.log(error);
     });
 
-    db.collection('books').add(
+    db.collection('Books').add(
           book3
         ).then(success => {      
            console.log('BOOK ADDED');       
@@ -707,48 +707,38 @@ const addReview  = (sender_psid) => {
       link: "www.google.com"
     }
 
+    let review2 = {
+      book:"Roots",
+      author: "Effy",
+      link: "www.google.com"
+    }
+
     
 
-    db.collection("books").get()
-    .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
-        });
-    })
-    .catch(function(error) {
-        console.log("Error getting documents: ", error);
+   db.collection('Book Reviews').add(
+          review1
+        ).then(success => {      
+           console.log('REVIEW ADDED');            
+        }).catch(error => {
+          console.log(error);
     });
 
-     /*
 
-     db.collection('books').where('title', '==', review2.book).limit(1).get()
-    .then(snapshot => {
-      if (snapshot.empty) {
-        console.log('No matching documents.');       
-        return;
-      } 
-      snapshot.docs[0].ref.update({review:{"author":review2.author, "link":review2.link}});
-    })
-    .catch(err => {
-      console.log('Error getting documents', err);
-    });    
-     console.log('REVIEW SAVED') 
+    db.collection('Book Reviews').add(
+          review2
+        ).then(success => {      
+           console.log('REVIEW ADDED');            
+        }).catch(error => {
+          console.log(error);
+    });
 
-     db.collection('books').where('title', '==', review3.book).limit(1).get()
-    .then(snapshot => {
-      if (snapshot.empty) {
-        console.log('No matching documents.');       
-        return;
-      } 
-      snapshot.docs[0].ref.update({review:{"author":review3.author, "link":review3.link}});
-    })
-    .catch(err => {
-      console.log('Error getting documents', err);
-    });    
-     console.log('REVIEW SAVED') */
-
-
+    db.collection('Book Reviews').add(
+          review3
+        ).then(success => {      
+           console.log('REVIEW ADDED');            
+        }).catch(error => {
+          console.log(error);
+    });
 
 
 
