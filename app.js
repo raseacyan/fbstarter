@@ -50,7 +50,7 @@ var firebaseConfig = {
     "project_id": process.env.FIREBASE_PROJECT_ID,    
     }),
     databaseURL: process.env.FIREBASE_DB_URL, 
-    //storageBucket: process.env.FIREBASE_SB_URL
+    storageBucket: process.env.FIREBASE_SB_URL
   };
 
 
