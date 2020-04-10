@@ -712,9 +712,9 @@ const addReview  = (sender_psid) => {
         return;
       } 
 
-      console.log('REVIEW', snapshot.docs);
+      console.log('REVIEW', snapshot.docs.data());
 
-      snapshot.docs[0].ref.update({review:{"author":review1.author, "link":review1.link},  marge:true});
+      snapshot.docs[0].ref.update({review:{"author":review1.author, "link":review1.link}});
     })
     .catch(err => {
       console.log('Error getting documents', err);
@@ -729,7 +729,7 @@ const addReview  = (sender_psid) => {
         console.log('No matching documents.');       
         return;
       } 
-      snapshot.docs[0].ref.update({review:{"author":review2.author, "link":review2.link}, marge:true});
+      snapshot.docs[0].ref.update({review:{"author":review2.author, "link":review2.link}});
     })
     .catch(err => {
       console.log('Error getting documents', err);
@@ -742,7 +742,7 @@ const addReview  = (sender_psid) => {
         console.log('No matching documents.');       
         return;
       } 
-      snapshot.docs[0].ref.update({review:{"author":review3.author, "link":review3.link}, marge:true});
+      snapshot.docs[0].ref.update({review:{"author":review3.author, "link":review3.link}});
     })
     .catch(err => {
       console.log('Error getting documents', err);
