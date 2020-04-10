@@ -626,8 +626,8 @@ const addBooks  = (sender_psid) => {
       title:"ABC",
       isbn:123,
       description:"Book about ABC",
-      publisher:"Sate Ku Cho Cho"
-      year: 200
+      publisher:"Sate Ku Cho Cho",
+      year: 200,
       tags:['action', 'comedy']    
 
     }
