@@ -528,6 +528,8 @@ const showTourPackages =(sender_psid) => {
     console.log('SNAPSHOT',snapshot);
 
     snapshot.forEach((doc) => {
+
+      coonsole.log('DOC',doc);
       var obj = {};
       //obj._id  = doc.id ;        
       obj.title = doc.data().title;              
