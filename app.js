@@ -721,6 +721,8 @@ const addReview  = (sender_psid) => {
     });    
      console.log('REVIEW SAVED') 
 
+     /*
+
      db.collection('books').where('title', '==', review2.book).limit(1).get()
     .then(snapshot => {
       if (snapshot.empty) {
@@ -745,7 +747,7 @@ const addReview  = (sender_psid) => {
     .catch(err => {
       console.log('Error getting documents', err);
     });    
-     console.log('REVIEW SAVED') 
+     console.log('REVIEW SAVED') */
 
 
 
