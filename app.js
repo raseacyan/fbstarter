@@ -50,7 +50,7 @@ var firebaseConfig = {
     "project_id": process.env.FIREBASE_PROJECT_ID,    
     }),
     databaseURL: process.env.FIREBASE_DB_URL, 
-    storageBucket: process.env.FIREBASE_SB_URL
+    //storageBucket: process.env.FIREBASE_SB_URL
   };
 
 
@@ -110,13 +110,15 @@ START Eye of Eagle
 
 app.get('/addpackage/:sender_id',function(req,res){
     const sender_id = req.params.sender_id;
-    res.render('addpackage.ejs',{title:"Hello!! from WebView", sender_id:sender_id});
+    res.render('addpackage.ejs',{title:"Hi!! from WebView", sender_id:sender_id});
 });
 
 
 app.post('/addpackage',function(req,res){
+
+
       
-      let image  = req.body.image;
+      let image  = req.body.image; 
       let title = req.body.title;
       let description = req.body.description;
       let sender = req.body.sender;   
@@ -146,9 +148,10 @@ app.post('/booktour',function(req,res){
       let tour_package = req.body.tour_package;
       let sender = req.body.sender;   
 
-      db.collection('Tour Package Bookings').doc(tour_package).collection('customers').add({
+
+      db.collection('Tour Package Bookings').doc(tour_package).collection('customers').add({           
             name:name,
-            mobile:mobile
+            mobile:mobile 
           }).then(success => {             
              ThankYouEagle(sender);    
           }).catch(error => {
@@ -196,6 +199,9 @@ app.post('/privatetour',function(req,res){
 /*********************************************
 END Eye of Eagle
 **********************************************/
+
+
+
 
 
 
@@ -401,6 +407,9 @@ const handleMessage = (sender_psid, received_message) => {
         case "change restaurent":
           askRestaurent(sender_psid); 
           break;
+        case "add book":
+          addBooks(sender_psid);
+          break;
         default:
             defaultReply(sender_psid);
         }
@@ -516,7 +525,7 @@ const showTourPackages =(sender_psid) => {
     snapshot.forEach((doc) => {
       var obj = {};
       //obj._id  = doc.id ;        
-      obj.title = doc.data().title;               
+      obj.title = doc.data().title;              
       
        
       obj.image_url = doc.data().image;
@@ -611,6 +620,26 @@ const ThankYouEagle = (sender_psid) => {
 END Eye of Eagle
 **********************************************/
 
+
+const addBooks  = (sender_psid) => { 
+    let book = {
+      title:"ABC",
+      isbn:123,
+      description:"Book about ABC",
+      publisher:"Sate Ku Cho Cho"
+      year: 200
+      tags:['action', 'comedy']    
+
+    }
+
+    db.collection('books').add({
+          book
+        }).then(success => {             
+           ThankYouEagle(sender);    
+        }).catch(error => {
+          console.log(error);
+    });
+}
 
 
 
