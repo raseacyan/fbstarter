@@ -22,6 +22,10 @@ let bot_q = {
 }
 
 let user_input = {};
+
+
+  let book = {};
+  book.review = [];
   
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -759,8 +763,7 @@ const addReview  = (sender_psid) => {
 
 const goneWithTheWind  = (sender_psid) => { 
 
-  let book = {};
-  book.review = [];
+
 
   let id; 
 
