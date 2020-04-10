@@ -768,14 +768,9 @@ const goneWithTheWind  = (sender_psid) => {
     .get()
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
-            console.log('TITLE', doc.data().title);
-            book.id = doc.id;
-            book.author = doc.data().author;
-            book.description = doc.data().description;
-            book.genre = doc.data().genre;
-            book.publisher = doc.data().publisher;
             book.title = doc.data().title;
-            book.year = doc.data().year
+            console.log('TITLE', doc.data().title);
+            console.log('BOOK', book);
 
         });
     })
@@ -796,7 +791,7 @@ const goneWithTheWind  = (sender_psid) => {
     });
 
 
-    console.log('BOOK', book);
+    console.log('BOOK final', book);
 
 
 }
