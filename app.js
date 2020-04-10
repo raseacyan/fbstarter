@@ -781,6 +781,7 @@ const goneWithTheWind  = (sender_psid) => {
             .get()
             .then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
+                    console.log('reivew', doc.data().link);
                     book.review.push(doc.data().link);           
 
                 });
