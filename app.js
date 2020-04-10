@@ -628,7 +628,12 @@ const addBooks  = (sender_psid) => {
       description:"Book about ABC",
       publisher:"Sate Ku Cho Cho",
       year: 200,
-      tags:['action', 'comedy']    
+      tags:['action', 'comedy'],
+      review:[
+        {"author":"X", "url":"http://www.google.com"},
+        {"author":"Y", "url":"http://www.google.com"},
+        {"author":"Z", "url":"http://www.google.com"},
+      ]
 
     }
 
