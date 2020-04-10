@@ -768,9 +768,27 @@ const goneWithTheWind  = (sender_psid) => {
     .get()
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
-            book.title = doc.data().title;
-            console.log('TITLE', doc.data().title);
-            console.log('BOOK', book);
+
+            book.id = doc.id;
+            book.author = doc.data().author;
+            book.description = doc.data().description;
+            book.genre = doc.data().genre;
+            book.publisher = doc.data().publisher;            
+            book.year = doc.data().year;
+
+
+            db.collection("Book Reviews").where("title", "==", "Gone with the Wind")
+            .get()
+            .then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    book.review.push(doc.data().link);           
+
+                });
+                 console.log('BOOK', book);
+            })
+            .catch(function(error) {
+                console.log("Error getting documents: ", error);
+            });
 
         });
     })
@@ -778,20 +796,10 @@ const goneWithTheWind  = (sender_psid) => {
         console.log("Error getting documents: ", error);
     });
 
-    db.collection("Book Reviews").where("title", "==", "Gone with the Wind")
-    .get()
-    .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-            book.review.push(doc.data().link);           
-
-        });
-    })
-    .catch(function(error) {
-        console.log("Error getting documents: ", error);
-    });
+    
 
 
-    console.log('BOOK final', book);
+   
 
 
 }
