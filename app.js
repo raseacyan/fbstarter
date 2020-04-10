@@ -525,6 +525,8 @@ const showTourPackages =(sender_psid) => {
   .then((snapshot) => {
     let elementItems = [];
 
+    console.log('SNAPSHOT',snapshot);
+
     snapshot.forEach((doc) => {
       var obj = {};
       //obj._id  = doc.id ;        
@@ -712,7 +714,7 @@ const addReview  = (sender_psid) => {
         return;
       } 
 
-      console.log('REVIEW', snapshot.docs[0].ref.get());
+      console.log('SNAPSHOT 2', snapshot);
 
       snapshot.docs[0].ref.update({review:{"author":review1.author, "link":review1.link}});
     })
