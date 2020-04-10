@@ -717,6 +717,37 @@ const addReview  = (sender_psid) => {
       console.log('Error getting documents', err);
     });    
      console.log('REVIEW SAVED') 
+
+     db.collection('books').where('title', '==', review2.book).limit(1).get()
+    .then(snapshot => {
+      if (snapshot.empty) {
+        console.log('No matching documents.');       
+        return;
+      } 
+      snapshot.docs[0].ref.update({review:{"author":review2.author, "link":review2.link}});
+    })
+    .catch(err => {
+      console.log('Error getting documents', err);
+    });    
+     console.log('REVIEW SAVED') 
+
+     db.collection('books').where('title', '==', review3.book).limit(1).get()
+    .then(snapshot => {
+      if (snapshot.empty) {
+        console.log('No matching documents.');       
+        return;
+      } 
+      snapshot.docs[0].ref.update({review:{"author":review3.author, "link":review3.link}});
+    })
+    .catch(err => {
+      console.log('Error getting documents', err);
+    });    
+     console.log('REVIEW SAVED') 
+
+
+
+
+
 }
 
 
