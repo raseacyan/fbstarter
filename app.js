@@ -763,7 +763,7 @@ const goneWithTheWind  = (sender_psid) => {
 
   let id; 
 
-  db.collection("Books").where("title", "==", "Gone with the Wind").limit(1)
+  db.collection("Books").where("title", "==", "Gone with the Wind")
     .get()
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
