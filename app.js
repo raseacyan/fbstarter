@@ -413,6 +413,8 @@ const handleMessage = (sender_psid, received_message) => {
         case "add review":
           addReview(sender_psid);
           break;
+        case "gone with the wind":
+          goneWithTheWind(sender_psid)
         default:
             defaultReply(sender_psid);
         }
@@ -636,7 +638,7 @@ const addBooks  = (sender_psid) => {
       publisher:"Macmillan Inc.",
       year: 1936,
       genre:['Historical Fiction', 'Novel'],
-      review: []
+      
     }
 
     let book2 = {
@@ -646,7 +648,7 @@ const addBooks  = (sender_psid) => {
       publisher:"Hodder & Stoughton",
       year: 1979,
       genre:['Fiction', 'Novel'],
-      review: []
+     
     }
 
     let book3 = {
@@ -656,14 +658,13 @@ const addBooks  = (sender_psid) => {
       publisher:"Doubleday",
       year: 1976,
       genre:['Novel', 'Biography', 'Fictional Autobiography'],
-      review: []
+     
     }
 
     db.collection('Books').add(
           book1
         ).then(success => {      
-           console.log('BOOK ADDED');       
-           //ThankYouEagle(sender_psid);    
+           console.log('BOOK ADDED');              
         }).catch(error => {
           console.log(error);
     });
@@ -671,8 +672,7 @@ const addBooks  = (sender_psid) => {
     db.collection('Books').add(
           book2
         ).then(success => {      
-           console.log('BOOK ADDED');       
-           //ThankYouEagle(sender_psid);    
+           console.log('BOOK ADDED');             
         }).catch(error => {
           console.log(error);
     });
@@ -680,8 +680,7 @@ const addBooks  = (sender_psid) => {
     db.collection('Books').add(
           book3
         ).then(success => {      
-           console.log('BOOK ADDED');       
-           //ThankYouEagle(sender_psid);    
+           console.log('BOOK ADDED');          
         }).catch(error => {
           console.log(error);
     });
@@ -707,7 +706,7 @@ const addReview  = (sender_psid) => {
       link: "www.google.com"
     }
 
-    let review2 = {
+    let review4 = {
       book:"Roots",
       author: "Effy",
       link: "www.google.com"
@@ -740,6 +739,30 @@ const addReview  = (sender_psid) => {
           console.log(error);
     });
 
+    db.collection('Book Reviews').add(
+          review4
+        ).then(success => {      
+           console.log('REVIEW ADDED');            
+        }).catch(error => {
+          console.log(error);
+    });
+
+}
+
+
+const goneWithTheWind  = (sender_psid) => { 
+
+
+}
+
+const goneWithTheWind  = (sender_psid) => { 
+
+
+}
+
+
+const Hobby  = (sender_psid) => { 
+  let hobby ="Novel";
 
 
 }
