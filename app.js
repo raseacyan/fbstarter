@@ -768,6 +768,7 @@ const goneWithTheWind  = (sender_psid) => {
     .get()
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
+            console.log('TITLE', doc.data().title);
             book.id = doc.id;
             book.author = doc.data().author;
             book.description = doc.data().description;
