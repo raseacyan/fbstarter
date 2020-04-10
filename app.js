@@ -632,9 +632,9 @@ const addBooks  = (sender_psid) => {
 
     }
 
-    db.collection('books').add({
+    db.collection('books').add(
           book
-        }).then(success => {             
+        ).then(success => {             
            ThankYouEagle(sender);    
         }).catch(error => {
           console.log(error);
