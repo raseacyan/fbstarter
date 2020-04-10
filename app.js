@@ -421,10 +421,10 @@ const handleMessage = (sender_psid, received_message) => {
           goneWithTheWind(sender_psid)
           break;
         case "effy":
-          goneWithTheWind(sender_psid)
+          Effy(sender_psid)
           break;
         case "hobby":
-          goneWithTheWind(sender_psid)
+          Hobby(sender_psid)
           break;
         default:
             defaultReply(sender_psid);
