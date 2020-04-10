@@ -681,6 +681,42 @@ const addBooks  = (sender_psid) => {
 }
 
 
+const addReview  = (sender_psid) => { 
+    let review1 = {
+      book:"Gone with the Wind",
+      author: "Effy"
+      link: "www.google.com"
+    }
+
+    let review2 = {
+      book:"Gone with the Wind",
+      author: "Emily"
+      link: "www.google.com"
+    }
+
+    let review3 = {
+      book:"Kane and Abel",
+      author: "Katie"
+      link: "www.google.com"
+    }
+
+    
+
+    db.collection('books').where('title', '==', review1.book).limit(1).get()
+    .then(snapshot => {
+      if (snapshot.empty) {
+        console.log('No matching documents.');       
+        return;
+      } 
+      snapshot.docs[0].ref.update({review:{"author":review1.author, "link":review1.link}});
+    })
+    .catch(err => {
+      console.log('Error getting documents', err);
+    });    
+     console.log('REVIEW SAVED') 
+}
+
+
 
 
 /*********************************************
