@@ -761,6 +761,8 @@ const addReview  = (sender_psid) => {
 }
 
 
+
+
 const goneWithTheWind  = (sender_psid) => { 
   let book = {};
   book.review = [];
@@ -783,7 +785,7 @@ const goneWithTheWind  = (sender_psid) => {
             .get()
             .then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
-                    console.log('reivew', doc.data().link);
+                    console.log('reivew', doc.data().link, doc.data().author);
                     book.review.push(doc.data().link);           
 
                 });
@@ -835,9 +837,6 @@ const Hobby  = (sender_psid) => {
     .catch(function(error) {
         console.log("Error getting documents: ", error);
     });
-
-
-
 
 }
 
