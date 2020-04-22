@@ -566,7 +566,7 @@ const updateItinerary = (sender_psid, ref) =>{
     
     if(user_input.hotel){
        booking.ref.update({hotel:user_input.hotel});
-       notifySave(sender_psid);  
+       notifySave(sender_psid); 
     }
 
     if(user_input.restaurent){
@@ -584,7 +584,7 @@ const updateItinerary = (sender_psid, ref) =>{
 
 
   
-  notifySave(sender_psid);    
+     
 }
 
 const notifySave = (sender_psid) => { 
