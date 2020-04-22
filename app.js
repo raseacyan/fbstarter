@@ -122,15 +122,14 @@ app.get('/addpackage/:sender_id/',function(req,res){
 app.post('/addpackage',function(req,res){      
       let image  = req.body.image; 
       let title = req.body.title;
-      let description = req.body.description;
-      let sku = req.body.sku;
+      let description = req.body.description;     
       let sender = req.body.sender;   
 
       db.collection('package').add({
             image: image,
             title: title,
-            description: description,
-            sku:sku
+            description: description
+            
           }).then(success => {             
              notifySave(sender);    
           }).catch(error => {
@@ -142,7 +141,22 @@ app.post('/addpackage',function(req,res){
 app.get('/booktour/:tour_package/:sender_id',function(req,res){
     const tour_package = req.params.tour_package;
     const sender_id = req.params.sender_id;
-    res.render('booktour.ejs',{title:"Book Tour Package", tour_package:tour_package, sender_id:sender_id});
+
+
+    const packages = {
+      yangon:{
+        hotels:['Melia', 'Lotte', 'Sedona'],
+        restaurents:['Fuji House', 'Koh Fu', 'Seeds']
+      },
+      mandalay:{
+        hotels:['Yandanarbon', 'Apex', 'Golden Leaff'],
+        restaurents:['Goldious', 'Mingalabar Myanmar', 'Unique']
+      }
+    }
+
+
+
+    res.render('booktour.ejs',{title:"Book Tour Package", tour_package:tour_package, sender_id:sender_id, packages:packages});
 });
 
 
@@ -418,16 +432,6 @@ START TOUR
 **********************************************/
 
 
-const packages = {
-  yangon:{
-    hotels:['Melia', 'Lotte', 'Sedona'],
-    restaurents:['Fuji House', 'Koh Fu', 'Seeds']
-  },
-  mandalay:{
-    hotels:['Yandanarbon', 'Apex', 'Golden Leaff'],
-    restaurents:['Goldious', 'Mingalabar Myanmar', 'Unique']
-  }
-}
 
 
 const helloEagle = (sender_psid) => { 
@@ -497,111 +501,6 @@ const showTourPackages = (sender_psid) => {
     console.log('Error getting documents', err);
   }); 
 }
-
-
-
-const showRestaurents = (sender_psid, city) => {  
-  let response1 = {"text": "Please choose a restaurent"};
-  let response2 = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [
-            {
-              "title": packages[city].restaurents[0],
-              "image_url":"https://picsum.photos/600/600",                       
-              "buttons": [
-                  {
-                    "type": "postback",
-                    "title": "Select",
-                    "payload": packages[city].restaurents[0],
-                  },                 
-                ],
-            },
-            {
-              "title": packages[city].restaurents[1],
-              "image_url":"https://picsum.photos/600/600",                       
-              "buttons": [
-                  {
-                    "type": "postback",
-                    "title": "Select",
-                    "payload": packages[city].restaurents[1],
-                  },                 
-                ],
-            },
-            {
-              "title": packages[city].restaurents[2],
-              "image_url":"https://picsum.photos/600/600",                       
-              "buttons": [
-                  {
-                    "type": "postback",
-                    "title": "Select",
-                    "payload": packages[city].restaurents[2],
-                  },                 
-                ],
-            },
-          ]
-        }
-      }
-    }
-    callSend(sender_psid, response1).then(()=>{
-      return callSend(sender_psid, response2);
-    }); 
-}
-
-
-const showHotels = (sender_psid, city) => {  
-  let response1 = {"text": "Please choose a Hotel"};
-  let response2 = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [
-            {
-              "title": packages[city].hotels[0],
-              "image_url":"https://picsum.photos/600/600",                       
-              "buttons": [
-                  {
-                    "type": "postback",
-                    "title": "Select",
-                    "payload": packages[city].hotels[0],
-                  },                 
-                ],
-            },
-            {
-              "title": packages[city].hotels[1],
-              "image_url":"https://picsum.photos/600/600",                       
-              "buttons": [
-                  {
-                    "type": "postback",
-                    "title": "Select",
-                    "payload": packages[city].hotels[1],
-                  },                 
-                ],
-            },
-            {
-              "title": packages[city].hotels[2],
-              "image_url":"https://picsum.photos/600/600",                       
-              "buttons": [
-                  {
-                    "type": "postback",
-                    "title": "Select",
-                    "payload": packages[city].hotels[2],
-                  },                 
-                ],
-            },
-          ]
-        }
-      }
-    }
-    callSend(sender_psid, response1).then(()=>{
-      return callSend(sender_psid, response2);
-    }); 
-}
-
-
 
 const amendTour = (sender_psid) => { 
     let response = {
