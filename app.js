@@ -122,13 +122,15 @@ app.get('/addpackage/:sender_id/',function(req,res){
 app.post('/addpackage',function(req,res){      
       let image  = req.body.image; 
       let title = req.body.title;
-      let description = req.body.description;     
+      let description = req.body.description;   
+      let sku = req.body.sku;   
       let sender = req.body.sender;   
 
       db.collection('package').add({
             image: image,
             title: title,
-            description: description
+            description: description,
+            sku:sku
             
           }).then(success => {             
              notifySave(sender);    
@@ -138,17 +140,19 @@ app.post('/addpackage',function(req,res){
 });
 
 
-app.get('/booktour/:tour_package/:sender_id',function(req,res){
-    const tour_package = req.params.tour_package;
+app.get('/booktour/:sku/:sender_id',function(req,res){
+    const sku = req.params.sku;
     const sender_id = req.params.sender_id;
 
 
     const packages = {
       yangon:{
+        title:"Yangon 2D1N",
         hotels:['Melia', 'Lotte', 'Sedona'],
         restaurents:['Fuji House', 'Koh Fu', 'Seeds']
       },
       mandalay:{
+        title:"Mandalay 2D1N",
         hotels:['Yandanarbon', 'Apex', 'Golden Leaff'],
         restaurents:['Goldious', 'Mingalabar Myanmar', 'Unique']
       }
@@ -156,7 +160,9 @@ app.get('/booktour/:tour_package/:sender_id',function(req,res){
 
 
 
-    res.render('booktour.ejs',{title:"Book Tour Package", tour_package:tour_package, sender_id:sender_id, packages:packages});
+
+
+    res.render('booktour.ejs',{title:"Book Tour Package", sku:sku, sender_id:sender_id, package:packages[sku]});
 });
 
 
@@ -481,7 +487,7 @@ const showTourPackages = (sender_psid) => {
       //obj._id  = doc.id ;        
       obj.title = doc.data().title;       
       obj.image_url = doc.data().image;      
-      obj.buttons = [{"type":"web_url", "title":"BOOK NOW", "url":"https://fbstarterbot.herokuapp.com/booktour/"+obj.title+"/"+sender_psid, "webview_height_ratio": "full", "messenger_extensions": true,}]; 
+      obj.buttons = [{"type":"web_url", "title":"BOOK NOW", "url":"https://fbstarterbot.herokuapp.com/booktour/"+doc.data().sku+"/"+sender_psid, "webview_height_ratio": "full", "messenger_extensions": true,}]; 
       elementItems.push(obj);     
     });
 
