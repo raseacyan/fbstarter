@@ -394,6 +394,34 @@ const handleMessage = (sender_psid, received_message) => {
 
 }
 
+
+
+/*********************************************
+Function to handle when user click button
+**********************************************/
+const handlePostback = (sender_psid, received_postback) => {
+  let payload = received_postback.payload;
+  switch(payload) {        
+      case "yes":
+          showButtonReplyYes(sender_psid);
+        break;
+      case "no":
+          showButtonReplyNo(sender_psid);
+        break;
+      case "yangon":
+          showRestaurents(sender_psid, 'yangon'); 
+          break; 
+      case "mandalay":
+        showRestaurents(sender_psid, 'mandalay'); 
+        break;
+      case "Melia":
+        askCustomerName(sender_psid); 
+        break;                
+      default:
+          defaultReply(sender_psid);
+  } 
+}
+
 /*********************************************
 START TOUR
 **********************************************/
@@ -406,7 +434,7 @@ const packages = {
   },
   mandalay:{
     hotels:['Yandanarbon', 'Apex', 'Golden Leaff'],
-    restaurents:['Fuji House', 'Koh Fu', 'Seeds']
+    restaurents:['Goldious', 'Mingalabar Myanmar', 'Unique']
   }
 }
 
@@ -481,7 +509,7 @@ const showTourPackages = (sender_psid) => {
 
 
 
-const showRestaurents = (sender_psid) => {  
+const showRestaurents = (sender_psid, city) => {  
   let response1 = {"text": "Please choose a restaurent"};
   let response2 = {
       "attachment": {
@@ -491,7 +519,7 @@ const showRestaurents = (sender_psid) => {
           "elements": [
             {
               "title": packages[city].restaurents[0],
-              "image_url":"https://cdn.pixabay.com/photo/2014/09/17/20/26/restaurant-449952__340.jpg",                       
+              "image_url":"https://picsum.photos/600/600",                       
               "buttons": [
                   {
                     "type": "postback",
@@ -502,7 +530,7 @@ const showRestaurents = (sender_psid) => {
             },
             {
               "title": packages[city].restaurents[1],
-              "image_url":"https://cdn.pixabay.com/photo/2014/09/17/20/26/restaurant-449952__340.jpg",                       
+              "image_url":"https://picsum.photos/600/600",                       
               "buttons": [
                   {
                     "type": "postback",
@@ -513,12 +541,63 @@ const showRestaurents = (sender_psid) => {
             },
             {
               "title": packages[city].restaurents[2],
-              "image_url":"https://cdn.pixabay.com/photo/2014/09/17/20/26/restaurant-449952__340.jpg",                       
+              "image_url":"https://picsum.photos/600/600",                       
               "buttons": [
                   {
                     "type": "postback",
                     "title": "Select",
                     "payload": packages[city].restaurents[2],
+                  },                 
+                ],
+            },
+          ]
+        }
+      }
+    }
+    callSend(sender_psid, response1).then(()=>{
+      return callSend(sender_psid, response2);
+    }); 
+}
+
+
+const showHotels = (sender_psid, city) => {  
+  let response1 = {"text": "Please choose a Hotel"};
+  let response2 = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": packages[city].hotels[0],
+              "image_url":"https://picsum.photos/600/600",                       
+              "buttons": [
+                  {
+                    "type": "postback",
+                    "title": "Select",
+                    "payload": packages[city].hotels[0],
+                  },                 
+                ],
+            },
+            {
+              "title": packages[city].hotels[1],
+              "image_url":"https://picsum.photos/600/600",                       
+              "buttons": [
+                  {
+                    "type": "postback",
+                    "title": "Select",
+                    "payload": packages[city].hotels[1],
+                  },                 
+                ],
+            },
+            {
+              "title": packages[city].hotels[2],
+              "image_url":"https://picsum.photos/600/600",                       
+              "buttons": [
+                  {
+                    "type": "postback",
+                    "title": "Select",
+                    "payload": packages[city].hotels[2],
                   },                 
                 ],
             },
@@ -818,28 +897,6 @@ const Hobby  = (sender_psid) => {
 
 
 
-/*********************************************
-Function to handle when user click button
-**********************************************/
-const handlePostback = (sender_psid, received_postback) => {
-  let payload = received_postback.payload;
-  switch(payload) {        
-      case "yes":
-          showButtonReplyYes(sender_psid);
-        break;
-      case "no":
-          showButtonReplyNo(sender_psid);
-        break;
-      case "yangon":
-          showRestaurents(sender_psid, 'yangon'); 
-          break; 
-        case "mandalay":
-          showRestaurents(sender_psid, 'mandalay'); 
-          break;                
-      default:
-          defaultReply(sender_psid);
-  } 
-}
 
 
 function webviewTest(sender_psid){
