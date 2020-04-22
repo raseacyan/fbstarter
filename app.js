@@ -109,30 +109,30 @@ app.post('/webhook', (req, res) => {
 app.use('/uploads', express.static('uploads'));
 
 /*********************************************
-START Eye of Eagle
+Tour
 **********************************************/
 
-app.get('/addpackage/:sender_id',function(req,res){
+
+app.get('/addpackage/:sender_id/',function(req,res){
     const sender_id = req.params.sender_id;
     res.render('addpackage.ejs',{title:"Hi!! from WebView", sender_id:sender_id});
 });
 
 
-app.post('/addpackage',function(req,res){
-
-
-      
+app.post('/addpackage',function(req,res){      
       let image  = req.body.image; 
       let title = req.body.title;
       let description = req.body.description;
+      let sku = req.body.sku;
       let sender = req.body.sender;   
 
       db.collection('package').add({
             image: image,
             title: title,
             description: description
+            sku:sku
           }).then(success => {             
-             ThankYouEagle(sender);    
+             notifySave(sender);    
           }).catch(error => {
             console.log(error);
       });        
@@ -163,45 +163,9 @@ app.post('/booktour',function(req,res){
       });        
 });
 
-app.get('/privatetour/:sender_id',function(req,res){    
-    const sender_id = req.params.sender_id;
-    res.render('privatetour.ejs',{title:"Create Your Own Private Tour", sender_id:sender_id});
-});
-
-
-app.post('/privatetour',function(req,res){
-      
-      let destination= req.body.destination;
-      let activities = req.body.activities;
-      let guests = req.body.guests;
-      let travel_mode = req.body.travel_mode;
-      let travel_option = req.body.travel_option;
-      let hotel = req.body.hotel;
-      let restaurent= req.body.restaurent;
-      let name  = req.body.name;
-      let mobile = req.body.mobile;
-      let sender = req.body.sender;   
-
-      db.collection('Private Tour Bookings').add({
-            destination:destination,
-            activities:activities,
-            guests:guests,
-            travel_mode:travel_mode,
-            travel_option:travel_option,
-            hotel:hotel,
-            restaurent:restaurent,            
-            name:name,
-            mobile:mobile
-          }).then(success => {             
-             ThankYouEagle(sender);    
-          }).catch(error => {
-            console.log(error);
-      });        
-});
-
 
 /*********************************************
-END Eye of Eagle
+END Tour
 **********************************************/
 
 
@@ -376,29 +340,29 @@ const handleMessage = (sender_psid, received_message) => {
 
       switch(user_message) {        
         case "text":
-            textReply(sender_psid);
+          textReply(sender_psid);
           break;
         case "quick":
-            quickReply(sender_psid);
+          quickReply(sender_psid);
           break;
         case "button":            
-            buttonReply(sender_psid);
+          buttonReply(sender_psid);
           break;
         case "webview":
-            webviewTest(sender_psid);
+          webviewTest(sender_psid);
           break; 
-        case "eagle":
-            eyeofEagle(sender_psid); 
-            break;
+        case "hello eagle":
+          helloEagle(sender_psid); 
+          break;
         case "admin":
-            adminCreatePackage(sender_psid); 
-            break; 
-        case "customer":
-            selectMode(sender_psid); 
-            break; 
-        case "tour packages":
+          adminCreatePackage(sender_psid); 
+          break;         
+        case "show packages":
           showTourPackages(sender_psid); 
-          break;  
+          break;
+        case "yangon":
+          restaurentOption(sender_psid, 'yangon'); 
+          break; 
         case "private tour":
           privateTour(sender_psid); 
           break; 
@@ -434,15 +398,142 @@ const handleMessage = (sender_psid, received_message) => {
 }
 
 /*********************************************
-START Eye of Eagle
+START TOUR
 **********************************************/
 
-const eyeofEagle = (sender_psid) => { 
-    let response = {
-    "text": `Are you "admin" or "customer"?`,    
-    };
-    callSend(sender_psid, response); 
+
+const packages = {
+  yangon:{
+    hotels:['Melia', 'Lotte', 'Sedona'],
+    restaurents:['Fuji House', 'Koh Fu', 'Seeds']
+  },
+  mandalay:{
+    hotels:['Yandanarbon', 'Apex', 'Golden Leaff'],
+    restaurents:['Fuji House', 'Koh Fu', 'Seeds']
+  }
 }
+
+
+const helloEagle = (sender_psid) => { 
+    let response1 = {"text": "Do you want to change your itinerary?, (type 'update itinerary')"};
+    let response2 = {"text": "Do you want to view packages? (type 'view packages')"};    
+    callSend(sender_psid, response1).then(()=>{
+      return callSend(sender_psid, response2);
+    }); 
+}
+
+//to add tour packages by admin
+function adminCreatePackage(sender_psid){
+  let response;
+  response = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Create a tour package",                       
+            "buttons": [              
+              {
+                "type": "web_url",
+                "title": "create",
+                "url":"https://fbstarterbot.herokuapp.com/addpackage/"+sender_psid,
+                 "webview_height_ratio": "full",
+                "messenger_extensions": true,          
+              },
+              
+            ],
+          }]
+        }
+      }
+    }
+  callSendAPI(sender_psid, response);
+}
+
+//to show tour packages
+const showTourPackages =(sender_psid) => {  
+
+  db.collection('package').get()
+  .then((snapshot) => {
+    let elementItems = [];
+
+    snapshot.forEach((doc) => {  
+      var obj = {};
+      //obj._id  = doc.id ;        
+      obj.title = doc.data().title;       
+      obj.image_url = doc.data().image;
+      obj.sku = doc.data().sku;
+      obj.buttons = [{"type":"postback", "title":"BOOK NOW", "payload":obj.sku}]; 
+      elementItems.push(obj);     
+    });
+
+    let response = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "image_aspect_ratio": "square",
+          "elements": elementItems
+        }
+      }
+    }    
+    callSend(sender_psid, response);
+  })
+  .catch((err) => {
+    console.log('Error getting documents', err);
+  }); 
+}
+
+const restaurentOption = (sender_psid, package) => { 
+  let response1 = {"text": "Please choose a restaurent"};
+  let response2 = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": packages[city].restaurents[0],
+              "image_url":"https://cdn.pixabay.com/photo/2014/09/17/20/26/restaurant-449952__340.jpg",                       
+              "buttons": [
+                  {
+                    "type": "postback",
+                    "title": "Select",
+                    "payload": packages[city].restaurents[0],
+                  },                 
+                ],
+            },
+            {
+              "title": packages[city].restaurents[1],
+              "image_url":"https://cdn.pixabay.com/photo/2014/09/17/20/26/restaurant-449952__340.jpg",                       
+              "buttons": [
+                  {
+                    "type": "postback",
+                    "title": "Select",
+                    "payload": packages[city].restaurents[1],
+                  },                 
+                ],
+            },
+            {
+              "title": packages[city].restaurents[2],
+              "image_url":"https://cdn.pixabay.com/photo/2014/09/17/20/26/restaurant-449952__340.jpg",                       
+              "buttons": [
+                  {
+                    "type": "postback",
+                    "title": "Select",
+                    "payload": packages[city].restaurents[2],
+                  },                 
+                ],
+            },
+          ]
+        }
+      }
+    }
+
+    callSend(sender_psid, response1).then(()=>{
+      return callSend(sender_psid, response2);
+    }); 
+}
+
 
 
 const amendTour = (sender_psid) => { 
@@ -516,130 +607,17 @@ const updatePrivateTour = (sender_psid, phone, field) =>{
   ThankYouEagle(sender_psid);    
 }
 
-
-const selectMode = (sender_psid) => { 
-    let response1 = {"text": "Do you want to see our tour packages?, (type 'tour packages')"};
-    let response2 = {"text": "Do you want to create your own custom private tour? (type 'private tour')"};
-    let response3 = {"text": "Do you want to amend your private tour (type 'amend tour')"};   
-    let response4 = {"text": "todo"};
-      callSend(sender_psid, response1).then(()=>{
-        return callSend(sender_psid, response2).then(()=>{
-          return callSend(sender_psid, response3).then(()=>{
-            return callSend(sender_psid, response4);
-          });
-        });
-    });     
-}
-
-
-const showTourPackages =(sender_psid) => {  
-
-  db.collection('package').get()
-  .then((snapshot) => {
-    let elementItems = [];
-
-
-
-    snapshot.forEach((doc) => {
-
-  
-      var obj = {};
-      //obj._id  = doc.id ;        
-      obj.title = doc.data().title;              
-      
-       
-      obj.image_url = doc.data().image;
-      obj.buttons = [{"type":"web_url", "title":"BOOK NOW", "url":"https://fbstarterbot.herokuapp.com/booktour/" + obj.title+"/"+sender_psid, "webview_height_ratio": "full", "messenger_extensions": true}];   
-
-      elementItems.push(obj);
-     
-    });
-
-  let response = {
-            "attachment": {
-              "type": "template",
-              "payload": {
-                "template_type": "generic",
-                "image_aspect_ratio": "square",
-                "elements": elementItems
-              }
-            }
-          }
-
-    console.log("RESPONSE", response);
-    console.log("SENDER",sender_psid,);
-    callSend(sender_psid, response);
-  })
-  .catch((err) => {
-    console.log('Error getting documents', err);
-  });
- 
-}
-
-function adminCreatePackage(sender_psid){
-  let response;
-  response = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [{
-            "title": "Create a tour package",                       
-            "buttons": [              
-              {
-                "type": "web_url",
-                "title": "create",
-                "url":"https://fbstarterbot.herokuapp.com/addpackage/"+sender_psid,
-                 "webview_height_ratio": "full",
-                "messenger_extensions": true,          
-              },
-              
-            ],
-          }]
-        }
-      }
-    }
-  callSendAPI(sender_psid, response);
-}
-
-
-function privateTour(sender_psid){
-  let response;
-  response = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [{
-            "title": "Create your private tour",                       
-            "buttons": [              
-              {
-                "type": "web_url",
-                "title": "Create",
-                "url":"https://fbstarterbot.herokuapp.com/privatetour/"+sender_psid,
-                 "webview_height_ratio": "full",
-                "messenger_extensions": true,          
-              },
-              
-            ],
-          }]
-        }
-      }
-    }
-  callSendAPI(sender_psid, response);
-}
-
-const ThankYouEagle = (sender_psid) => { 
+const notifySave = (sender_psid) => { 
     let response = {
     "text": `Your data is saved`,    
     };
     callSend(sender_psid, response); 
 }
 
-/*********************************************
-END Eye of Eagle
-**********************************************/
 
+/*********************************************
+END TOUR
+**********************************************/
 
 const addBooks  = (sender_psid) => { 
     let book1 = {
