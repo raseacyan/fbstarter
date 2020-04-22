@@ -450,7 +450,7 @@ function adminCreatePackage(sender_psid){
 }
 
 //to show tour packages
-const showTourPackages =(sender_psid) => {  
+const showTourPackages = (sender_psid) => {  
 
   db.collection('package').get()
   .then((snapshot) => {
