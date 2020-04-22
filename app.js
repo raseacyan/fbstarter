@@ -361,8 +361,11 @@ const handleMessage = (sender_psid, received_message) => {
           showTourPackages(sender_psid); 
           break;
         case "yangon":
-          restaurentOption(sender_psid, 'yangon'); 
+          showRestaurents(sender_psid, 'yangon'); 
           break; 
+        case "mandalay":
+          showRestaurents(sender_psid, 'mandalay'); 
+          break;
         case "private tour":
           privateTour(sender_psid); 
           break; 
@@ -484,7 +487,7 @@ const showTourPackages = (sender_psid) => {
 
 
 
-const restaurentOption = (sender_psid, package) => { 
+const showRestaurents = (sender_psid) => {  
   let response1 = {"text": "Please choose a restaurent"};
   let response2 = {
       "attachment": {
@@ -529,7 +532,6 @@ const restaurentOption = (sender_psid, package) => {
         }
       }
     }
-
     callSend(sender_psid, response1).then(()=>{
       return callSend(sender_psid, response2);
     }); 
