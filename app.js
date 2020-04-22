@@ -522,7 +522,8 @@ const amendTour = (sender_psid) => {
 }
 
 const askHotel = (sender_psid) => {  
-  bot_q.askHotel = true;  
+  bot_q.askHotel = true;
+  bot_q.askRestaurent = false;  
   let response = {
     "text": `Enter name of the hotel you want to stay`,    
     };
@@ -532,6 +533,7 @@ const askHotel = (sender_psid) => {
 
 const askRestaurent = (sender_psid) => {
   bot_q.askRestaurent = true;
+  bot_q.askHotel = false;
   let response = {
     "text": `Enter name of the restaurent you want to go`,    
     };
