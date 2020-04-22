@@ -217,7 +217,7 @@ app.post('/webview',upload.single('file'),function(req,res){
 
       
       
-      db.collection('booking').add({
+      db.collection('webview').add({
             name: name,
             email: email,
             image: img_url
