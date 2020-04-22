@@ -460,10 +460,8 @@ const showTourPackages = (sender_psid) => {
       var obj = {};
       //obj._id  = doc.id ;        
       obj.title = doc.data().title;       
-      obj.image_url = doc.data().image;
-      obj.sku = doc.data().sku;
-      console.log("SKU", obj.sku);
-      obj.buttons = [{"type":"postback", "title":"BOOK NOW", "payload":obj.sku}]; 
+      obj.image_url = doc.data().image;      
+      obj.buttons = [{"type":"postback", "title":"BOOK NOW", "payload":doc.data().sku}]; 
       elementItems.push(obj);     
     });
 
