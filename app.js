@@ -483,7 +483,7 @@ const showTourPackages = (sender_psid) => {
   }); 
 }
 
-const restaurentOption = (sender_psid, package) => { 
+function restaurentOption(sender_psid, package){ 
   let response1 = {"text": "Please choose a restaurent"};
   let response2 = {
       "attachment": {
