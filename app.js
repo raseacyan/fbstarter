@@ -359,13 +359,7 @@ const handleMessage = (sender_psid, received_message) => {
           break;         
         case "show packages":
           showTourPackages(sender_psid); 
-          break;
-        case "yangon":
-          showRestaurents(sender_psid, 'yangon'); 
-          break; 
-        case "mandalay":
-          showRestaurents(sender_psid, 'mandalay'); 
-          break;
+          break;        
         case "private tour":
           privateTour(sender_psid); 
           break; 
@@ -835,7 +829,13 @@ const handlePostback = (sender_psid, received_postback) => {
         break;
       case "no":
           showButtonReplyNo(sender_psid);
-        break;                
+        break;
+      case "yangon":
+          showRestaurents(sender_psid, 'yangon'); 
+          break; 
+        case "mandalay":
+          showRestaurents(sender_psid, 'mandalay'); 
+          break;                
       default:
           defaultReply(sender_psid);
   } 
