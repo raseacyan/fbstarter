@@ -129,7 +129,7 @@ app.post('/addpackage',function(req,res){
       db.collection('package').add({
             image: image,
             title: title,
-            description: description
+            description: description,
             sku:sku
           }).then(success => {             
              notifySave(sender);    
