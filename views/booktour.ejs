@@ -31,8 +31,8 @@
     };
   </script>
   
-	<h1><%= tour_package %></h1>
-  <h1></h1>
+	<h1><%= package.title %></h1>
+ 
   
 
   <form id="form" method="post" action="https://fbstarterbot.herokuapp.com/booktour/">
@@ -45,7 +45,7 @@
     <label for="title">Mobile</label>
     <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Title">
   </div>
-  <input type="hidden"  id="tour_package" name="tour_package" value="<%= tour_package %>">    
+  <input type="hidden"  id="tour_package" name="tour_package" value="test">    
   <input type="hidden"  id="sender" name="sender" value="<%= sender_id %>">
   <input type="submit" value="Confirm Booking"> 
   </form>
