@@ -215,18 +215,7 @@ app.post('/webview',upload.single('file'),function(req,res){
       let img_url = APP_URL + "/" + req.file.path;
       let sender = req.body.sender;    
 
-      bucket.upload(img_url, function(err, file, apiResponse) {
-          console.log("UPLOADED TO BUCKET");
-      }); 
-
-      /*
-      bucket.upload(img_url).then(data => {
-      console.log('upload success');
-      }).catch(err => {
-          console.log('error uploading to storage', err);
-      });
-
-      */  
+      
       
       db.collection('booking').add({
             name: name,
