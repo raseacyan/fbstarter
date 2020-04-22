@@ -407,16 +407,7 @@ const handlePostback = (sender_psid, received_postback) => {
         break;
       case "no":
           showButtonReplyNo(sender_psid);
-        break;
-      case "yangon":
-          showRestaurents(sender_psid, 'yangon'); 
-          break; 
-      case "mandalay":
-        showRestaurents(sender_psid, 'mandalay'); 
-        break;
-      case "Melia":
-        askCustomerName(sender_psid); 
-        break;                
+        break;                      
       default:
           defaultReply(sender_psid);
   } 
@@ -486,7 +477,7 @@ const showTourPackages = (sender_psid) => {
       //obj._id  = doc.id ;        
       obj.title = doc.data().title;       
       obj.image_url = doc.data().image;      
-      obj.buttons = [{"type":"postback", "title":"BOOK NOW", "payload":doc.data().sku}]; 
+      obj.buttons = [{"type":"web_url", "title":"BOOK NOW", "url":"https://fbstarterbot.herokuapp.com/booktour/"+obj.title+"/"+sender_psid, "webview_height_ratio": "full", "messenger_extensions": true,}]; 
       elementItems.push(obj);     
     });
 
