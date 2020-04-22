@@ -177,12 +177,13 @@ app.post('/booktour',function(req,res){
       let booking_ref = generateRandom(5);   
 
 
-      db.collection('Bookings').doc(tour_package).collection('customers').add({           
+      db.collection('Bookings').add({           
             name:name,
             mobile:mobile,
             restaurent:restaurent,
             hotel:hotel,
             ref:booking_ref,
+            package:tour_package
           }).then(success => {             
              showBookingNumber(sender, booking_ref);    
           }).catch(error => {
@@ -565,10 +566,12 @@ const updateItinerary = (sender_psid, ref) =>{
     
     if(user_input.hotel){
        booking.ref.update({hotel:user_input.hotel});
+       notifySave(sender_psid);  
     }
 
     if(user_input.restaurent){
       booking.ref.update({restaurent:user_input.restaurent});
+      notifySave(sender_psid);  
     }
     
     
