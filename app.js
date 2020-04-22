@@ -170,12 +170,19 @@ app.post('/booktour',function(req,res){
       let name  = req.body.name;
       let mobile = req.body.mobile;
       let tour_package = req.body.tour_package;
-      let sender = req.body.sender;   
+      let restaurent = req.body.restaurent;
+      let hotel = req.body.hotel;
+      let sender = req.body.sender;
+
+      let booking_ref = generateRandom(5);   
 
 
-      db.collection('Tour Package Bookings').doc(tour_package).collection('customers').add({           
+      db.collection('Bookings').doc(tour_package).collection('customers').add({           
             name:name,
-            mobile:mobile 
+            mobile:mobile,
+            restaurent:restaurent,
+            hotel:hotel,
+            ref:booking_ref,
           }).then(success => {             
              ThankYouEagle(sender);    
           }).catch(error => {
@@ -584,6 +591,17 @@ const notifySave = (sender_psid) => {
     "text": `Your data is saved`,    
     };
     callSend(sender_psid, response); 
+}
+
+
+const generateRandom = (length) => {
+   var result           = '';
+   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+   var charactersLength = characters.length;
+   for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+   }
+   return result;
 }
 
 

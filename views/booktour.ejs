@@ -36,16 +36,31 @@
   
 
   <form id="form" method="post" action="https://fbstarterbot.herokuapp.com/booktour/">
-  
-  <div class="form-group">
-    <label for="name">Name</label>
-    <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">    
+  <div class="form-group ">
+      <label for="restaurent">Choose Restaurent</label><br>
+      <select id="restaurent" name="restaurent" class="form-control">
+        <option value="<%= package.restaurents[0] %>" selected><%= package.restaurents[0] %></option>
+        <option value="<%= package.restaurents[1] %>"><%= package.restaurents[1] %></option>
+        <option value="<%= package.restaurents[2] %>"><%= package.restaurents[2] %></option>
+      </select>
+  </div>
+  <div class="form-group ">
+      <label for="hotel">Choose Hotel</label><br>
+      <select id="hotel" name="hotel" class="form-control">
+        <option value="<%= package.hotels[0] %>" selected><%= package.hotels[0] %></option>
+        <option value="<%= package.hotels[1] %>"><%= package.hotels[1] %></option>
+        <option value="<%= package.hotels[2] %>"><%= package.hotels[2] %></option>
+      </select>
   </div>
   <div class="form-group">
-    <label for="title">Mobile</label>
-    <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Title">
+    <label for="name">Name</label><br>
+    <input type="text" class="form-control form-control-lg" id="name" name="name" placeholder="Enter your name">    
   </div>
-  <input type="hidden"  id="tour_package" name="tour_package" value="test">    
+  <div class="form-group">
+    <label for="title">Mobile</label><br>
+    <input type="text" class="form-control form-control-lg" id="mobile" name="mobile" placeholder="Title">
+  </div>
+  <input type="hidden"  id="tour_package" name="tour_package" value="<%= package.title %>">    
   <input type="hidden"  id="sender" name="sender" value="<%= sender_id %>">
   <input type="submit" value="Confirm Booking"> 
   </form>
