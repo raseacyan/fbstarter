@@ -184,7 +184,7 @@ app.post('/booktour',function(req,res){
             hotel:hotel,
             ref:booking_ref,
           }).then(success => {             
-             ThankYouEagle(sender);    
+             showBookingNumber(sender, booking_ref);    
           }).catch(error => {
             console.log(error);
       });        
@@ -313,22 +313,20 @@ const handleMessage = (sender_psid, received_message) => {
 
   if(bot_q.askHotel && received_message.text){
         user_input.hotel = received_message.text;
-        bot_q.askHotel = false;
-        console.log('USER ENTER HOTEL');
-        askPhone(sender_psid);
+        bot_q.askHotel = false;        
+        askRef(sender_psid);
       }
 
-  else    if(bot_q.askRestaurent && received_message.text){
+  else if(bot_q.askRestaurent && received_message.text){
         user_input.restaurent = received_message.text;
         bot_q.askRestaurent = false;
-        askPhone(sender_psid);
+        askRef(sender_psid);
       }
 
-  else    if(bot_q.askPhone && received_message.text){
-        user_input.phone = received_message.text;
-        bot_q.askPhone = false;
-        console.log('USER ENTER PHONE');
-        updatePrivateTour(sender_psid, user_input.phone);
+  else if(bot_q.askRef && received_message.text){
+        user_input.ref = received_message.text;
+        bot_q.askRef = false;        
+        updateItinerary(sender_psid, user_input.ref);
       }
   
   
@@ -390,7 +388,7 @@ const handleMessage = (sender_psid, received_message) => {
         case "private tour":
           privateTour(sender_psid); 
           break; 
-        case "amend tour":
+        case "update itinerary":
           amendTour(sender_psid); 
           break; 
         case "change hotel":
@@ -449,7 +447,7 @@ START TOUR
 
 const helloEagle = (sender_psid) => { 
     let response1 = {"text": "Do you want to change your itinerary?, (type 'update itinerary')"};
-    let response2 = {"text": "Do you want to view packages? (type 'view packages')"};    
+    let response2 = {"text": "Do you want to view packages? (type 'show packages')"};    
     callSend(sender_psid, response1).then(()=>{
       return callSend(sender_psid, response2);
     }); 
@@ -539,23 +537,23 @@ const askRestaurent = (sender_psid) => {
     callSend(sender_psid, response); 
 }
 
-const askPhone = (sender_psid) => {  
-  bot_q.askPhone = true;
+const askRef = (sender_psid) => {  
+  bot_q.askRef = true;
  
   let response = {
-    "text": `Please enter your mobile number which you used before`,    
+    "text": `Please enter your booking reference number`,    
     };
     callSend(sender_psid, response); 
 }
 
-const updatePrivateTour = (sender_psid, phone, field) =>{
+const updateItinerary = (sender_psid, ref) =>{
   
-  let query =  db.collection('Private Tour Bookings').where('mobile', '==', phone).limit(1).get()
+  let query =  db.collection('Bookings').where('ref', '==', ref).limit(1).get()
   .then(snapshot => {
     if (snapshot.empty) {
       console.log('No matching documents.');
       let response = {
-        "text": `No users with that phone number`,    
+        "text": `Unknown reference number`,    
       };
       callSend(sender_psid, response);
       return;
@@ -583,7 +581,7 @@ const updatePrivateTour = (sender_psid, phone, field) =>{
 
 
   
-  ThankYouEagle(sender_psid);    
+  notifySave(sender_psid);    
 }
 
 const notifySave = (sender_psid) => { 
@@ -592,6 +590,14 @@ const notifySave = (sender_psid) => {
     };
     callSend(sender_psid, response); 
 }
+
+const showBookingNumber = (sender_psid, ref) => { 
+    let response = {
+    "text": `Your data is saved. Please keep your booking reference ${ref}`,    
+    };
+    callSend(sender_psid, response); 
+}
+
 
 
 const generateRandom = (length) => {
