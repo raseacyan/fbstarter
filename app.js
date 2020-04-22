@@ -162,7 +162,7 @@ app.get('/booktour/:sku/:sender_id',function(req,res){
 
 
 
-    res.render('booktour.ejs',{title:"Book Tour Package", sku:sku, sender_id:sender_id, package:packages[sku]});
+    res.render('booktour.ejs',{title:"Book Tour Package", sender_id:sender_id, package:packages});
 });
 
 
