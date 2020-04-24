@@ -212,7 +212,11 @@ app.post('/updateprivatetour',function(req,res){
       let mobile = req.body.mobile;
       let sender = req.body.sender;
       let booking_number = req.body.booking_number; 
-      let doc_id = req.body.doc_id;    
+      let doc_id = req.body.doc_id;  
+
+      console.log("DOC_ID", doc_id );
+      console.log("BOOKING NUMBER", booking_number );
+
 
       db.collection('Pagodas Booking').doc(doc_id).update({           
             destination:destination,
