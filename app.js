@@ -180,7 +180,7 @@ app.get('/updateprivatetour/:booking_number/:sender_id/',function(req,res){
 
             console.log("BOOKING DATA", data);     
 
-            res.render('updateprivatetour.ejs',{data:data, sender_id:sender_id});
+            res.render('updateprivetetour.ejs',{data:data, sender_id:sender_id});
             
 
         });
@@ -209,8 +209,7 @@ app.post('/updateprivatetour',function(req,res){
       let name  = req.body.name;
       let mobile = req.body.mobile;
       let sender = req.body.sender;
-
-     
+      let booking_number = req.body.booking_number;     
 
       db.collection('Pagodas Booking').add({
            
@@ -223,9 +222,9 @@ app.post('/updateprivatetour',function(req,res){
             restaurent:restaurent,            
             name:name,
             mobile:mobile,
-            
+            booking_number:booking_number,
           }).then(success => {             
-             notifySave(sender);    
+             showBookingNumber(sender, booking_number);   
           }).catch(error => {
             console.log(error);
       });        
