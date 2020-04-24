@@ -214,8 +214,7 @@ app.post('/updateprivatetour',function(req,res){
       let booking_number = req.body.booking_number; 
       let doc_id = req.body.doc_id;    
 
-      db.collection('Pagodas Booking').doc(doc_id).update({
-           
+      db.collection('Pagodas Booking').doc(doc_id).update({           
             destination:destination,
             activities:activities,
             guests:guests,
