@@ -113,6 +113,89 @@ Tour
 **********************************************/
 
 
+app.get('/privatetour/:sender_id/',function(req,res){
+    const sender_id = req.params.sender_id;
+    res.render('addpackage.ejs',{title:"Create Private Tour", sender_id:sender_id});
+});
+
+app.post('/privatetour',function(req,res){
+      
+      
+      let destination= req.body.destination;
+      let activities = req.body.activities;
+      let guests = req.body.guests;
+      let travel_mode = req.body.travel_mode;
+      let travel_option = req.body.travel_option;
+      let hotel = req.body.hotel;
+      let restaurent= req.body.restaurent;
+      let name  = req.body.name;
+      let mobile = req.body.mobile;
+      let sender = req.body.sender;  
+
+     let booking_ref = generateRandom(5);    
+
+      db.collection('Pagodas Booking').add({
+           
+            destination:destination,
+            activities:activities,
+            guests:guests,
+            travel_mode:travel_mode,
+            travel_option:travel_option,
+            hotel:hotel,
+            restaurent:restaurent,            
+            name:name,
+            mobile:mobile,
+            booking_ref:booking_ref,
+          }).then(success => {             
+             showBookingNumber(sender, booking_ref);   
+          }).catch(error => {
+            console.log(error);
+      });        
+});
+
+
+app.get('/updateprivatetour/:sender_id/',function(req,res){
+    const sender_id = req.params.sender_id;
+    res.render('addpackage.ejs',{title:"Create Private Tour", sender_id:sender_id});
+});
+
+app.post('/updateprivatetour',function(req,res){
+      
+      
+      let destination= req.body.destination;
+      let activities = req.body.activities;
+      let guests = req.body.guests;
+      let travel_mode = req.body.travel_mode;
+      let travel_option = req.body.travel_option;
+      let hotel = req.body.hotel;
+      let restaurent= req.body.restaurent;
+      let name  = req.body.name;
+      let mobile = req.body.mobile;
+      let sender = req.body.sender;
+
+     
+
+      db.collection('Pagodas Booking').add({
+           
+            destination:destination,
+            activities:activities,
+            guests:guests,
+            travel_mode:travel_mode,
+            travel_option:travel_option,
+            hotel:hotel,
+            restaurent:restaurent,            
+            name:name,
+            mobile:mobile,
+            
+          }).then(success => {             
+             notifySave(sender);    
+          }).catch(error => {
+            console.log(error);
+      });        
+});
+
+
+
 app.get('/addpackage/:sender_id/',function(req,res){
     const sender_id = req.params.sender_id;
     res.render('addpackage.ejs',{title:"Hi!! from WebView", sender_id:sender_id});
@@ -145,17 +228,21 @@ app.get('/booktour/:sku/:sender_id',function(req,res){
     const sender_id = req.params.sender_id;
 
 
+    
+
+  
     const packages = {
       yangon:{
         title:"Yangon 2D1N",
         hotels:['Melia', 'Lotte', 'Sedona'],
-        restaurents:['Fuji House', 'Koh Fu', 'Seeds']
+        breakfast:['Fuji House', 'Koh Fu', 'Seeds']
       },
       mandalay:{
         title:"Mandalay 2D1N",
         hotels:['Yandanarbon', 'Apex', 'Golden Leaff'],
         restaurents:['Goldious', 'Mingalabar Myanmar', 'Unique']
       }
+
     }
 
 
@@ -195,11 +282,6 @@ app.post('/booktour',function(req,res){
 /*********************************************
 END Tour
 **********************************************/
-
-
-
-
-
 
 
 //webview test
@@ -351,9 +433,12 @@ const handleMessage = (sender_psid, received_message) => {
   } else {
       let user_message = received_message.text.toLowerCase();   
       
-      
-
-      switch(user_message) {        
+      if(user_message.includes("Change Booking:")){
+        let ref_num = user_message.slice(15);
+        ref_num = ref_num.trim();
+        updatePrivateTour(sender_psid, ref_num);        
+      }else{
+            switch(user_message) {        
         case "text":
           textReply(sender_psid);
           break;
@@ -405,6 +490,8 @@ const handleMessage = (sender_psid, received_message) => {
         default:
             defaultReply(sender_psid);
         }
+      }
+      
     }
 
 }
@@ -501,6 +588,60 @@ const showTourPackages = (sender_psid) => {
   .catch((err) => {
     console.log('Error getting documents', err);
   }); 
+}
+
+
+const privateTour = (sender_psid) => {
+  let response;
+  response = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Create a tour package",                       
+            "buttons": [              
+              {
+                "type": "web_url",
+                "title": "create",
+                "url":"https://fbstarterbot.herokuapp.com/privatetour/"+sender_psid,
+                 "webview_height_ratio": "full",
+                "messenger_extensions": true,          
+              },
+              
+            ],
+          }]
+        }
+      }
+    }
+  callSendAPI(sender_psid, response);
+}
+
+const updatePrivateTour = (sender_psid, ref_num) => {
+    let response;
+  response = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Update package",                       
+            "buttons": [              
+              {
+                "type": "web_url",
+                "title": "create",
+                "url":"https://fbstarterbot.herokuapp.com/updateprivatetour/"+sender_psid,
+                 "webview_height_ratio": "full",
+                "messenger_extensions": true,          
+              },
+              
+            ],
+          }]
+        }
+      }
+    }
+  callSendAPI(sender_psid, response);
+
 }
 
 const amendTour = (sender_psid) => { 
