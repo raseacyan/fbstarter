@@ -157,7 +157,41 @@ app.post('/privatetour',function(req,res){
 app.get('/updateprivatetour/:booking_number/:sender_id/',function(req,res){
     const sender_id = req.params.sender_id;
     const booking_number = req.params.booking_number;
-    res.render('addpackage.ejs',{title:"Create Private Tour", sender_id:sender_id});
+
+
+
+    db.collection("Pagodas Booking").where("booking_number", "==", "booking_number")
+    .get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+
+            let data = {
+              destination:doc.data().destination,
+              activities:doc.data().activities,
+              guests:doc.data().guests,
+              travel_mode:doc.data().travel_mode,
+              travel_option:doc.data().travel_option,
+              hotel:doc.data().hotel,
+              restaurent:doc.data().restaurent,            
+              name:doc.data().name,
+              mobile:doc.data().mobile,
+              booking_number:doc.data().booking_number,
+            }        
+
+            res.render('updateprivatetour.ejs',{data:data, sender_id:sender_id});
+            
+
+        });
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+
+
+
+
+
+    
 });
 
 app.post('/updateprivatetour',function(req,res){
@@ -714,10 +748,6 @@ const updateItinerary = (sender_psid, ref) =>{
       booking.ref.update({restaurent:user_input.restaurent});
       notifySave(sender_psid);  
     }
-    
-    
-
-
   })
   .catch(err => {
     console.log('Error getting documents', err);
