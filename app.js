@@ -629,8 +629,8 @@ const updatePrivateTour = (sender_psid, ref_num) => {
             "buttons": [              
               {
                 "type": "web_url",
-                "title": "create",
-                "url":"https://fbstarterbot.herokuapp.com/updateprivatetour/"+sender_psid,
+                "title": ref_num,
+                "url":"https://fbstarterbot.herokuapp.com/updateprivatetour/"+ref_num+"/"+sender_psid,
                  "webview_height_ratio": "full",
                 "messenger_extensions": true,          
               },
