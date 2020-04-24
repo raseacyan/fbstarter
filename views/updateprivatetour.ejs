@@ -35,7 +35,7 @@
 
   
 
-  <form id="form" method="post" action="https://fbstarterbot.herokuapp.com/privatetour/">
+  <form id="form" method="post" action="https://fbstarterbot.herokuapp.com/updateprivatetour/">
   <div class="form-group">
     <label for="name">Where do you want to go</label>
     <select class="form-control" name="destination" id="destination">
@@ -78,6 +78,7 @@
     <label for="title">Mobile</label>
     <input type="text" class="form-control" id="mobile" name="mobile" value="<%= data.mobile %>">
   </div>
+  <input type="hidden"  id="sender" name="doc_id" value="<%= data.doc_id %>"> 
   <input type="hidden"  id="sender" name="booking_number" value="<%= data.booking_number %>">  
   <input type="hidden"  id="sender" name="sender" value="<%= sender_id %>">
   <input type="submit" value="Confirm Booking"> 
