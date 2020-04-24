@@ -431,14 +431,17 @@ const handleMessage = (sender_psid, received_message) => {
     }
     callSend(sender_psid, response);
   } else {
-      let user_message = received_message.text.toLowerCase();   
+      
+      let user_message = received_message.text;
       
       if(user_message.includes("Change Booking:")){
         let ref_num = user_message.slice(15);
         ref_num = ref_num.trim();
         updatePrivateTour(sender_psid, ref_num);        
       }else{
-            switch(user_message) {        
+          let user_message = user_message.toLowerCase(); 
+
+          switch(user_message) {        
         case "text":
           textReply(sender_psid);
           break;
@@ -489,8 +492,13 @@ const handleMessage = (sender_psid, received_message) => {
           break;
         default:
             defaultReply(sender_psid);
-        }
+        }  
+
+        
       }
+
+
+      
       
     }
 
