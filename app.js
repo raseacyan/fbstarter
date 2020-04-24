@@ -167,6 +167,7 @@ app.get('/updateprivatetour/:booking_number/:sender_id/',function(req,res){
         querySnapshot.forEach(function(doc) {
 
             let data = {
+              doc_id = doc.id,
               destination:doc.data().destination,
               activities:doc.data().activities,
               guests:doc.data().guests,
@@ -210,9 +211,10 @@ app.post('/updateprivatetour',function(req,res){
       let name  = req.body.name;
       let mobile = req.body.mobile;
       let sender = req.body.sender;
-      let booking_number = req.body.booking_number;     
+      let booking_number = req.body.booking_number; 
+      let doc_id = req.body.doc_id;    
 
-      db.collection('Pagodas Booking').add({
+      db.collection('Pagodas Booking').doc(doc_id).update({
            
             destination:destination,
             activities:activities,
