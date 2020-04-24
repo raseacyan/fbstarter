@@ -160,7 +160,7 @@ app.get('/updateprivatetour/:booking_number/:sender_id/',function(req,res){
 
 
 
-    db.collection("Pagodas Booking").where("booking_number", "==", "booking_number")
+    db.collection("Pagodas Booking").where("booking_number", "==", booking_number)
     .get()
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
@@ -176,7 +176,9 @@ app.get('/updateprivatetour/:booking_number/:sender_id/',function(req,res){
               name:doc.data().name,
               mobile:doc.data().mobile,
               booking_number:doc.data().booking_number,
-            }        
+            }   
+
+            console.log("BOOKING DATA", data);     
 
             res.render('updateprivatetour.ejs',{data:data, sender_id:sender_id});
             
