@@ -132,7 +132,7 @@ app.post('/privatetour',function(req,res){
       let mobile = req.body.mobile;
       let sender = req.body.sender;  
 
-     let booking_ref = generateRandom(5);    
+     let booking_number = generateRandom(5);    
 
       db.collection('Pagodas Booking').add({
            
@@ -145,17 +145,18 @@ app.post('/privatetour',function(req,res){
             restaurent:restaurent,            
             name:name,
             mobile:mobile,
-            booking_ref:booking_ref,
+            booking_number:booking_number,
           }).then(success => {             
-             showBookingNumber(sender, booking_ref);   
+             showBookingNumber(sender, booking_number);   
           }).catch(error => {
             console.log(error);
       });        
 });
 
 
-app.get('/updateprivatetour/:sender_id/',function(req,res){
+app.get('/updateprivatetour/:booking_number/:sender_id/',function(req,res){
     const sender_id = req.params.sender_id;
+    const booking_number = req.params.booking_number;
     res.render('addpackage.ejs',{title:"Create Private Tour", sender_id:sender_id});
 });
 
@@ -433,7 +434,7 @@ const handleMessage = (sender_psid, received_message) => {
   } else {
       
       let user_message = received_message.text;
-      
+
       if(user_message.includes("Change Booking:")){
         let ref_num = user_message.slice(15);
         ref_num = ref_num.trim();
@@ -633,11 +634,11 @@ const updatePrivateTour = (sender_psid, ref_num) => {
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "Update package",                       
+            "title": "You are updating your booking number: " + ref_num,                       
             "buttons": [              
               {
                 "type": "web_url",
-                "title": ref_num,
+                "title": "Update",
                 "url":"https://fbstarterbot.herokuapp.com/updateprivatetour/"+ref_num+"/"+sender_psid,
                  "webview_height_ratio": "full",
                 "messenger_extensions": true,          
