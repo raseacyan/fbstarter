@@ -115,7 +115,7 @@ Tour
 
 app.get('/privatetour/:sender_id/',function(req,res){
     const sender_id = req.params.sender_id;
-    res.render('addpackage.ejs',{title:"Create Private Tour", sender_id:sender_id});
+    res.render('privatetour.ejs',{title:"Create Private Tour", sender_id:sender_id});
 });
 
 app.post('/privatetour',function(req,res){
