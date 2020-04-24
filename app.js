@@ -440,7 +440,7 @@ const handleMessage = (sender_psid, received_message) => {
         ref_num = ref_num.trim();
         updatePrivateTour(sender_psid, ref_num);        
       }else{
-          let user_message = user_message.toLowerCase(); 
+          user_message = user_message.toLowerCase(); 
 
           switch(user_message) {        
         case "text":
