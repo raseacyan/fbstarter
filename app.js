@@ -167,7 +167,7 @@ app.get('/updateprivatetour/:booking_number/:sender_id/',function(req,res){
         querySnapshot.forEach(function(doc) {
 
             let data = {
-              doc_id = doc.id,
+              doc_id:doc.id,
               destination:doc.data().destination,
               activities:doc.data().activities,
               guests:doc.data().guests,
