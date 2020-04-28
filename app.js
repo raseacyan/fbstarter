@@ -271,7 +271,7 @@ app.get('/booktour/:sku/:sender_id',function(req,res){
       yangon:{
         title:"Yangon 2D1N",
         hotels:['Melia', 'Lotte', 'Sedona'],
-        restaurent:['Fuji House', 'Koh Fu', 'Seeds']
+        restaurents:['Fuji House', 'Koh Fu', 'Seeds']
       },
       mandalay:{
         title:"Mandalay 2D1N",
