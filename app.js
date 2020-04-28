@@ -189,13 +189,7 @@ app.get('/updateprivatetour/:booking_number/:sender_id/',function(req,res){
     })
     .catch(function(error) {
         console.log("Error getting documents: ", error);
-    });
-
-
-
-
-
-    
+    });    
 });
 
 app.post('/updateprivatetour',function(req,res){
@@ -277,7 +271,7 @@ app.get('/booktour/:sku/:sender_id',function(req,res){
       yangon:{
         title:"Yangon 2D1N",
         hotels:['Melia', 'Lotte', 'Sedona'],
-        breakfast:['Fuji House', 'Koh Fu', 'Seeds']
+        restaurent:['Fuji House', 'Koh Fu', 'Seeds']
       },
       mandalay:{
         title:"Mandalay 2D1N",
