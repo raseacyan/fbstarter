@@ -236,45 +236,7 @@ app.post('/updateprivatetour',function(req,res){
 
 
 
-app.get('/updatebooking/:booking_number/:sender_id/',function(req,res){
-    const sender_id = req.params.sender_id;
-    const booking_number = req.params.booking_number;
 
-
-
-    db.collection("Bookings").where("booking_number", "==", booking_number)
-    .get()
-    .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-
-            let data = {
-              doc_id:doc.id,
-              destination:doc.data().destination,
-              activities:doc.data().activities,
-              guests:doc.data().guests,
-              travel_mode:doc.data().travel_mode,
-              travel_option:doc.data().travel_option,
-              hotel:doc.data().hotel,
-              restaurent:doc.data().restaurent,            
-              name:doc.data().name,
-              mobile:doc.data().mobile,
-              booking_number:doc.data().ref,
-            }   
-
-            console.log("BOOKING DATA", data);     
-
-            res.render('updateprivatetour.ejs',{data:data, sender_id:sender_id});
-             
-            
-
-        });
-    }
-
-    )
-    .catch(function(error) {
-        console.log("Error getting documents: ", error);
-    });    
-});
 
 
 
@@ -730,7 +692,7 @@ const updateBooking = (sender_psid, ref_num) => {
               {
                 "type": "web_url",
                 "title": "Update",
-                "url":"https://fbstarter.herokuapp.com/updatebooking/"+ref_num+"/"+sender_psid,
+                "url":"https://fbstarter.herokuapp.com/uupdateprivatetour/"+ref_num+"/"+sender_psid,
                  "webview_height_ratio": "full",
                 "messenger_extensions": true,          
               },
