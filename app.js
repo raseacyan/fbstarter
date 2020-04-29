@@ -182,17 +182,19 @@ app.get('/updatebooking/:booking_number/:sender_id/',function(req,res){
               restaurent:doc.data().restaurent,            
               name:doc.data().name,
               mobile:doc.data().mobile,
-              booking_number:doc.data().booking_number,
+              booking_number:doc.data().ref,
             }   
 
             console.log("BOOKING DATA", data);     
 
-            // res.render('updateprivatetour.ejs',{data:data, sender_id:sender_id});
-             res.render('updateprivatetour.ejs');
+            res.render('updateprivatetour.ejs',{data:data, sender_id:sender_id});
+             
             
 
         });
-    })
+    }
+
+    )
     .catch(function(error) {
         console.log("Error getting documents: ", error);
     });    
