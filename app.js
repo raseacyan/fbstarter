@@ -118,7 +118,6 @@ app.get('/test',function(req,res){
 Tour
 **********************************************/
 
-
 app.get('/privatetour/:sender_id/',function(req,res){
     const sender_id = req.params.sender_id;
     res.render('privatetour.ejs',{title:"Create Private Tour", sender_id:sender_id});
@@ -158,6 +157,83 @@ app.post('/privatetour',function(req,res){
             console.log(error);
       });        
 });
+
+
+app.get('/updateprivatetour/:booking_number/:sender_id/',function(req,res){
+    const sender_id = req.params.sender_id;
+    const booking_number = req.params.booking_number;
+
+
+
+    db.collection("Pagodas Booking").where("booking_number", "==", booking_number)
+    .get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+
+            let data = {
+              doc_id:doc.id,
+              destination:doc.data().destination,
+              activities:doc.data().activities,
+              guests:doc.data().guests,
+              travel_mode:doc.data().travel_mode,
+              travel_option:doc.data().travel_option,
+              hotel:doc.data().hotel,
+              restaurent:doc.data().restaurent,            
+              name:doc.data().name,
+              mobile:doc.data().mobile,
+              booking_number:doc.data().booking_number,
+            }   
+
+            console.log("BOOKING DATA", data);     
+
+             res.render('updateprivatetour.ejs',{data:data, sender_id:sender_id});
+            
+
+        });
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });    
+});
+
+app.post('/updateprivatetour',function(req,res){
+      
+      
+      let destination= req.body.destination;
+      let activities = req.body.activities;
+      let guests = req.body.guests;
+      let travel_mode = req.body.travel_mode;
+      let travel_option = req.body.travel_option;
+      let hotel = req.body.hotel;
+      let restaurent= req.body.restaurent;
+      let name  = req.body.name;
+      let mobile = req.body.mobile;
+      let sender = req.body.sender;
+      let booking_number = req.body.booking_number; 
+      let doc_id = req.body.doc_id;  
+
+      console.log("DOC_ID", doc_id );
+      console.log("BOOKING NUMBER", booking_number );
+
+
+      db.collection('Pagodas Booking').doc(doc_id).update({           
+            destination:destination,
+            activities:activities,
+            guests:guests,
+            travel_mode:travel_mode,
+            travel_option:travel_option,
+            hotel:hotel,
+            restaurent:restaurent,            
+            name:name,
+            mobile:mobile,
+            booking_number:booking_number,
+          }).then(success => {             
+             showBookingNumber(sender, booking_number);   
+          }).catch(error => {
+            console.log(error);
+      });        
+});
+
 
 
 app.get('/updatebooking/:booking_number/:sender_id/',function(req,res){
@@ -200,43 +276,6 @@ app.get('/updatebooking/:booking_number/:sender_id/',function(req,res){
     });    
 });
 
-app.post('/updatebooking',function(req,res){
-      
-      
-      let destination= req.body.destination;
-      let activities = req.body.activities;
-      let guests = req.body.guests;
-      let travel_mode = req.body.travel_mode;
-      let travel_option = req.body.travel_option;
-      let hotel = req.body.hotel;
-      let restaurent= req.body.restaurent;
-      let name  = req.body.name;
-      let mobile = req.body.mobile;
-      let sender = req.body.sender;
-      let booking_number = req.body.booking_number; 
-      let doc_id = req.body.doc_id;  
-
-      console.log("DOC_ID", doc_id );
-      console.log("BOOKING NUMBER", booking_number );
-
-
-      db.collection('Pagodas Booking').doc(doc_id).update({           
-            destination:destination,
-            activities:activities,
-            guests:guests,
-            travel_mode:travel_mode,
-            travel_option:travel_option,
-            hotel:hotel,
-            restaurent:restaurent,            
-            name:name,
-            mobile:mobile,
-            booking_number:booking_number,
-          }).then(success => {             
-             showBookingNumber(sender, booking_number);   
-          }).catch(error => {
-            console.log(error);
-      });        
-});
 
 
 
