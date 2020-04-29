@@ -160,7 +160,7 @@ app.post('/privatetour',function(req,res){
 });
 
 
-app.get('/updateprivatetour/:booking_number/:sender_id/',function(req,res){
+app.get('/updatebooking/:booking_number/:sender_id/',function(req,res){
     const sender_id = req.params.sender_id;
     const booking_number = req.params.booking_number;
 
@@ -187,7 +187,7 @@ app.get('/updateprivatetour/:booking_number/:sender_id/',function(req,res){
 
             console.log("BOOKING DATA", data);     
 
-             //res.render('updateprivatetour.ejs',{data:data, sender_id:sender_id});
+             res.render('updateprivatetour.ejs',{data:data, sender_id:sender_id});
             
 
         });
@@ -197,7 +197,7 @@ app.get('/updateprivatetour/:booking_number/:sender_id/',function(req,res){
     });    
 });
 
-app.post('/updateprivatetour',function(req,res){
+app.post('/updatebooking',function(req,res){
       
       
       let destination= req.body.destination;
@@ -480,7 +480,7 @@ const handleMessage = (sender_psid, received_message) => {
       if(user_message.includes("Change Booking:")){
         let ref_num = user_message.slice(15);
         ref_num = ref_num.trim();
-        updatePrivateTour(sender_psid, ref_num);        
+        updateBooking(sender_psid, ref_num);        
       }else{
           user_message = user_message.toLowerCase(); 
 
@@ -675,7 +675,7 @@ const privateTour = (sender_psid) => {
   callSendAPI(sender_psid, response);
 }
 
-const updatePrivateTour = (sender_psid, ref_num) => {
+const updateBooking = (sender_psid, ref_num) => {
     let response;
   response = {
       "attachment": {
@@ -688,7 +688,7 @@ const updatePrivateTour = (sender_psid, ref_num) => {
               {
                 "type": "web_url",
                 "title": "Update",
-                "url":"https://fbstarter.herokuapp.com/updateprivatetour/"+ref_num+"/"+sender_psid,
+                "url":"https://fbstarter.herokuapp.com/updatebooking/"+ref_num+"/"+sender_psid,
                  "webview_height_ratio": "full",
                 "messenger_extensions": true,          
               },
@@ -1035,38 +1035,7 @@ function webviewTest(sender_psid){
 }
 
 
-const showExpiry = (sender_psid) => {
-  db.collection("Pagodas Booking").where("booking_number", "==", booking_number)
-    .get()
-    .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
 
-            let data = {
-              doc_id:doc.id,
-              destination:doc.data().destination,
-              activities:doc.data().activities,
-              guests:doc.data().guests,
-              travel_mode:doc.data().travel_mode,
-              travel_option:doc.data().travel_option,
-              hotel:doc.data().hotel,
-              restaurent:doc.data().restaurent,            
-              name:doc.data().name,
-              mobile:doc.data().mobile,
-              booking_number:doc.data().booking_number,
-            }   
-
-            console.log("BOOKING DATA", data);     
-
-            res.render('updateprivatetour.ejs',{data:data, sender_id:sender_id});
-            
-
-        });
-    })
-    .catch(function(error) {
-        console.log("Error getting documents: ", error);
-    });  
-
-}
 
 const textReply =(sender_psid) => {
   let response = {"text": "You sent text message"};
