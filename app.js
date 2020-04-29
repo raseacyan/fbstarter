@@ -475,6 +475,8 @@ const handleMessage = (sender_psid, received_message) => {
       
       let user_message = received_message.text;
 
+      console.log('USER MESSAGE', user_message);
+
       if(user_message.includes("Change Booking:")){
         let ref_num = user_message.slice(15);
         ref_num = ref_num.trim();
