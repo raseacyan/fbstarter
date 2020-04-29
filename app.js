@@ -1200,7 +1200,7 @@ const callSendAPI = (sender_psid, response) => {
       "json": request_body
     }, (err, res, body) => {
       if (!err) {
-        console.log('RES', res);
+        //console.log('RES', res);
         console.log('BODY', body);
         resolve('message sent!')
       } else {
