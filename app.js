@@ -629,6 +629,8 @@ const showTourPackages = (sender_psid) => {
       elementItems.push(obj);     
     });
 
+    console.log('ELEMENTITEMS', elementItems);
+
     let response = {
       "attachment": {
         "type": "template",
