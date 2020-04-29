@@ -109,6 +109,11 @@ app.post('/webhook', (req, res) => {
 
 app.use('/uploads', express.static('uploads'));
 
+
+app.get('/test',function(req,res){    
+    res.render('test.ejs',{title:"Hi!! from WebView"});
+});
+
 /*********************************************
 Tour
 **********************************************/
