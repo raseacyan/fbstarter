@@ -1,6 +1,6 @@
 'use strict';
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
-const APP_URL = "https://fbstarterbot.herokuapp.com";
+const APP_URL = "https://fbstarter.herokuapp.com";
 
 //new text
 
@@ -348,25 +348,25 @@ app.post('/webview',upload.single('file'),function(req,res){
 });
 
 //Set up Get Started Button. To run one time
-//eg https://fbstarterbot.herokuapp.com/setgsbutton
+//eg https://fbstarter.herokuapp.com/setgsbutton
 app.get('/setgsbutton',function(req,res){
     setupGetStartedButton(res);    
 });
 
 //Set up Persistent Menu. To run one time
-//eg https://fbstarterbot.herokuapp.com/setpersistentmenu
+//eg https://fbstarter.herokuapp.com/setpersistentmenu
 app.get('/setpersistentmenu',function(req,res){
     setupPersistentMenu(res);    
 });
 
 //Remove Get Started and Persistent Menu. To run one time
-//eg https://fbstarterbot.herokuapp.com/clear
+//eg https://fbstarter.herokuapp.com/clear
 app.get('/clear',function(req,res){    
     removePersistentMenu(res);
 });
 
 //whitelist domains
-//eg https://fbstarterbot.herokuapp.com/whitelists
+//eg https://fbstarter.herokuapp.com/whitelists
 app.get('/whitelists',function(req,res){    
     whitelistDomains(res);
 });
@@ -592,7 +592,7 @@ function adminCreatePackage(sender_psid){
               {
                 "type": "web_url",
                 "title": "create",
-                "url":"https://fbstarterbot.herokuapp.com/addpackage/"+sender_psid,
+                "url":"https://fbstarter.herokuapp.com/addpackage/"+sender_psid,
                  "webview_height_ratio": "full",
                 "messenger_extensions": true,          
               },
@@ -617,7 +617,7 @@ const showTourPackages = (sender_psid) => {
       //obj._id  = doc.id ;        
       obj.title = doc.data().title;       
       obj.image_url = doc.data().image;      
-      obj.buttons = [{"type":"web_url", "title":"BOOK NOW", "url":"https://fbstarterbot.herokuapp.com/booktour/"+doc.data().sku+"/"+sender_psid, "webview_height_ratio": "full", "messenger_extensions": true,}]; 
+      obj.buttons = [{"type":"web_url", "title":"BOOK NOW", "url":"addBoxer/booktour/"+doc.data().sku+"/"+sender_psid, "webview_height_ratio": "full", "messenger_extensions": true,}]; 
       elementItems.push(obj);     
     });
 
@@ -652,7 +652,7 @@ const privateTour = (sender_psid) => {
               {
                 "type": "web_url",
                 "title": "create",
-                "url":"https://fbstarterbot.herokuapp.com/privatetour/"+sender_psid,
+                "url":"https://fbstarter.herokuapp.com/privatetour/"+sender_psid,
                  "webview_height_ratio": "full",
                 "messenger_extensions": true,          
               },
@@ -678,7 +678,7 @@ const updatePrivateTour = (sender_psid, ref_num) => {
               {
                 "type": "web_url",
                 "title": "Update",
-                "url":"https://fbstarterbot.herokuapp.com/updateprivatetour/"+ref_num+"/"+sender_psid,
+                "url":"https://fbstarter.herokuapp.com/updateprivatetour/"+ref_num+"/"+sender_psid,
                  "webview_height_ratio": "full",
                 "messenger_extensions": true,          
               },
@@ -1011,7 +1011,7 @@ function webviewTest(sender_psid){
               {
                 "type": "web_url",
                 "title": "webview",
-                "url":"https://fbstarterbot.herokuapp.com/webview/"+sender_psid,
+                "url":"https://fbstarter.herokuapp.com/webview/"+sender_psid,
                  "webview_height_ratio": "full",
                 "messenger_extensions": true,          
               },
@@ -1312,7 +1312,7 @@ FUNCTION TO ADD WHITELIST DOMAIN
 const whitelistDomains = (res) => {
   var messageData = {
           "whitelisted_domains": [
-             "https://fbstarterbot.herokuapp.com" , 
+             "https://fbstarter.herokuapp.com" , 
              "https://herokuapp.com"                           
           ]               
   };  
