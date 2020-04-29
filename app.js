@@ -182,7 +182,7 @@ app.get('/updateprivatetour/:booking_number/:sender_id/',function(req,res){
 
             console.log("BOOKING DATA", data);     
 
-            res.render('updateprivatetour.ejs',{data:data, sender_id:sender_id});
+           // res.render('updateprivatetour.ejs',{data:data, sender_id:sender_id});
             
 
         });
@@ -477,7 +477,8 @@ const handleMessage = (sender_psid, received_message) => {
       }else{
           user_message = user_message.toLowerCase(); 
 
-          switch(user_message) {        
+          switch(user_message) { 
+
         case "text":
           textReply(sender_psid);
           break;
@@ -490,6 +491,9 @@ const handleMessage = (sender_psid, received_message) => {
         case "webview":
           webviewTest(sender_psid);
           break; 
+        case "show expiry":
+          showExpiry(sender_psid);
+          break;
         case "hello eagle":
           helloEagle(sender_psid); 
           break;
@@ -1018,6 +1022,40 @@ function webviewTest(sender_psid){
       }
     }
   callSendAPI(sender_psid, response);
+}
+
+
+const showExpiry = (sender_psid) => {
+  db.collection("Pagodas Booking").where("booking_number", "==", booking_number)
+    .get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+
+            let data = {
+              doc_id:doc.id,
+              destination:doc.data().destination,
+              activities:doc.data().activities,
+              guests:doc.data().guests,
+              travel_mode:doc.data().travel_mode,
+              travel_option:doc.data().travel_option,
+              hotel:doc.data().hotel,
+              restaurent:doc.data().restaurent,            
+              name:doc.data().name,
+              mobile:doc.data().mobile,
+              booking_number:doc.data().booking_number,
+            }   
+
+            console.log("BOOKING DATA", data);     
+
+            res.render('updateprivatetour.ejs',{data:data, sender_id:sender_id});
+            
+
+        });
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });  
+
 }
 
 const textReply =(sender_psid) => {
