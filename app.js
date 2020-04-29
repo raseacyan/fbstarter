@@ -1184,6 +1184,7 @@ const defaultReply = (sender_psid) => {
 }
 
 const callSendAPI = (sender_psid, response) => {  
+  console.log('CALL SEND API');
   let request_body = {
     "recipient": {
       "id": sender_psid
@@ -1199,6 +1200,8 @@ const callSendAPI = (sender_psid, response) => {
       "json": request_body
     }, (err, res, body) => {
       if (!err) {
+        console.log('RES', res);
+        console.log('BODY', body);
         resolve('message sent!')
       } else {
         console.error("Unable to send message:" + err);
