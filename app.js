@@ -247,10 +247,6 @@ app.post('/updateprivatetour',function(req,res){
       let booking_number = req.body.booking_number; 
       let doc_id = req.body.doc_id;  
 
-      console.log("DOC_ID", doc_id );
-      console.log("BOOKING NUMBER", booking_number );
-
-
       db.collection('Pagodas Booking').doc(doc_id).update({           
             destination:destination,
             activities:activities,
@@ -671,7 +667,7 @@ const showTourPackages = (sender_psid) => {
       elementItems.push(obj);     
     });
 
-    console.log('ELEMENTITEMS', elementItems);
+    
 
     let response = {
       "attachment": {
@@ -1243,7 +1239,7 @@ const defaultReply = (sender_psid) => {
 }
 
 const callSendAPI = (sender_psid, response) => {  
-  console.log('CALL SEND API');
+  
   let request_body = {
     "recipient": {
       "id": sender_psid
