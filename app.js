@@ -126,19 +126,20 @@ app.get('/showimages/:sender_id/',function(req,res){
     let data = [];
 
     db.collection("images").limit(20).get()
-    .then(function(querySnapshot) {
+    .then(  function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             let img = {};
             img.url = doc.data().url;
 
-            data.push(img);
-               
-
-            console.log("DATA", data);
-            res.render('gallery.ejs',{data:data, sender_id:sender_id});           
+            data.push(img);                      
 
         });
-    })
+        console.log("DATA", data);
+        res.render('gallery.ejs',{data:data, sender_id:sender_id}); 
+
+    }
+    
+    )
     .catch(function(error) {
         console.log("Error getting documents: ", error);
     });    
@@ -1067,11 +1068,11 @@ const showImages = (sender_psid) => {
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "Click to open webview?",                       
+            "title": "show images",                       
             "buttons": [              
               {
                 "type": "web_url",
-                "title": "webview",
+                "title": "enter",
                 "url":"https://fbstarter.herokuapp.com/showimages/"+sender_psid,
                  "webview_height_ratio": "full",
                 "messenger_extensions": true,          
