@@ -123,17 +123,19 @@ Gallery page
 app.get('/showimages/:sender_id/',function(req,res){
     const sender_id = req.params.sender_id;
 
+    let data = [];
+
     db.collection("images").limit(20).get()
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
+            let img = {};
+            img.url = doc.data().url;
 
-            let data = {
-              url:doc.data().url,              
-            }   
+            data.push(img);
+               
 
-            console.log("DATA", data);     
-
-             res.render('gallery.ejs',{data:data, sender_id:sender_id});           
+            console.log("DATA", data);
+            res.render('gallery.ejs',{data:data, sender_id:sender_id});           
 
         });
     })
