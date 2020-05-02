@@ -15,6 +15,10 @@ const
   multer  = require('multer'),  
   app = express(); 
 
+
+app.use(body_parser.json());
+app.use(body_parser.urlencoded());
+
 let bot_q = {
   askPhone: false,
   askHotel: false,
@@ -40,8 +44,7 @@ const upload = multer({ storage: storage });
 
 // parse application/x-www-form-urlencoded
 
-app.use(body_parser.json());
-app.use(body_parser.urlencoded());
+
 
 
 app.set('view engine', 'ejs');
@@ -113,6 +116,35 @@ app.use('/uploads', express.static('uploads'));
 app.get('/test',function(req,res){    
     res.render('test.ejs',{title:"Hi!! from WebView"});
 });
+
+/*********************************************
+Gallery page
+**********************************************/
+app.get('/showimages/:sender_id/',function(req,res){
+    const sender_id = req.params.sender_id;
+
+    db.collection("images").limit(20).get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+
+            let data = {
+              url:doc.data().url,              
+            }   
+
+            console.log("DATA", data);     
+
+             res.render('gallery.ejs',{data:data, sender_id:sender_id});           
+
+        });
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });    
+});
+
+/*********************************************
+Gallery Page
+**********************************************/
 
 /*********************************************
 Tour
@@ -542,6 +574,9 @@ const handleMessage = (sender_psid, received_message) => {
         case "hobby":
           Hobby(sender_psid)
           break;
+        case "show images":
+          showImages(sender_psid)
+          break;
         default:
             defaultReply(sender_psid);
         }  
@@ -808,6 +843,11 @@ const generateRandom = (length) => {
 END TOUR
 **********************************************/
 
+
+/*********************************************
+BOOK SAMPLE
+**********************************************/
+
 const addBooks  = (sender_psid) => { 
     let book1 = {
       title:"Gone with the Wind",
@@ -1006,6 +1046,47 @@ const Hobby  = (sender_psid) => {
     });
 
 }
+
+
+/*********************************************
+BOOK SAMPLE
+**********************************************/
+
+
+/*********************************************
+GALLERY SAMPLE
+**********************************************/
+
+const showImages = (sender_psid) => {
+  let response;
+  response = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Click to open webview?",                       
+            "buttons": [              
+              {
+                "type": "web_url",
+                "title": "webview",
+                "url":"https://fbstarter.herokuapp.com/showimages/"+sender_psid,
+                 "webview_height_ratio": "full",
+                "messenger_extensions": true,          
+              },
+              
+            ],
+          }]
+        }
+      }
+    }
+  callSendAPI(sender_psid, response);
+}
+
+
+/*********************************************
+END GALLERY SAMPLE
+**********************************************/
 
 
 
