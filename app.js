@@ -129,13 +129,13 @@ app.get('/showimages/:sender_id/',function(req,res){
     .then(  function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             let img = {};
-            img.url = doc.data().url;
+            img.url = doc.data().url;          
 
             data.push(img);                      
 
         });
         console.log("DATA", data);
-        res.render('gallery.ejs',{data:data, sender_id:sender_id}); 
+        res.render('gallery.ejs',{data:data, sender_id:sender_id, 'page-title':'welcome to my page'}); 
 
     }
     
