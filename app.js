@@ -20,7 +20,7 @@ app.use(body_parser.json());
 app.use(body_parser.urlencoded());
 
 
-app.locals.pageAccessToken = process.env.PAGE_ACCESS_TOKEN;
+//app.locals.pageAccessToken = process.env.PAGE_ACCESS_TOKEN;
 
 let bot_q = {
   askPhone: false,
@@ -117,7 +117,7 @@ app.use('/uploads', express.static('uploads'));
 
 
 app.get('/test',function(req,res){    
-    res.render('test.ejs');
+    res.render('test.ejs', {pageAccessToken: PAGE_ACCESS_TOKEN});
 });
 
 /*********************************************
