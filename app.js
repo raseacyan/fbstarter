@@ -117,13 +117,11 @@ app.use('/uploads', express.static('uploads'));
 
 
 app.get('/test',function(req,res){    
-    res.render('test.ejs', {pageAccessToken: PAGE_ACCESS_TOKEN});
+    res.render('test.ejs');
 });
 
-app.post('/test',function(req,res){  
-
-    const sender_id = req.body.sender_id; 
-    console.log("SENDER", sender_id); 
+app.post('/test',function(req,res){
+    const sender_psid = req.body.sender_id;     
     let response = {"text": "You  click delete button"};
     callSend(sender_psid, response);
 });
