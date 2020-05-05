@@ -1,2 +1,86 @@
-test saldjf lsdja ljsdafj sjldkflj 
-llsdkajflsdkjf
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>ddmo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ </head>
+
+  <body>
+  <script>
+      (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/messenger.Extensions.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'Messenger'));
+
+    const APP_ID = 544769076153407;    
+    const senderID = "";
+    
+    window.extAsyncInit = function() {
+        MessengerExtensions.getContext(APP_ID, 
+          function success(thread_context){
+           senderID = thread_context.psid;
+          },
+          function error(err){
+            console.log(err);
+          }
+        );        
+    };
+  </script>
+  
+	
+  <button id="btn-del">Delete</button>
+
+	
+  <script>
+
+
+  	  const send = () => {
+      	let xhr;
+      	if (window.XMLHttpRequest) {   
+    		xhr = new XMLHttpRequest();
+ 		} else {    	
+    		xhr = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+
+		const message = {
+		  "recipient":{
+		    "id": senderID;
+		  },
+		  "message":{
+		    "text":"You clicked delete button!"
+		 }
+
+		const url = "https://graph.facebook.com/v6.0/me/messages?access_token=" + pageAccessToken;
+         
+        xhr.open("POST", url , true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify(data)); 
+      } 
+      
+   
+      const windowShut = () => {
+        MessengerExtensions.requestCloseBrowser(function success() {
+          console.log("success");   
+          send();       
+        }, function error(err) {
+          console.log(err);
+        });
+      }
+
+      
+      document.getElementById("btn-del").addEventListener("click", windowShut);       
+
+     
+      
+
+     
+
+  </script>
+
+  </body>
+
+</html>

@@ -114,7 +114,7 @@ app.use('/uploads', express.static('uploads'));
 
 
 app.get('/test',function(req,res){    
-    res.render('test.ejs',{title:"Hi!! from WebView"});
+    res.render('test.ejs',{pageAccessToken:PAGE_ACCESS_TOKEN});
 });
 
 /*********************************************
