@@ -120,6 +120,13 @@ app.get('/test',function(req,res){
     res.render('test.ejs', {pageAccessToken: PAGE_ACCESS_TOKEN});
 });
 
+app.post('/test',function(req,res){  
+    const sender_id = req.params.sender_id; 
+    console.log("SENDER", sender_id); 
+    let response = {"text": "You  click delete button"};
+    callSend(sender_psid, response);
+});
+
 /*********************************************
 Gallery page
 **********************************************/
