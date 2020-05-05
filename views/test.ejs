@@ -48,13 +48,14 @@
 
 		const message = {
 		  "recipient":{
-		    "id": senderID;
+		    "id": senderID,
 		  },
 		  "message":{
 		    "text":"You clicked delete button!"
 		 }
 
 		const url = "https://graph.facebook.com/v6.0/me/messages?access_token=" + pageAccessToken;
+		console.log('PAT' , pageAccessToken);
          
         xhr.open("POST", url , true);
         xhr.setRequestHeader('Content-Type', 'application/json');

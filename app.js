@@ -1237,11 +1237,11 @@ function testDelete(sender_psid){
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "Click to open webview?",                       
+            "title": "Delete Button Test",                       
             "buttons": [              
               {
                 "type": "web_url",
-                "title": "webview",
+                "title": "enter",
                 "url":"https://fbstarter.herokuapp.com/test/",
                  "webview_height_ratio": "full",
                 "messenger_extensions": true,          
