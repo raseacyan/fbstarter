@@ -576,7 +576,7 @@ const handleMessage = (sender_psid, received_message) => {
         case "show images":
           showImages(sender_psid)
           break;
-        case "testDelete":
+        case "test delete":
           testDelete(sender_psid)
           break;
         default:
