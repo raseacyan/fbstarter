@@ -576,6 +576,9 @@ const handleMessage = (sender_psid, received_message) => {
         case "show images":
           showImages(sender_psid)
           break;
+        case "testDelete":
+          testDelete(sender_psid)
+          break;
         default:
             defaultReply(sender_psid);
         }  
@@ -1121,6 +1124,8 @@ function webviewTest(sender_psid){
 
 
 
+
+
 const textReply =(sender_psid) => {
   let response = {"text": "You sent text message"};
   callSend(sender_psid, response);
@@ -1222,6 +1227,32 @@ const thankyouReply =(sender_psid, name, img_url) => {
       }
     }
   callSend(sender_psid, response);
+}
+
+function testDelete(sender_psid){
+  let response;
+  response = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Click to open webview?",                       
+            "buttons": [              
+              {
+                "type": "web_url",
+                "title": "webview",
+                "url":"https://fbstarter.herokuapp.com/test/",
+                 "webview_height_ratio": "full",
+                "messenger_extensions": true,          
+              },
+              
+            ],
+          }]
+        }
+      }
+    }
+  callSendAPI(sender_psid, response);
 }
 
 const defaultReply = (sender_psid) => {
