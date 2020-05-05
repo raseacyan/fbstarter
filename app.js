@@ -19,6 +19,9 @@ const
 app.use(body_parser.json());
 app.use(body_parser.urlencoded());
 
+
+app.locals.pageAccessToken = process.env.PAGE_ACCESS_TOKEN;
+
 let bot_q = {
   askPhone: false,
   askHotel: false,
@@ -114,7 +117,7 @@ app.use('/uploads', express.static('uploads'));
 
 
 app.get('/test',function(req,res){    
-    res.render('test.ejs',{pageAccessToken:PAGE_ACCESS_TOKEN});
+    res.render('test.ejs');
 });
 
 /*********************************************
