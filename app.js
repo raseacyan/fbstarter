@@ -155,13 +155,13 @@ app.get('/showimages/:sender_id/',function(req,res){
     });    
 });
 
-app.get('/imagepick/'),function(req,res){
+app.post('/imagepick/',function(req,res){
   const sender_id = req.body.sender_id;
   const doc_id = req.body.doc_id;
 
   console.log('DOC ID:', doc_id);
 
-/*
+
   db.collection('images').doc(doc_id).get()
   .then(doc => {
     if (!doc.exists) {
@@ -202,7 +202,7 @@ app.get('/imagepick/'),function(req,res){
   })
   .catch(err => {
     console.log('Error getting document', err);
-  }); */
+  }); 
 
 }
 
