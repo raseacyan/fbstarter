@@ -155,7 +155,7 @@ app.get('/showimages/:sender_id/',function(req,res){
     });    
 });
 
-app.post('/showimages/:id/:sender_id'){
+app.post('/showimages/:id/:sender_id'),function(req,res){
   const sender_id = req.params.sender_id;
   const doc_id = req.params.id;
 
