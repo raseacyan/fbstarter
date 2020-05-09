@@ -138,6 +138,7 @@ app.get('/showimages/:sender_id/',function(req,res){
     .then(  function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             let img = {};
+            img.id = doc.id;
             img.url = doc.data().url;          
 
             data.push(img);                      
@@ -153,6 +154,54 @@ app.get('/showimages/:sender_id/',function(req,res){
         console.log("Error getting documents: ", error);
     });    
 });
+
+app.post('/showimages/:id/:sender_id'){
+  const sender_id = req.params.sender_id;
+  const doc_id = req.params.id;
+
+
+
+  db.collection('images').doc(doc_id).get()
+  .then(doc => {
+    if (!doc.exists) {
+      console.log('No such document!');
+    } else {
+      const image_url = doc.data().url;
+
+      let response = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Is this the image you like?",
+            "image_url":image_url,                       
+            "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Yes!",
+                  "payload": "yes",
+                },
+                {
+                  "type": "postback",
+                  "title": "No!",
+                  "payload": "no",
+                }
+              ],
+          }]
+        }
+      }
+    }
+
+  
+    callSend(sender_id, response); 
+    }
+  })
+  .catch(err => {
+    console.log('Error getting document', err);
+  }); 
+
+}
 
 /*********************************************
 Gallery Page
@@ -1196,7 +1245,7 @@ const buttonReply =(sender_psid) => {
       }
     }
 
-  console.log('BUTTON REPLY FUNCTION', sender_psid);
+  
   callSend(sender_psid, response);
 }
 
