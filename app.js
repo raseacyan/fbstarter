@@ -155,9 +155,9 @@ app.get('/showimages/:sender_id/',function(req,res){
     });    
 });
 
-app.get('/imagepick/:id/:sender_id'),function(req,res){
-  const sender_id = req.params.sender_id;
-  const doc_id = req.params.id;
+app.get('/imagepick/'),function(req,res){
+  const sender_id = req.body.sender_id;
+  const doc_id = req.body.doc_id;
 
 
 

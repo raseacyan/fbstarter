@@ -34,13 +34,47 @@
 	<table>
 	<% for(var i=0; i < data.length; i++) { %>
 	   <tr>
-	     <td><img src="<%= data[i].url %>"><br><a href="https://fbstarter.herokuapp.com/imagepick/<%= data[i].id %>/<%= sender_id %>">i like this</a></td>	     
+	     <td><img src="<%= data[i].url %>"><br><button class="pick" data-id="<%= data[i].id %>">I like this</button></td>	     
 	   </tr>
 	<% } %>
 	</table>
 
   <script>
-    const pick = getElementsByClassName('')
+
+
+
+    function myFunction () {
+
+    const doc_id = this.getAttribute('data-id')
+
+    let xhr;
+      if (window.XMLHttpRequest) {   
+      xhr = new XMLHttpRequest();
+    } else {      
+      xhr = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    const data = {
+      "sender_id":senderID,
+      "doc_id": doc_id
+    }
+
+    const url = "https://fbstarter.herokuapp.com/test/";    
+         
+        xhr.open("POST", url , true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify(data)); 
+    }
+
+    let oPick = document.getElementsByClassName("pick");
+
+    for(let i=0;i < oPick.length;i++){
+     oPick[i].addEventListener("click", myFunction);
+    }
+
+
+
+
   </script>
 
   </body>
