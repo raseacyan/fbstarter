@@ -41,6 +41,15 @@
 
   <script>
 
+    function  windowClose() {
+        MessengerExtensions.requestCloseBrowser(function success() {
+          console.log("success");   
+          send();       
+        }, function error(err) {
+          console.log(err);
+        });
+      }
+
 
 
     function myFunction () {
@@ -61,9 +70,12 @@
 
     const url = "https://fbstarter.herokuapp.com/imagepick/";    
          
-        xhr.open("POST", url , true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(JSON.stringify(data)); 
+    xhr.open("POST", url , true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify(data));
+
+    windowClose();
+
     }
 
     let oPick = document.getElementsByClassName("pick");
