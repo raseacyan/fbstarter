@@ -161,8 +161,7 @@ app.get('/imagepick/'),function(req,res){
 
   console.log('DOC ID:', doc_id);
 
-
-
+/*
   db.collection('images').doc(doc_id).get()
   .then(doc => {
     if (!doc.exists) {
@@ -203,7 +202,7 @@ app.get('/imagepick/'),function(req,res){
   })
   .catch(err => {
     console.log('Error getting document', err);
-  }); 
+  }); */
 
 }
 
