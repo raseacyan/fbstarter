@@ -159,6 +159,8 @@ app.get('/imagepick/'),function(req,res){
   const sender_id = req.body.sender_id;
   const doc_id = req.body.doc_id;
 
+  console.log('DOC ID:', doc_id);
+
 
 
   db.collection('images').doc(doc_id).get()
@@ -167,6 +169,8 @@ app.get('/imagepick/'),function(req,res){
       console.log('No such document!');
     } else {
       const image_url = doc.data().url;
+
+      console.log('IMG URL:', image_url);
 
       let response = {
       "attachment": {
