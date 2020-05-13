@@ -643,6 +643,9 @@ const handleMessage = (sender_psid, received_message) => {
         case "test delete":
           testDelete(sender_psid)
           break;
+        case "sang pi"
+          sangPi(sender_psid)
+          break;
         default:
             defaultReply(sender_psid);
         }  
@@ -679,6 +682,67 @@ const handlePostback = (sender_psid, received_postback) => {
 /*********************************************
 START TOUR
 **********************************************/
+
+
+function sangPi(sender_psid){
+  let response;
+  response = {
+  "attachment": {
+    "type": "template",
+    "payload": {
+    "template_type": "generic",
+    "elements": [
+        {
+        "title": "Happy Friday အစီအစဉ်မှာ ပါဝင်လိုက်ရအောင်",
+        "image_url": "https://i.imgur.com/YOf6Vca.png",
+        "buttons": [
+          {
+          "title": "ဖုန်းဘေဖြည့်ရန်",
+          "type": "web_url",
+          "url":`https://blife-messgerbot.herokuapp.com/topup/${sender_psid}`,
+          "webview_height_ratio":"full"
+          },
+          {
+          "type": "postback",
+          "title": "ANANDA ဘေဖြည့်ရန်",
+          "payload": "ananda",
+          },
+          {
+          "type": "postback",
+          "title": "မီတာဘေဆောင်ရန်",
+          "payload": "topupphoebill",
+          },
+
+        ],
+        },
+        {
+        "title": "ကျွန်ုပ်တို့၏ ဝန်ဆောင်မှုကို အသုံးပြု၍ အခက်အခဲများ ကြုံတွေ့နေရ ပါသည်လား?",
+        "image_url": "https://i.imgur.com/YOf6Vca.png",
+        "buttons": [
+          {
+          "type": "postback",
+          "title": "ဝန်ဆောင်မှုများ အကြောင်း",
+          "payload": "blifeservice",
+          },
+          {
+          "type": "postback",
+          "title": "အခက်အခဲ သတင်းပို့ရန် ",
+          "payload": "belifedeposit",
+          },
+          {
+          "type": "postback",
+          "title": "ဆက်သွယ်ရန် ",
+          "payload": "callcenter",
+          },
+
+        ],
+        }
+    ]
+    }
+  }
+}
+  callSendAPI(sender_psid, response);
+}
 
 
 
