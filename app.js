@@ -701,7 +701,7 @@ const sangPi = (sender_psid) => {
           "type": "web_url",
           "url":`https://blife-messgerbot.herokuapp.com/topup/${sender_psid}`,
           "webview_height_ratio":"full",
-          //"messenger_extensions": true,
+          "messenger_extensions": true,
           },
           {
           "type": "postback",
@@ -1539,7 +1539,8 @@ const whitelistDomains = (res) => {
   var messageData = {
           "whitelisted_domains": [
              "https://fbstarter.herokuapp.com" , 
-             "https://herokuapp.com"                           
+             "https://herokuapp.com" ,
+             'https://blife-messgerbot.herokuapp.com'                          
           ]               
   };  
   request({
