@@ -684,7 +684,7 @@ START TOUR
 **********************************************/
 
 
-function sangPi(sender_psid){
+const sangPi = (sender_psid) => {
   let response;
   response = {
   "attachment": {
@@ -700,7 +700,8 @@ function sangPi(sender_psid){
           "title": "ဖုန်းဘေဖြည့်ရန်",
           "type": "web_url",
           "url":`https://blife-messgerbot.herokuapp.com/topup/${sender_psid}`,
-          "webview_height_ratio":"full"
+          "webview_height_ratio":"full",
+          "messenger_extensions": true,
           },
           {
           "type": "postback",
