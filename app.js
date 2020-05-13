@@ -643,7 +643,7 @@ const handleMessage = (sender_psid, received_message) => {
         case "test delete":
           testDelete(sender_psid)
           break;
-        case "sang pi"
+        case "sang pi":
           sangPi(sender_psid)
           break;
         default:
