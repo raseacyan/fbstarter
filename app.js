@@ -621,40 +621,17 @@ const handleMessage = (sender_psid, received_message) => {
           break;
         case "change restaurent":
           askRestaurent(sender_psid); 
-          break;
-        case "add book":
-          addBooks(sender_psid);
-          break;
-        case "add review":
-          addReview(sender_psid);
-          break;
-        case "gone with the wind":
-          goneWithTheWind(sender_psid)
-          break;
-        case "effy":
-          Effy(sender_psid)
-          break;
-        case "hobby":
-          Hobby(sender_psid)
-          break;
+          break;        
         case "show images":
           showImages(sender_psid)
           break;
         case "test delete":
           testDelete(sender_psid)
-          break;
-        case "sang pi":
-          sangPi(sender_psid)
-          break;
+          break;        
         default:
             defaultReply(sender_psid);
-        }  
-
-        
-      }
-
-
-      
+        }          
+      }     
       
     }
 
@@ -684,66 +661,6 @@ START TOUR
 **********************************************/
 
 
-const sangPi = (sender_psid) => {
-  let response;
-  response = {
-  "attachment": {
-    "type": "template",
-    "payload": {
-    "template_type": "generic",
-    "elements": [
-        {
-        "title": "Happy Friday အစီအစဉ်မှာ ပါဝင်လိုက်ရအောင်",
-        "image_url": "https://i.imgur.com/YOf6Vca.png",
-        "buttons": [
-          {
-          "title": "ဖုန်းဘေဖြည့်ရန်",
-          "type": "web_url",
-          "url":`https://blife-messgerbot.herokuapp.com/topup/${sender_psid}`,
-          "webview_height_ratio":"full",
-          "messenger_extensions": true,
-          },
-          {
-          "type": "postback",
-          "title": "ANANDA ဘေဖြည့်ရန်",
-          "payload": "ananda",
-          },
-          {
-          "type": "postback",
-          "title": "မီတာဘေဆောင်ရန်",
-          "payload": "topupphoebill",
-          },
-
-        ],
-        },
-        {
-        "title": "ကျွန်ုပ်တို့၏ ဝန်ဆောင်မှုကို အသုံးပြု၍ အခက်အခဲများ ကြုံတွေ့နေရ ပါသည်လား?",
-        "image_url": "https://i.imgur.com/YOf6Vca.png",
-        "buttons": [
-          {
-          "type": "postback",
-          "title": "ဝန်ဆောင်မှုများ အကြောင်း",
-          "payload": "blifeservice",
-          },
-          {
-          "type": "postback",
-          "title": "အခက်အခဲ သတင်းပို့ရန် ",
-          "payload": "belifedeposit",
-          },
-          {
-          "type": "postback",
-          "title": "ဆက်သွယ်ရန် ",
-          "payload": "callcenter",
-          },
-
-        ],
-        }
-    ]
-    }
-  }
-}
-  callSendAPI(sender_psid, response);
-}
 
 
 
@@ -869,7 +786,6 @@ const updateBooking = (sender_psid, ref_num) => {
       }
     }
   callSendAPI(sender_psid, response);
-
 }
 
 const amendTour = (sender_psid) => { 
@@ -975,213 +891,7 @@ END TOUR
 **********************************************/
 
 
-/*********************************************
-BOOK SAMPLE
-**********************************************/
 
-const addBooks  = (sender_psid) => { 
-    let book1 = {
-      title:"Gone with the Wind",
-      author:"Margaret Mitchell",
-      description:"Gone with the Wind is a novel by American writer Margaret Mitchell, first published in 1936. The story is set in Clayton County and Atlanta, both in Georgia, during the American Civil War and Reconstruction Era",
-      publisher:"Macmillan Inc.",
-      year: 1936,
-      genre:['Historical Fiction', 'Novel'],
-      
-    }
-
-    let book2 = {
-      title:"Kane and Abel",
-      author:"Jeffrey Archer",
-      description:"Kane and Abel is a 1979 novel by British author Jeffrey Archer. Released in the United Kingdom in 1979 and in the United States in February 1980, the book was an international success. It reached No. 1 on the New York Times best-seller list",
-      publisher:"Hodder & Stoughton",
-      year: 1979,
-      genre:['Fiction', 'Novel'],
-     
-    }
-
-    let book3 = {
-      title:"Roots",
-      author:"Alex Haley",
-      description:"Roots: The Saga of an American Family is a 1976 novel written by Alex Haley. It tells the story of Kunta Kinte, an 18th-century African, captured as an adolescent, sold into slavery in Africa, transported to North America; following his life and the lives of his descendants in the United States down to Haley",
-      publisher:"Doubleday",
-      year: 1976,
-      genre:['Novel', 'Biography', 'Fictional Autobiography'],
-     
-    }
-
-    db.collection('Books').add(
-          book1
-        ).then(success => {      
-           console.log('BOOK ADDED');              
-        }).catch(error => {
-          console.log(error);
-    });
-
-    db.collection('Books').add(
-          book2
-        ).then(success => {      
-           console.log('BOOK ADDED');             
-        }).catch(error => {
-          console.log(error);
-    });
-
-    db.collection('Books').add(
-          book3
-        ).then(success => {      
-           console.log('BOOK ADDED');          
-        }).catch(error => {
-          console.log(error);
-    });
-}
-
-
-const addReview  = (sender_psid) => { 
-    let review1 = {
-      book:"Gone with the Wind",
-      author: "Effy",
-      link: "www.google.com"
-    }
-
-    let review2 = {
-      book:"Gone with the Wind",
-      author: "Emily",
-      link: "www.google.com"
-    }
-
-    let review3 = {
-      book:"Kane and Abel",
-      author: "Katie",
-      link: "www.google.com"
-    }
-
-    let review4 = {
-      book:"Roots",
-      author: "Effy",
-      link: "www.google.com"
-    }
-
-    
-
-   db.collection('Book Reviews').add(
-          review1
-        ).then(success => {      
-           console.log('REVIEW ADDED');            
-        }).catch(error => {
-          console.log(error);
-    });
-
-
-    db.collection('Book Reviews').add(
-          review2
-        ).then(success => {      
-           console.log('REVIEW ADDED');            
-        }).catch(error => {
-          console.log(error);
-    });
-
-    db.collection('Book Reviews').add(
-          review3
-        ).then(success => {      
-           console.log('REVIEW ADDED');            
-        }).catch(error => {
-          console.log(error);
-    });
-
-    db.collection('Book Reviews').add(
-          review4
-        ).then(success => {      
-           console.log('REVIEW ADDED');            
-        }).catch(error => {
-          console.log(error);
-    });
-
-}
-
-
-
-
-const goneWithTheWind  = (sender_psid) => { 
-  let book = {};
-  book.review = [];
-  let id; 
-
-  db.collection("Books").where("title", "==", "Gone with the Wind")
-    .get()
-    .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-
-            book.id = doc.id;
-            book.author = doc.data().author;
-            book.description = doc.data().description;
-            book.genre = doc.data().genre;
-            book.publisher = doc.data().publisher;            
-            book.year = doc.data().year;
-
-
-            db.collection("Book Reviews").where("book", "==", "Gone with the Wind")
-            .get()
-            .then(function(querySnapshot) {
-                querySnapshot.forEach(function(doc) {
-                    console.log('reivew', doc.data().link, doc.data().author);
-                    book.review.push(doc.data().link);           
-
-                });
-                 console.log('BOOK', book);
-            })
-            .catch(function(error) {
-                console.log("Error getting documents: ", error);
-            });
-
-        });
-    })
-    .catch(function(error) {
-        console.log("Error getting documents: ", error);
-    });
-}
-
-const Effy  = (sender_psid) => { 
-
-
-}
-
-
-const Hobby  = (sender_psid) => { 
-  let books = [];
-  let hobby =['Biography','Historical Fiction'];
-
-
-    db.collection("Books").where("genre", "array-contains-any", hobby)
-    .get()
-    .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-            let book = {};
-
-            book.id = doc.id;
-            book.author = doc.data().author;
-            book.description = doc.data().description;
-            book.genre = doc.data().genre;
-            book.publisher = doc.data().publisher;            
-            book.year = doc.data().year;
-
-
-            books.push(book);
-
-    
-
-        });
-      console.log('Hobby', books);
-    })
-    .catch(function(error) {
-        console.log("Error getting documents: ", error);
-    });
-
-}
-
-
-/*********************************************
-BOOK SAMPLE
-**********************************************/
 
 
 /*********************************************
