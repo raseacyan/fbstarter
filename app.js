@@ -120,6 +120,11 @@ app.get('/test',function(req,res){
     res.render('test.ejs');
 });
 
+
+app.get('/',function(req,res){    
+    res.send('your app is up and running');
+});
+
 app.post('/test',function(req,res){
     const sender_psid = req.body.sender_id;     
     let response = {"text": "You  click delete button"};
@@ -1167,6 +1172,8 @@ const setupGetStartedButton = (res) => {
 /**********************************
 FUNCTION TO SET UP PERSISTENT MENU
 ***********************************/
+
+
 
 const setupPersistentMenu = (res) => {
   var messageData = { 
