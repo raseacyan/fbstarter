@@ -445,7 +445,7 @@ app.post('/webview',upload.single('file'),function(req,res){
 
       console.log(req.file);
 
-    bucket.upload(req.file.path, {
+    bucket.upload(img_url, {
     destination: "pic/" + req.file.filename,
     metadata: {
         contentType: req.file.mimetype,
