@@ -446,7 +446,7 @@ app.post('/webview',upload.single('file'),function(req,res){
       console.log(req.file);
 
     bucket.upload(req.file.path, {
-    destination: "pic/" + picName,
+    destination: "pic/" + req.file.filename,
     metadata: {
         contentType: req.file.mimetype,
         cacheControl: 'public, max-age=31536000'
