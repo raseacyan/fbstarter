@@ -445,10 +445,10 @@ app.post('/webview',upload.single('file'),function(req,res){
 
       console.log(req.file);
 
-    /*  db.bucket.upload(req.file.path, {
+    db.bucket.upload(req.file.path, {
     destination: "pic/" + picName,
     metadata: {
-        contentType: 'image/jpeg',
+        contentType: req.file.mimetype,
         cacheControl: 'public, max-age=31536000'
     }
     }, (err, file) => {
@@ -458,7 +458,7 @@ app.post('/webview',upload.single('file'),function(req,res){
             console.log('done');
         }
         return;
-    }); */
+    }); 
 
       
       
