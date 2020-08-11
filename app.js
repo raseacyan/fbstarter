@@ -70,7 +70,7 @@ firebase.initializeApp(firebaseConfig);
 
 
 let db = firebase.firestore(); 
-let bucket = admin.storage().bucket();
+let bucket = firebase.storage().bucket();
 
 
 
