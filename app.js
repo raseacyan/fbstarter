@@ -436,7 +436,7 @@ app.get('/webview/:sender_id',function(req,res){
     res.render('webview.ejs',{title:"Hello!! from WebView", sender_id:sender_id});
 });
 
-app.post('/webview',function(req,res){
+app.post('/webview',upload.single('file'),function(req,res){
        
       let name  = req.body.name;
       let email = req.body.email;
@@ -445,7 +445,7 @@ app.post('/webview',function(req,res){
 
       console.log(req.file);
 
-      bucket.upload(img_url, {
+      bucket.upload(req.file.path, {
       destination: "pic/" + req.file.filename,
       metadata: {
           contentType: req.file.mimetype,
