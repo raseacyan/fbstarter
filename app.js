@@ -60,14 +60,17 @@ var firebaseConfig = {
     "client_email": process.env.FIREBASE_CLIENT_EMAIL,
     "project_id": process.env.FIREBASE_PROJECT_ID,    
     }),
-    databaseURL: process.env.FIREBASE_DB_URL,    
+    databaseURL: process.env.FIREBASE_DB_URL,   
+    storageBucket: "<BUCKET_NAME>.appspot.com" 
   };
 
 
 
 firebase.initializeApp(firebaseConfig);
 
+
 let db = firebase.firestore(); 
+let bucket = admin.storage().bucket();
 
 
 
@@ -142,7 +145,7 @@ app.get('/showimages/:sender_id/',function(req,res){
         querySnapshot.forEach(function(doc) {
             let img = {};
             img.id = doc.id;
-            img.url = doc.data().url;          
+            img.url = doc.data().url;         
 
             data.push(img);                      
 
@@ -438,7 +441,24 @@ app.post('/webview',upload.single('file'),function(req,res){
       let name  = req.body.name;
       let email = req.body.email;
       let img_url = APP_URL + "/" + req.file.path;
-      let sender = req.body.sender;    
+      let sender = req.body.sender;  
+
+      console.log(req.file);
+
+    /*  db.bucket.upload(req.file.path, {
+    destination: "pic/" + picName,
+    metadata: {
+        contentType: 'image/jpeg',
+        cacheControl: 'public, max-age=31536000'
+    }
+    }, (err, file) => {
+        if (err) {
+            console.log(file);
+        } else {
+            console.log('done');
+        }
+        return;
+    }); */
 
       
       
