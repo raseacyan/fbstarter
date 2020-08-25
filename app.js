@@ -213,7 +213,7 @@ app.post('/webview',upload.single('file'),function(req,res){
       let img_url = APP_URL + "/" + req.file.path;
       let sender = req.body.sender;  
 
-      console.log(req.file);
+      console.log("REQ FILE:",req.file);
 
       bucket.upload(req.file.path, {
       destination: "pic/" + req.file.filename,
