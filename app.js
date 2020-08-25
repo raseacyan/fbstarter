@@ -61,7 +61,7 @@ var firebaseConfig = {
     "project_id": process.env.FIREBASE_PROJECT_ID,    
     }),
     databaseURL: process.env.FIREBASE_DB_URL,   
-    storageBucket: "<BUCKET_NAME>.appspot.com" 
+    storageBucket: "gs://sample-project-2c26a.appspot.com" 
   };
 
 
