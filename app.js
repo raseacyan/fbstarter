@@ -19,21 +19,7 @@ const
 app.use(body_parser.json());
 app.use(body_parser.urlencoded());
 
-
-//app.locals.pageAccessToken = process.env.PAGE_ACCESS_TOKEN;
-
-let bot_q = {
-  askPhone: false,
-  askHotel: false,
-  askRestaurent:false
-}
-
-let user_input = {};
-
-
-
-
-  
+ 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/')
@@ -46,8 +32,6 @@ var storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // parse application/x-www-form-urlencoded
-
-
 
 
 app.set('view engine', 'ejs');
@@ -64,10 +48,7 @@ var firebaseConfig = {
     storageBucket: "gs://sample-project-2c26a.appspot.com" 
   };
 
-
-
 firebase.initializeApp(firebaseConfig);
-
 
 let db = firebase.firestore(); 
 let bucket = firebase.storage().bucket();
@@ -219,217 +200,6 @@ app.post('/imagepick',function(req,res){
 END Gallery Page
 **********************************************/
 
-/*********************************************
-Tour
-**********************************************/
-
-app.get('/privatetour/:sender_id/',function(req,res){
-    const sender_id = req.params.sender_id;
-    res.render('privatetour.ejs',{title:"Create Private Tour", sender_id:sender_id});
-});
-
-app.post('/privatetour',function(req,res){
-      
-      
-      let destination= req.body.destination;
-      let activities = req.body.activities;
-      let guests = req.body.guests;
-      let travel_mode = req.body.travel_mode;
-      let travel_option = req.body.travel_option;
-      let hotel = req.body.hotel;
-      let restaurent= req.body.restaurent;
-      let name  = req.body.name;
-      let mobile = req.body.mobile;
-      let sender = req.body.sender;  
-
-     let booking_number = generateRandom(5);    
-
-      db.collection('Pagodas Booking').add({
-           
-            destination:destination,
-            activities:activities,
-            guests:guests,
-            travel_mode:travel_mode,
-            travel_option:travel_option,
-            hotel:hotel,
-            restaurent:restaurent,            
-            name:name,
-            mobile:mobile,
-            booking_number:booking_number,
-          }).then(success => {             
-             showBookingNumber(sender, booking_number);   
-          }).catch(error => {
-            console.log(error);
-      });        
-});
-
-
-app.get('/updateprivatetour/:booking_number/:sender_id/',function(req,res){
-    const sender_id = req.params.sender_id;
-    const booking_number = req.params.booking_number;
-
-
-
-    db.collection("Pagodas Booking").where("booking_number", "==", booking_number)
-    .get()
-    .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-
-            let data = {
-              doc_id:doc.id,
-              destination:doc.data().destination,
-              activities:doc.data().activities,
-              guests:doc.data().guests,
-              travel_mode:doc.data().travel_mode,
-              travel_option:doc.data().travel_option,
-              hotel:doc.data().hotel,
-              restaurent:doc.data().restaurent,            
-              name:doc.data().name,
-              mobile:doc.data().mobile,
-              booking_number:doc.data().booking_number,
-            }   
-
-            console.log("BOOKING DATA", data);     
-
-             res.render('updateprivatetour.ejs',{data:data, sender_id:sender_id});
-            
-
-        });
-    })
-    .catch(function(error) {
-        console.log("Error getting documents: ", error);
-    });    
-});
-
-app.post('/updateprivatetour',function(req,res){
-      
-      
-      let destination= req.body.destination;
-      let activities = req.body.activities;
-      let guests = req.body.guests;
-      let travel_mode = req.body.travel_mode;
-      let travel_option = req.body.travel_option;
-      let hotel = req.body.hotel;
-      let restaurent= req.body.restaurent;
-      let name  = req.body.name;
-      let mobile = req.body.mobile;
-      let sender = req.body.sender;
-      let booking_number = req.body.booking_number; 
-      let doc_id = req.body.doc_id;  
-
-      db.collection('Pagodas Booking').doc(doc_id).update({           
-            destination:destination,
-            activities:activities,
-            guests:guests,
-            travel_mode:travel_mode,
-            travel_option:travel_option,
-            hotel:hotel,
-            restaurent:restaurent,            
-            name:name,
-            mobile:mobile,
-            booking_number:booking_number,
-          }).then(success => {             
-             showBookingNumber(sender, booking_number);   
-          }).catch(error => {
-            console.log(error);
-      });        
-});
-
-
-
-
-
-
-
-
-app.get('/addpackage/:sender_id/',function(req,res){
-    const sender_id = req.params.sender_id;
-    res.render('addpackage.ejs',{title:"Hi!! from WebView", sender_id:sender_id});
-});
-
-
-app.post('/addpackage',function(req,res){      
-      let image  = req.body.image; 
-      let title = req.body.title;
-      let description = req.body.description;   
-      let sku = req.body.sku;   
-      let sender = req.body.sender;   
-
-      db.collection('package').add({
-            image: image,
-            title: title,
-            description: description,
-            sku:sku
-            
-          }).then(success => {             
-             notifySave(sender);    
-          }).catch(error => {
-            console.log(error);
-      });        
-});
-
-
-app.get('/booktour/:sku/:sender_id',function(req,res){
-    const sku = req.params.sku;
-    const sender_id = req.params.sender_id;
-
-
-    
-
-  
-    const packages = {
-      yangon:{
-        title:"Yangon 2D1N",
-        hotels:['Melia', 'Lotte', 'Sedona'],
-        restaurents:['Fuji House', 'Koh Fu', 'Seeds']
-      },
-      mandalay:{
-        title:"Mandalay 2D1N",
-        hotels:['Yandanarbon', 'Apex', 'Golden Leaff'],
-        restaurents:['Goldious', 'Mingalabar Myanmar', 'Unique']
-      }
-
-    }
-
-
-
-
-
-    res.render('booktour.ejs',{title:"Book Tour Package", sender_id:sender_id, package:packages[sku]});
-});
-
-
-app.post('/booktour',function(req,res){
-      let name  = req.body.name;
-      let mobile = req.body.mobile;
-      let tour_package = req.body.tour_package;
-      let restaurent = req.body.restaurent;
-      let hotel = req.body.hotel;
-      let sender = req.body.sender;
-
-      let booking_ref = generateRandom(5);   
-
-
-      db.collection('Bookings').add({           
-            name:name,
-            mobile:mobile,
-            restaurent:restaurent,
-            hotel:hotel,
-            ref:booking_ref,
-            package:tour_package
-          }).then(success => {             
-             showBookingNumber(sender, booking_ref);    
-          }).catch(error => {
-            console.log(error);
-      });        
-});
-
-
-/*********************************************
-END Tour
-**********************************************/
-
-
 //webview test
 app.get('/webview/:sender_id',function(req,res){
     const sender_id = req.params.sender_id;
@@ -547,27 +317,51 @@ const handleMessage = (sender_psid, received_message) => {
   //let message;
   let response;
 
-  if(bot_q.askHotel && received_message.text){
-        user_input.hotel = received_message.text;
-        bot_q.askHotel = false;        
-        askRef(sender_psid);
-      }
+  if(received_message.attachments){
+     handleAttachments(sender_psid, received_message.attachments);
+  } else {
+      
+      let user_message = received_message.text;
 
-  else if(bot_q.askRestaurent && received_message.text){
-        user_input.restaurent = received_message.text;
-        bot_q.askRestaurent = false;
-        askRef(sender_psid);
-      }
+      console.log('USER MESSAGE', user_message);
+     
+      user_message = user_message.toLowerCase(); 
 
-  else if(bot_q.askRef && received_message.text){
-        user_input.ref = received_message.text;
-        bot_q.askRef = false;        
-        updateItinerary(sender_psid, user_input.ref);
-      }
-  
-  
-  else if(received_message.attachments){
-    let attachment_url = received_message.attachments[0].payload.url;
+      switch(user_message) { 
+      case "hi":
+          hiReply(sender_psid);
+        break;
+      case "text":
+        textReply(sender_psid);
+        break;
+      case "quick":
+        quickReply(sender_psid);
+        break;
+      case "button":
+        console.log('CASE: BUTTON');            
+        buttonReply(sender_psid);
+        break;
+      case "webview":
+        webviewTest(sender_psid);
+        break;       
+      case "show images":
+        showImages(sender_psid)
+        break;               
+      default:
+          defaultReply(sender_psid);
+      }       
+          
+      
+    }
+
+}
+
+/*********************************************
+Function to handle when user send attachment
+**********************************************/
+const handleAttachments = (sender_psid, attachments) => {
+  let response; 
+  let attachment_url = attachments[0].payload.url;
     response = {
       "attachment": {
         "type": "template",
@@ -594,76 +388,7 @@ const handleMessage = (sender_psid, received_message) => {
       }
     }
     callSend(sender_psid, response);
-  } else {
-      
-      let user_message = received_message.text;
-
-      console.log('USER MESSAGE', user_message);
-
-      if(user_message.includes("Change Booking:")){
-        let ref_num = user_message.slice(15);
-        ref_num = ref_num.trim();
-        updateBooking(sender_psid, ref_num);        
-      }else{
-          user_message = user_message.toLowerCase(); 
-
-          switch(user_message) { 
-        case "hi":
-            hiReply(sender_psid);
-          break;
-
-        case "text":
-          textReply(sender_psid);
-          break;
-        case "quick":
-          quickReply(sender_psid);
-          break;
-        case "button":
-          console.log('CASE: BUTTON');            
-          buttonReply(sender_psid);
-          break;
-        case "webview":
-          webviewTest(sender_psid);
-          break; 
-        case "show expiry":
-          showExpiry(sender_psid);
-          break;
-        case "hello eagle":
-          helloEagle(sender_psid); 
-          break;
-        case "admin":
-          adminCreatePackage(sender_psid); 
-          break;         
-        case "show packages":
-          showTourPackages(sender_psid); 
-          break;        
-        case "private tour":
-          privateTour(sender_psid); 
-          break; 
-        case "update itinerary":
-          amendTour(sender_psid); 
-          break; 
-        case "change hotel":
-          askHotel(sender_psid); 
-          break;
-        case "change restaurent":
-          askRestaurent(sender_psid); 
-          break;        
-        case "show images":
-          showImages(sender_psid)
-          break;
-        case "test delete":
-          testDelete(sender_psid)
-          break;        
-        default:
-            defaultReply(sender_psid);
-        }          
-      }    
-      
-    }
-
 }
-
 
 
 /*********************************************
@@ -683,224 +408,6 @@ const handlePostback = (sender_psid, received_postback) => {
   } 
 }
 
-/*********************************************
-START TOUR
-**********************************************/
-
-
-
-
-
-
-const helloEagle = (sender_psid) => { 
-    let response1 = {"text": "Do you want to change your itinerary?, (type 'update itinerary')"};
-    let response2 = {"text": "Do you want to view packages? (type 'show packages')"};    
-    callSend(sender_psid, response1).then(()=>{
-      return callSend(sender_psid, response2);
-    }); 
-}
-
-//to add tour packages by admin
-function adminCreatePackage(sender_psid){
-  let response;
-  response = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [{
-            "title": "Create a tour package",                       
-            "buttons": [              
-              {
-                "type": "web_url",
-                "title": "create",
-                "url":"https://fbstarter.herokuapp.com/addpackage/"+sender_psid,
-                 "webview_height_ratio": "full",
-                "messenger_extensions": true,          
-              },
-              
-            ],
-          }]
-        }
-      }
-    }
-  callSendAPI(sender_psid, response);
-}
-
-//to show tour packages
-const showTourPackages = (sender_psid) => {  
-
-  db.collection('package').get()
-  .then((snapshot) => {
-    let elementItems = [];
-
-    snapshot.forEach((doc) => {  
-      var obj = {};
-      //obj._id  = doc.id ;        
-      obj.title = doc.data().title;       
-      obj.image_url = doc.data().image;      
-      obj.buttons = [{"type":"web_url", "title":"BOOK NOW", "url":"https://fbstarter.herokuapp.com/booktour/"+doc.data().sku+"/"+sender_psid, "webview_height_ratio": "full", "messenger_extensions": true,}]; 
-      elementItems.push(obj);     
-    });
-
-    
-
-    let response = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "image_aspect_ratio": "square",
-          "elements": elementItems
-        }
-      }
-    }    
-    callSend(sender_psid, response);
-  })
-  .catch((err) => {
-    console.log('Error getting documents', err);
-  }); 
-}
-
-
-const privateTour = (sender_psid) => {
-  let response;
-  response = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [{
-            "title": "Create a tour package",                       
-            "buttons": [              
-              {
-                "type": "web_url",
-                "title": "create",
-                "url":"https://fbstarter.herokuapp.com/privatetour/"+sender_psid,
-                 "webview_height_ratio": "full",
-                "messenger_extensions": true,          
-              },
-              
-            ],
-          }]
-        }
-      }
-    }
-  callSendAPI(sender_psid, response);
-}
-
-const updateBooking = (sender_psid, ref_num) => {
-    let response;
-  response = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [{
-            "title": "You are updating your booking number: " + ref_num,                       
-            "buttons": [              
-              {
-                "type": "web_url",
-                "title": "Update",
-                "url":"https://fbstarter.herokuapp.com/updateprivatetour/"+ref_num+"/"+sender_psid,
-                 "webview_height_ratio": "full",
-                "messenger_extensions": true,          
-              },
-              
-            ],
-          }]
-        }
-      }
-    }
-  callSendAPI(sender_psid, response);
-}
-
-const amendTour = (sender_psid) => { 
-    let response = {
-    "text": `Do you want to change hotel or restaurent?`,    
-    };
-    callSend(sender_psid, response); 
-}
-
-const askHotel = (sender_psid) => {  
-  bot_q.askHotel = true;
-  bot_q.askRestaurent = false;  
-  let response = {
-    "text": `Enter name of the hotel you want to stay`,    
-    };
-    callSend(sender_psid, response); 
-}
-
-
-const askRestaurent = (sender_psid) => {
-  bot_q.askRestaurent = true;
-  bot_q.askHotel = false;
-  let response = {
-    "text": `Enter name of the restaurent you want to go`,    
-    };
-    callSend(sender_psid, response); 
-}
-
-const askRef = (sender_psid) => {  
-  bot_q.askRef = true;
- 
-  let response = {
-    "text": `Please enter your booking reference number`,    
-    };
-    callSend(sender_psid, response); 
-}
-
-const updateItinerary = (sender_psid, ref) =>{
-  
-  let query =  db.collection('Bookings').where('ref', '==', ref).limit(1).get()
-  .then(snapshot => {
-    if (snapshot.empty) {
-      console.log('No matching documents.');
-      let response = {
-        "text": `Unknown reference number`,    
-      };
-      callSend(sender_psid, response);
-      return;
-    } 
-
-    const booking = snapshot.docs[0];
-
-
-    
-    if(user_input.hotel){
-       booking.ref.update({hotel:user_input.hotel});
-       notifySave(sender_psid); 
-    }
-
-    if(user_input.restaurent){
-      booking.ref.update({restaurent:user_input.restaurent});
-      notifySave(sender_psid);  
-    }
-  })
-  .catch(err => {
-    console.log('Error getting documents', err);
-  });
-
-
-  
-     
-}
-
-const notifySave = (sender_psid) => { 
-    let response = {
-    "text": `Your data is saved`,    
-    };
-    callSend(sender_psid, response); 
-}
-
-const showBookingNumber = (sender_psid, ref) => { 
-    let response = {
-    "text": `Your data is saved. Please keep your booking reference ${ref}`,    
-    };
-    callSend(sender_psid, response); 
-}
-
-
 
 const generateRandom = (length) => {
    var result           = '';
@@ -911,15 +418,6 @@ const generateRandom = (length) => {
    }
    return result;
 }
-
-
-/*********************************************
-END TOUR
-**********************************************/
-
-
-
-
 
 /*********************************************
 GALLERY SAMPLE
@@ -1138,8 +636,7 @@ const defaultReply = (sender_psid) => {
   });  
 }
 
-const callSendAPI = (sender_psid, response) => {  
-  
+const callSendAPI = (sender_psid, response) => {   
   let request_body = {
     "recipient": {
       "id": sender_psid
@@ -1280,9 +777,8 @@ FUNCTION TO ADD WHITELIST DOMAIN
 const whitelistDomains = (res) => {
   var messageData = {
           "whitelisted_domains": [
-             "https://fbstarter.herokuapp.com" , 
-             "https://herokuapp.com" ,
-             'https://blife-messgerbot.herokuapp.com'                          
+             APP_URL , 
+             "https://herokuapp.com" ,                                   
           ]               
   };  
   request({
