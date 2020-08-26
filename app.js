@@ -220,12 +220,6 @@ app.post('/webview',upload.single('file'),function(req,res){
       console.log("REQ FILE:",req.file);
 
 
-      var metadata = {
-      contentType: 'image/jpeg',
-    };
-
-    // Upload the file and metadata
-    var uploadTask = storageRef.child('images/mountains.jpg').put(req.file, metadata);
 
      
       
