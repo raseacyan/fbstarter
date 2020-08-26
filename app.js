@@ -43,7 +43,7 @@ const upload = multer({
 app.set('view engine', 'ejs');
 app.set('views', __dirname+'/views');
 
-
+/*
 var firebaseConfig = {
      credential: firebase.credential.cert({
     "private_key": process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
@@ -52,7 +52,17 @@ var firebaseConfig = {
     }),
     databaseURL: process.env.FIREBASE_DB_URL,   
     storageBucket: "gs://sample-project-2c26a.appspot.com" 
-  };
+  };*/
+
+var firebaseConfig = {
+      apiKey: "AIzaSyAxfR10CpQneRoa7TCLGWuVPNrAQ77YLvU",
+      authDomain: "sample-project-2c26a.firebaseapp.com",
+      databaseURL: "https://sample-project-2c26a.firebaseio.com",
+      projectId: "sample-project-2c26a",
+      storageBucket: "sample-project-2c26a.appspot.com",
+      messagingSenderId: "238927004031",
+      appId: "1:238927004031:web:378de536d056d255cd9a4a"
+    };
 
 firebase.initializeApp(firebaseConfig);
 
