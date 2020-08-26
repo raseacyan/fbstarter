@@ -688,7 +688,7 @@ const uploadImageToStorage = (file) => {
       metadata: {
         contentType: file.mimetype,
          metadata: {
-            firebaseStorageDownloadTokens: uuid
+            firebaseStorageDownloadTokens: null
           }
       }
     });
