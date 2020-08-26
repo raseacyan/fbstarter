@@ -689,6 +689,7 @@ const uploadImageToStorage = (file) => {
     });
 
     blobStream.on('error', (error) => {
+      console.log('BLOB:', error);
       reject('Something is wrong! Unable to upload at the moment.');
     });
 
