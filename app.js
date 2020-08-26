@@ -9,7 +9,7 @@ const
   request = require('request'),
   express = require('express'),
   body_parser = require('body-parser'),
-  firebase = require("firebase/app"),
+  firebase = require("firebase"),
   ejs = require("ejs"),  
   fs = require('fs'),
   multer  = require('multer'),  
