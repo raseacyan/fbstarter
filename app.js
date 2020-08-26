@@ -19,7 +19,7 @@ const
 app.use(body_parser.json());
 app.use(body_parser.urlencoded());
 
- 
+/*
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/')
@@ -27,9 +27,9 @@ var storage = multer.diskStorage({
   filename: function (req, file, cb) {
     cb(null, file.originalname);
   }
-})
+})*/
 
-const upload = multer({ storage: storage });
+//const upload = multer({ storage: storage });
 
 // parse application/x-www-form-urlencoded
 
