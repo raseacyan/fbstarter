@@ -57,9 +57,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 let db = firebase.firestore(); 
-let storage = firebase.storage();
-let imgStorage = storage.ref();
-let  imgRef = imgStorage.child('test');
+
 
 
 
@@ -219,22 +217,14 @@ app.post('/webview',upload.single('file'),function(req,res){
        
       let name  = req.body.name;
       let email = req.body.email;
-      let img_url = APP_URL + "/" + req.file.path;
+      let img_url = "";
       let sender = req.body.sender;  
 
       console.log("REQ FILE:",req.file);
 
-       imgRef.put(file.files[0])
-          .then(function(putReturn){
-              imgRef.getDownloadURL()
-                .then(function(imgURL) {
-                    console.log('saved image');
-                })
-        })
-
       
-      /*bucket.upload(req.file.path, {
-      destination: "pic/" + req.file.filename,
+      bucket.upload(req.file, {
+      destination: "pic/" + req.file.originalname,
       metadata: {
           contentType: req.file.mimetype,
           cacheControl: 'public, max-age=31536000'
@@ -247,7 +237,7 @@ app.post('/webview',upload.single('file'),function(req,res){
               console.log('FILE:', file);
           }
           return;
-      });*/
+      });
 
       
       
