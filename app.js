@@ -6,6 +6,7 @@ const APP_URL = "https://fbstarter.herokuapp.com";
 
 // Imports dependencies and set up http server
 const 
+  const {format} = require('util'),
   request = require('request'),
   express = require('express'),
   body_parser = require('body-parser'),
