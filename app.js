@@ -17,7 +17,7 @@ const
   multer  = require('multer'),  
   app = express(); 
 
-const uuid = uuid();
+const uuidv4 = uuid();
 
 
 app.use(body_parser.json());
@@ -690,7 +690,7 @@ const uploadImageToStorage = (file) => {
       metadata: {
         contentType: file.mimetype,
          metadata: {
-            firebaseStorageDownloadTokens: uuid
+            firebaseStorageDownloadTokens: uuidv4
           }
       }
     });
@@ -703,7 +703,7 @@ const uploadImageToStorage = (file) => {
     blobStream.on('finish', () => {
       // The public URL can be used to directly access the file via HTTP.
       //const url = format(`https://storage.googleapis.com/${bucket.name}/${fileUpload.name}`);
-      const url = format(`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${fileUpload.name}?alt=media&token=${uuid}`);
+      const url = format(`https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${fileUpload.name}?alt=media&token=${uuidv4}`);
       console.log("image url:", url);
       resolve(url);
     });
