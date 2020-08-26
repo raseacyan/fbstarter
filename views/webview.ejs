@@ -56,11 +56,14 @@
       
    
       const windowShut = () => {
-        MessengerExtensions.requestCloseBrowser(function success() {
+        setTimeout(()=>{
+          MessengerExtensions.requestCloseBrowser(function success() {
           console.log("success");          
         }, function error(err) {
           console.log(err);
         });
+        }, 3000);
+        
       }
 
       
