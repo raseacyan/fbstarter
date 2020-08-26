@@ -225,11 +225,11 @@ app.post('/webview',upload.single('file'),function(req,res){
       const gcsname = Date.now() + req.file.originalname;
       const file = bucket.file(gcsname);
 
-      const stream = file.createWriteStream({
+      const stream = file.save({
         metadata: {
           contentType: req.file.mimetype
         },
-       
+        resumable: false
       });
 
       stream.on('error', (err) => {
