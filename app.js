@@ -683,11 +683,7 @@ const uploadImageToStorage = (file) => {
 
     let fileUpload = bucket.file(newFileName);
 
-    const blobStream = fileUpload.createWriteStream({
-      metadata: {
-        contentType: file.mimetype
-      }
-    });
+    const blobStream = fileUpload.createWriteStream();
 
     blobStream.on('error', (error) => {
       console.log('BLOB:', error);
