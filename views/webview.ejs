@@ -73,7 +73,7 @@
       }
 
       
-      document.getElementById("form").addEventListener("submit", windowShut);       
+          
 
       /*
       const postFormData = (data) => {
@@ -105,6 +105,25 @@
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
+
+
+
+    function saveImage(){
+      var storage = firebase.storage();
+        var imgStorage = storage.ref();
+        var imgRef = imgStorage.child(`items/${document.getElementById('FileLabel').innerHTML}`);
+        var file = document.getElementById('img');
+        imgRef.put(file.files[0]).then(function(putReturn){
+          imgRef.getDownloadURL().then(function(imgURL) {
+            
+                window.location.assign('https://www.messenger.com/closeWindow/?image_url=https://image.shutterstock.com/image-vector/thankyou-word-text-handwritten-rainbow-260nw-1319893574.jpg&display_text=Thankyou')
+            
+          })
+        })
+    }
+
+    document.getElementById("form").addEventListener("submit", saveImage());   
+        
   </script>
 
   </body>
