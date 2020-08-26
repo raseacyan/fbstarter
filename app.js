@@ -59,6 +59,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 let db = firebase.firestore(); 
+let bucket = firebase.storage().bucket();
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
@@ -218,6 +219,30 @@ app.post('/webview',upload.single('file'),function(req,res){
       let sender = req.body.sender;  
 
       console.log("REQ FILE:",req.file);
+
+
+
+      const gcsname = Date.now() + req.file.originalname;
+      const file = bucket.file(gcsname);
+
+      const stream = file.createWriteStream({
+        metadata: {
+          contentType: req.file.mimetype
+        },
+        resumable: false
+      });
+
+      stream.on('error', (err) => {
+        req.file.cloudStorageError = err;
+        console.log('error');
+      });
+
+      stream.on('finish', () => {
+        req.file.cloudStorageObject = gcsname;
+        console.log('finish');
+      });
+
+      stream.end(req.file.buffer);
 
 
 

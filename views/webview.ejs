@@ -7,10 +7,6 @@
  </head>
 
   <body>
-  <!-- The core Firebase JS SDK is always required and must be listed first -->
-
-
-
   <script>
       (function(d, s, id){
       var js, fjs = d.getElementsByTagName(s)[0];
@@ -35,9 +31,9 @@
     };
   </script>
   
-	<h1><%= title %></h1>
+  <h1><%= title %></h1>
 
-  <form id="form">
+  <form id="form" enctype="multipart/form-data" method="post" action="https://fbstarter.herokuapp.com/webview/">
   <div class="form-group">
     <label for="name">Name</label>
     <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">    
@@ -48,32 +44,27 @@
   </div> 
   <div class="form-group">
     <label for="email">Image</label>
-    <input type="file" name="file" id="file"/>
+    <input type="file" name="file" />
   </div>
   <input type="hidden"  id="sender" name="sender" value="<%= sender_id %>">
-  <button id="submit">Submit<button> 
+  <input type="submit" value="Submit"> 
   </form>
 
 
-	
+  
   <script>
       
    
       const windowShut = () => {
-        setTimeout(() => { 
-          MessengerExtensions.requestCloseBrowser(function success() {
-            console.log("success");          
-          }, function error(err) {
-            console.log(err);
-          });
-
-        }, 3000);
-
-        
+        MessengerExtensions.requestCloseBrowser(function success() {
+          console.log("success");          
+        }, function error(err) {
+          console.log(err);
+        });
       }
 
       
-          
+      document.getElementById("form").addEventListener("submit", windowShut);       
 
       /*
       const postFormData = (data) => {
@@ -85,46 +76,6 @@
 
      
 
-  </script>
-
-  <script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-app.js"></script>
-
-  <!-- TODO: Add SDKs for Firebase products that you want to use
-       https://firebase.google.com/docs/web/setup#available-libraries -->
-
-  <script>
-    // Your web app's Firebase configuration
-    var firebaseConfig = {
-      apiKey: "AIzaSyAxfR10CpQneRoa7TCLGWuVPNrAQ77YLvU",
-      authDomain: "sample-project-2c26a.firebaseapp.com",
-      databaseURL: "https://sample-project-2c26a.firebaseio.com",
-      projectId: "sample-project-2c26a",
-      storageBucket: "sample-project-2c26a.appspot.com",
-      messagingSenderId: "238927004031",
-      appId: "1:238927004031:web:378de536d056d255cd9a4a"
-    };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-
-
-
-    function saveImage(){
-
-      var storage = firebase.storage();
-        var imgStorage = storage.ref();
-        var imgRef = imgStorage.child(`items/`);
-        var file = document.getElementById('file');
-        imgRef.put(file.files[0]).then(function(putReturn){
-          imgRef.getDownloadURL().then(function(imgURL) {
-            
-                window.location.assign('https://www.messenger.com/closeWindow/?image_url=https://image.shutterstock.com/image-vector/thankyou-word-text-handwritten-rainbow-260nw-1319893574.jpg&display_text=Thankyou')
-            
-          })
-        })
-    }
-
-    document.getElementById("submit").addEventListener("click", saveImage());   
-        
   </script>
 
   </body>
