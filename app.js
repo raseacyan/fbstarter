@@ -229,6 +229,7 @@ app.post('/webview',upload.single('file'),function(req,res){
       let file = req.file;
       if (file) {
         uploadImageToStorage(file).then((success) => {
+          console.log('SUCCESS', success);
           res.status(200).send({
             status: 'success'
           });
