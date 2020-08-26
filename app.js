@@ -6,6 +6,7 @@ const APP_URL = "https://fbstarter.herokuapp.com";
 
 // Imports dependencies and set up http server
 const 
+  { uuid } = require('uuidv4');
   {format} = require('util'),
   request = require('request'),
   express = require('express'),
@@ -686,7 +687,7 @@ const uploadImageToStorage = (file) => {
     const blobStream = fileUpload.createWriteStream({
       metadata: {
         contentType: file.mimetype,
-        firebaseStorageDownloadTokens: uuidv4(),
+        firebaseStorageDownloadTokens: uuidv4,
       }
     });
 
