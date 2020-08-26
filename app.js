@@ -683,7 +683,12 @@ const uploadImageToStorage = (file) => {
 
     let fileUpload = bucket.file(newFileName);
 
-    const blobStream = fileUpload.createWriteStream();
+    const blobStream = fileUpload.createWriteStream({
+      metadata: {
+        contentType: file.mimetype,
+        firebaseStorageDownloadTokens: uuidv4(),
+      }
+    });
 
     blobStream.on('error', (error) => {
       console.log('BLOB:', error);
