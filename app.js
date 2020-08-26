@@ -238,7 +238,7 @@ app.post('/webview',upload.single('file'),function(req,res){
      
       
       
-      db.collection('webview').add({
+      /*db.collection('webview').add({
             name: name,
            email: email,
             image: img_url
@@ -247,7 +247,7 @@ app.post('/webview',upload.single('file'),function(req,res){
              thankyouReply(sender, name, img_url);    
           }).catch(error => {
             console.log(error);
-      });        
+      });   */     
 });
 
 //Set up Get Started Button. To run one time
