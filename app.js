@@ -687,7 +687,9 @@ const uploadImageToStorage = (file) => {
     const blobStream = fileUpload.createWriteStream({
       metadata: {
         contentType: file.mimetype,
-        firebaseStorageDownloadTokens: uuid,
+         metadata: {
+            firebaseStorageDownloadTokens: uuid
+          }
       }
     });
 
