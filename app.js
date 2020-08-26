@@ -221,7 +221,7 @@ app.post('/webview',upload.single('file'),function(req,res){
 
       console.log("REQ FILE:",req.file);
 
-      /*
+      
       bucket.upload(req.file.path, {
       destination: "pic/" + req.file.filename,
       metadata: {
@@ -233,10 +233,10 @@ app.post('/webview',upload.single('file'),function(req,res){
             console.log(err);
               console.log(file);
           } else {
-              console.log('done');
+              console.log('FILE:', file);
           }
           return;
-      }); */
+      });
 
       
       
