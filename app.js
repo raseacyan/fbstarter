@@ -9,7 +9,7 @@ const
   request = require('request'),
   express = require('express'),
   body_parser = require('body-parser'),
-  firebase = require("firebase-admin"),
+  firebase = require("firebase/app"),
   ejs = require("ejs"),  
   fs = require('fs'),
   multer  = require('multer'),  
@@ -57,7 +57,8 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 let db = firebase.firestore(); 
-let bucket = firebase.storage().bucket();
+var storage = firebase.storage();
+var storageRef = storage.ref();
 
 
 
@@ -223,23 +224,15 @@ app.post('/webview',upload.single('file'),function(req,res){
 
       console.log("REQ FILE:",req.file);
 
-      
-      bucket.save(req.file, {
-      destination: "pic/" + req.file.originalname,
-      metadata: {
-          contentType: req.file.mimetype,
-          cacheControl: 'public, max-age=31536000'
-      }
-      }, (err, file) => {
-          if (err) {
-            console.log(err);
-              console.log(file);
-          } else {
-              console.log('FILE:', file);
-          }
-          return;
-      });
 
+      var metadata = {
+      contentType: 'image/jpeg',
+    };
+
+    // Upload the file and metadata
+    var uploadTask = storageRef.child('images/mountains.jpg').put(req.file, metadata);
+
+     
       
       
       db.collection('webview').add({
