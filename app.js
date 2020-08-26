@@ -229,7 +229,7 @@ app.post('/webview',upload.single('file'),function(req,res){
         metadata: {
           contentType: req.file.mimetype
         },
-        resumable: false
+       
       });
 
       stream.on('error', (err) => {
