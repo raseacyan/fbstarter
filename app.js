@@ -57,6 +57,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 let db = firebase.firestore(); 
+let bucket = firebase.storage().bucket();
 
 
 
