@@ -57,7 +57,10 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 let db = firebase.firestore(); 
-let bucket = firebase.storage().bucket();
+let storage = firebase.storage();
+let imgStorage = storage.ref();
+let  imgRef = imgStorage.child('test');
+
 
 
 
@@ -221,8 +224,16 @@ app.post('/webview',upload.single('file'),function(req,res){
 
       console.log("REQ FILE:",req.file);
 
+       imgRef.put(file.files[0])
+          .then(function(putReturn){
+              imgRef.getDownloadURL()
+                .then(function(imgURL) {
+                    console.log('saved image');
+                })
+        })
+
       
-      bucket.upload(req.file.path, {
+      /*bucket.upload(req.file.path, {
       destination: "pic/" + req.file.filename,
       metadata: {
           contentType: req.file.mimetype,
@@ -236,7 +247,7 @@ app.post('/webview',upload.single('file'),function(req,res){
               console.log('FILE:', file);
           }
           return;
-      });
+      });*/
 
       
       
@@ -673,6 +684,8 @@ async function callSend(sender_psid, response){
   let send = await callSendAPI(sender_psid, response);
   return 1;
 }
+
+
 
 
 /*************************************
