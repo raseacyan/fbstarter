@@ -17,6 +17,8 @@ const
   multer  = require('multer'),  
   app = express(); 
 
+const uuid = uuid();
+
 
 app.use(body_parser.json());
 app.use(body_parser.urlencoded());
@@ -688,7 +690,7 @@ const uploadImageToStorage = (file) => {
       metadata: {
         contentType: file.mimetype,
          metadata: {
-            firebaseStorageDownloadTokens: null
+            firebaseStorageDownloadTokens: uuid
           }
       }
     });
